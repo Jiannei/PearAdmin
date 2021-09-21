@@ -1,0 +1,37 @@
+{
+    "name": "jiannei\/pear-admin",
+    "description": "Laravel admin based on Pear Admin.",
+    "keywords": ["laravel","laravel admin","Pear Admin"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jiannei",
+            "email": "longjian.huang@foxmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.3.3"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Jiannei\\PearAdmin\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jiannei\\PearAdmin\\Providers\\LaravelServiceProvider"
+            ],
+            "aliases": {
+                "Pear": "Jiannei\\PearAdmin\\Support\\Facades\\Pear"
+            }
+        }
+    }
+}
