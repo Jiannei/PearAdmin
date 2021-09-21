@@ -41,7 +41,7 @@
 						<a class="layui-icon layui-icon-username" href="javascript:;"></a>
 						<!-- 功 能 菜 单 -->
 						<dl class="layui-nav-child">
-							<dd><a user-menu-url="view/system/person.html" user-menu-id="5555" user-menu-title="基本资料">基本资料</a></dd>
+							<dd><a user-menu-url="views/system/person.html" user-menu-id="5555" user-menu-title="基本资料">基本资料</a></dd>
 							<dd><a href="javascript:void(0);" class="logout">注销登录</a></dd>
 						</dl>
 					</li>
@@ -89,13 +89,13 @@
 				var admin = layui.admin;
 				var $ = layui.jquery;
 				var popup = layui.popup;
-				
+
 				admin.setConfigType("yml");
 				admin.setConfigPath("config/pear.config.yml");
-				
+
 				admin.render();
-				
-				// 登出逻辑 
+
+				// 登出逻辑
 				admin.logout(function(){
 					popup.success("注销成功",function(){
 						location.href = "login.html";
@@ -103,13 +103,13 @@
 					// 注销逻辑 返回 true / false
 					return true;
 				})
-				
+
 				// 初始化消息回调
 				admin.message();
-				
+
 				// 实现消息回调 [消息列表点击事件]
 				// admin.message(function(id, title, context, form) {});
 			})
-		</script>		
+		</script>
 	</body>
 </html>
