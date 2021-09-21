@@ -13,7 +13,7 @@ class LaravelServiceProvider extends ServiceProvider
 
     protected function setupConfig()
     {
-        $basePath = dirname(__DIR__, 2).'/config/pear/';
+        $basePath = dirname(__DIR__, 2).'/config/';
 
         $adminPath = $basePath.'admin.php';
         $menuPath = $basePath.'menu.php';

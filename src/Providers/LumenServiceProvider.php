@@ -21,7 +21,7 @@ class LumenServiceProvider extends LaravelServiceProvider
 
     protected function setupConfig()
     {
-        $path = dirname(__DIR__, 2).'/config/pear/';
+        $path = dirname(__DIR__, 2).'/config/';
 
         $this->mergeConfigFrom($path.'admin.php', 'pear');
         $this->mergeConfigFrom($path.'menu.php', 'pear');
