@@ -26,7 +26,7 @@ class LaravelServiceProvider extends ServiceProvider
             $this->publishes([dirname(__DIR__, 2).'/samples' => public_path('admin')], 'samples');
         }
 
-        $this->mergeConfigFrom($adminPath, 'pear');
-        $this->mergeConfigFrom($menuPath, 'pear');
+        $this->mergeConfigFrom($adminPath, 'pear.admin');
+        $this->mergeConfigFrom($menuPath, 'pear.menu');
     }
 }

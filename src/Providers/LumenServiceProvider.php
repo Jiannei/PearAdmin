@@ -15,15 +15,15 @@ class LumenServiceProvider extends LaravelServiceProvider
 {
     public function boot()
     {
-        $this->app->configure('pear/admin');
-        $this->app->configure('pear/menu');
+        $this->app->configure('pear.admin');
+        $this->app->configure('pear.menu');
     }
 
     protected function setupConfig()
     {
         $path = dirname(__DIR__, 2).'/config/';
 
-        $this->mergeConfigFrom($path.'admin.php', 'pear');
-        $this->mergeConfigFrom($path.'menu.php', 'pear');
+        $this->mergeConfigFrom($path.'admin.php', 'pear.admin');
+        $this->mergeConfigFrom($path.'menu.php', 'pear.menu');
     }
 }
