@@ -12,7 +12,7 @@
 		"select": "0"
 	},
 	"tab": {
-		"muiltTab": true,
+		"enable": true,
 		"keepState": true,
 		"tabMax": 30,
 		"index": {
