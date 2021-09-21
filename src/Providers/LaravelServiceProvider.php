@@ -21,7 +21,7 @@ class LaravelServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([$adminPath => config_path('pear/admin.php')], 'pear');
             $this->publishes([$menuPath => config_path('pear/admin.php')], 'pear');
-            $this->publishes([dirname(__DIR__, 2).'/resources/assets' => public_path('pear-admin')], 'assets');
+            $this->publishes([dirname(__DIR__, 2).'/resources/assets' => public_path('pear')], 'assets');
         }
 
         $this->mergeConfigFrom($adminPath, 'pear');

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\URL;
 
 class Pear
 {
+    protected $configPrefix = 'pear.';
+    protected $assetPrefix = 'pear/';
+
     /**
      * Pear Admin version
      *
@@ -27,9 +30,7 @@ class Pear
      */
     public function config($key = null, $default = null)
     {
-        $prefix = 'pear.';
-
-        return config($prefix.$key, $default);
+        return config($this->configPrefix.$key, $default);
     }
 
     /**
@@ -41,6 +42,6 @@ class Pear
      */
     public function asset(string $path, bool $secure = null)
     {
-        return URL::asset($path, $secure);
+        return URL::asset($this->assetPrefix.$path, $secure);
     }
 }
