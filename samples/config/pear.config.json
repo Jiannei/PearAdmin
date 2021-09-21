@@ -1,10 +1,10 @@
 {
 	"logo": {
 		"title": "Pear Admin",
-		"image": "admin/images/logo.png"
+		"image": "images/logo.png"
 	},
 	"menu": {
-		"data": "admin/data/menu.json",
+		"data": "data/menu.json",
 		"collaspe": true,
 		"accordion": true,
 		"method": "GET",
@@ -62,6 +62,6 @@
 		"autoHead": false
 	},
 	"header": {
-		"message": "admin/data/message.json"
+		"message": "data/message.json"
 	}
 }

@@ -410,7 +410,7 @@
 			"icon": "layui-icon layui-icon-util",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "component/code/index.html"
+			"href": "/pear/component/code/index.html"
 		}]
 	}
 ]
