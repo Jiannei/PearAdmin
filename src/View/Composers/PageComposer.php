@@ -23,6 +23,8 @@ class PageComposer
 
         $page = [
             'uid' => $pageUid,
+            'styles' => [],// todo config
+            'scripts' => [],//
         ];
 
         $view->with(compact('page'));
