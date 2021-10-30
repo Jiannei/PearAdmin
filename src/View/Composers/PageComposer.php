@@ -2,15 +2,13 @@
 
 namespace Jiannei\LayAdmin\View\Composers;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class PageComposer
 {
-    public const HOME_VIEW = 'home';// todo config
-    public const PAGE_PATH_PREFIX = 'page';
-    public const SEPARATOR = '-';
-
     /**
      * Bind data to the view.
      *
@@ -20,20 +18,21 @@ class PageComposer
     public function compose(View $view)
     {
         $pageUid = $this->getPageUid();
+        $pageConf = Arr::get(config('layadmin'), Route::currentRouteName());
 
-        $page = [
-            'uid' => $pageUid,
-            'styles' => [],// todo config
-            'scripts' => [],//
-        ];
+        $page = array_merge(['uid' => $pageUid], $pageConf);
 
         $view->with(compact('page'));
     }
 
     protected function getPageUid()
     {
-        $path = Str::replace('.', self::SEPARATOR, implode(self::SEPARATOR, optional(request())->segments()));
+        // todo 路由必须命名，且需要遵循规范；抛出异常
+        return 'LAY-'.Str::replace('.', '-', Route::currentRouteName());
+    }
 
-        return ltrim(Str::replaceFirst(self::PAGE_PATH_PREFIX, '', $path), self::SEPARATOR) ?: self::HOME_VIEW;
+    protected function getPageConf()
+    {
+        return Arr::get(config('layadmin'), 'page.'.Route::currentRouteName(), []);
     }
 }
