@@ -1,4 +1,4 @@
-<h1 align="center"> pear-admin </h1>
+<h1 align="center"> layadmin </h1>
 
 <p align="center"> .</p>
 
@@ -6,7 +6,7 @@
 ## Installing
 
 ```shell
-$ composer require jiannei/pear-admin -vvv
+$ composer require jiannei/layadmin -vvv
 ```
 
 ## Usage
