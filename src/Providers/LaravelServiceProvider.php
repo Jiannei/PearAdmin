@@ -21,7 +21,6 @@ class LaravelServiceProvider extends ServiceProvider
             ], 'layadmin-config');
 
             $this->publishes([
-                dirname(__DIR__, 2).'/src/View/Components/' => app_path('View/Components'),
                 dirname(__DIR__, 2).'/resources/views/components/' => resource_path('views/components'),
             ], 'layadmin-components');
         }
