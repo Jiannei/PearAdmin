@@ -25,7 +25,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 		var pearAdmin = new function() {
 
 			var configType = 'yml';
-			var configPath = 'pear.config.yml';
+			var configPath = 'admin.config.yml';
 
 			this.setConfigPath = function(path) {
 				configPath = path;
@@ -332,7 +332,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					return;
 				}
 			}
-			
+
 			this.closeOtherTab = function() {
 				if (isMuiltTab(config) === "true" || isMuiltTab(config) === true) {
 					pearTab.delOtherTabByElem('content', function(id){
@@ -342,7 +342,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					return;
 				}
 			}
-			
+
 			this.closeAllTab = function() {
 				if (isMuiltTab(config) === "true" || isMuiltTab(config) === true) {
 					pearTab.delAllTabByElem('content', function(id){
@@ -352,7 +352,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					return;
 				}
 			}
-			
+
 			this.changeIframe = function(id, title, url) {
 				if (isMuiltTab(config) === "true" || isMuiltTab(config) === true) {
 					return;
@@ -369,7 +369,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					pearAdmin.changeIframe(id, title, url)
 				}
 			}
-			
+
 			this.fullScreen = function() {
 				if ($(".fullScreen").hasClass("layui-icon-screen-restore")) {
 					screenFun(2).then(function() {

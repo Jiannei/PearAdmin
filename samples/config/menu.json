@@ -417,7 +417,7 @@
 			"icon": "layui-icon layui-icon-util",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "/lay-admin/component/code/index.html"
+			"href": "/admin/code.html"
 		}]
 	}
 ]
