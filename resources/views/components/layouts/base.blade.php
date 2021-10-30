@@ -89,7 +89,8 @@
         var admin = layui.admin;
         var popup = layui.popup;
 
-        admin.render(@json(config('layadmin'));
+        admin.setConfigType("json");
+        admin.setConfigPath("/admin/config/admin.config.json");
 
         // 登出逻辑
         admin.logout(function () {
