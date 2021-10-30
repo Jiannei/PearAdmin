@@ -14,9 +14,9 @@ class LaravelServiceProvider extends ServiceProvider
     protected function setupConfig()
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([dirname(__DIR__, 2).'/resources' => public_path('pear')], 'assets');
+            $this->publishes([dirname(__DIR__, 2).'/resources' => public_path('lay-admin')], 'lay-admin-resources');
 
-            $this->publishes([dirname(__DIR__, 2).'/samples' => public_path('admin')], 'samples');
+            $this->publishes([dirname(__DIR__, 2).'/samples' => public_path('admin')], 'lay-admin-samples');
         }
     }
 }

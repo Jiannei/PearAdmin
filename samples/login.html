@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>Login Page</title>
 		<!-- 样 式 文 件 -->
-		<link rel="stylesheet" href="/pear/component/pear/css/pear.css" />
+		<link rel="stylesheet" href="/lay-admin/component/pear/css/pear.css" />
 		<link rel="stylesheet" href="/admin/css/login.css" />
 	</head>
     <!-- 代 码 结 构 -->
@@ -37,8 +37,8 @@
 			</div>
 		</form>
 		<!-- 资 源 引 入 -->
-		<script src="/pear/component/layui/layui.js"></script>
-		<script src="/pear/component/pear/pear.js"></script>
+		<script src="/lay-admin/component/layui/layui.js"></script>
+		<script src="/lay-admin/component/pear/pear.js"></script>
 		<script>
 			layui.use(['form', 'button', 'popup'], function() {
 				var form = layui.form;
@@ -58,7 +58,7 @@
 						time: 1500,
 						done: function() {
 							popup.success("登录成功", function() {
-								location.href = "index.html"
+								location.href = "code.html"
 							});
 						}
 					})

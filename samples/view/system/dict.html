@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>数据字典</title>
-		<link href="/pear/component/pear/css/pear.css" rel="stylesheet" />
+		<link href="/lay-admin/component/pear/css/pear.css" rel="stylesheet" />
 	</head>
 	<body class="pear-container">
 		<div class="layui-row layui-col-space10">
@@ -115,8 +115,8 @@
 	<script type="text/html" id="dict-data-enable">
 		<input type="checkbox" value="{{d.dataId}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="dict-data-enable" {{d.enable== '0' ? 'checked' : '' }}>
 	</script>
-	<script src="/pear/component/layui/layui.js"></script>
-	<script src="/pear/component/pear/pear.js"></script>
+	<script src="/lay-admin/component/layui/layui.js"></script>
+	<script src="/lay-admin/component/pear/pear.js"></script>
 	<script>
 		layui.use(['table', 'form', 'jquery'], function() {
 			let table = layui.table;
