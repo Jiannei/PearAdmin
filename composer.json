@@ -1,7 +1,13 @@
 {
-    "name": "jiannei\/pear-admin",
+    "name": "jiannei\/lay-admin",
     "description": "Laravel admin based on Pear Admin.",
-    "keywords": ["laravel","laravel admin","Pear Admin"],
+    "keywords": [
+        "laravel",
+        "laravel admin",
+        "layui",
+        "Pear Admin",
+        "layui admin"
+    ],
     "license": "MIT",
     "authors": [
         {
