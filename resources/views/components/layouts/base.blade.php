@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Lay Admin</title>
     <!-- 依 赖 样 式 -->
-    <link rel="stylesheet" href="{{ asset('lay-admin/component/pear/css/pear.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('layadmin/component/pear/css/pear.css') }}"/>
     <!-- 加 载 样 式 -->
-    <link rel="stylesheet" href="{{ asset('lay-admin/css/loader.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('layadmin/css/loader.css') }}"/>
     <!-- 布 局 样 式 -->
-    <link rel="stylesheet" href="{{ asset('lay-admin/css/admin.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('layadmin/css/admin.css') }}"/>
 </head>
 <!-- 结 构 代 码 -->
 <body class="layui-layout-body pear-admin">
@@ -81,15 +81,15 @@
     <a href="#" class="layui-icon layui-icon-shrink-right"></a>
 </div>
 <!-- 依 赖 脚 本 -->
-<script src="{{ asset('lay-admin/component/layui/layui.js') }}"></script>
-<script src="{{ asset('lay-admin/component/pear/pear.js') }}"></script>
+<script src="{{ asset('layadmin/component/layui/layui.js') }}"></script>
+<script src="{{ asset('layadmin/component/pear/pear.js') }}"></script>
 <!-- 框 架 初 始 化 -->
 <script>
     layui.use(['admin', 'popup'], function () {
         var admin = layui.admin;
         var popup = layui.popup;
 
-        admin.render(@json($config);
+        admin.render(@json(config('layadmin'));
 
         // 登出逻辑
         admin.logout(function () {

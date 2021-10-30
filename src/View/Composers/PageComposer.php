@@ -19,7 +19,7 @@ class PageComposer
      */
     public function compose(View $view)
     {
-        $pageUid = $this->getPageUniqueId();
+        $pageUid = $this->getPageUid();
 
         $page = [
             'uid' => $pageUid,
