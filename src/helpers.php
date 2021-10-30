@@ -1,13 +1,13 @@
 <?php
 
-if (!function_exists('pear_version')) {
+if (!function_exists('lay_admin_version')) {
     /**
-     * Get Pear Admin version
+     * Get Lay Admin version
      *
      * @return string
      */
-    function pear_version()
+    function lay_admin_version()
     {
-        return app(\Jiannei\PearAdmin\Pear::class)->version();
+        return app(\Jiannei\LayAdmin\LayAdmin::class)->version();
     }
 }

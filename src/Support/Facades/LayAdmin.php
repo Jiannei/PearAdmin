@@ -1,17 +1,17 @@
 <?php
 
-namespace Jiannei\PearAdmin\Support\Facades;
+namespace Jiannei\LayAdmin\Support\Facades;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 
 /**
  * @method static version()
- * @see \Jiannei\PearAdmin\Pear
+ * @see \Jiannei\LayAdmin\LayAdmin
  */
-class Pear extends LaravelFacade
+class LayAdmin extends LaravelFacade
 {
     protected static function getFacadeAccessor()
     {
-        return \Jiannei\PearAdmin\Pear::class;
+        return \Jiannei\LayAdmin\LayAdmin::class;
     }
 }

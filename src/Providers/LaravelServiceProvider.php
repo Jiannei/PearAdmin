@@ -1,6 +1,6 @@
 <?php
 
-namespace Jiannei\PearAdmin\Providers;
+namespace Jiannei\LayAdmin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

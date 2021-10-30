@@ -27,16 +27,16 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "Jiannei\\PearAdmin\\": "src"
+            "Jiannei\\LayAdmin\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Jiannei\\PearAdmin\\Providers\\LaravelServiceProvider"
+                "Jiannei\\LayAdmin\\Providers\\LaravelServiceProvider"
             ],
             "aliases": {
-                "Pear": "Jiannei\\PearAdmin\\Support\\Facades\\Pear"
+                "Pear": "Jiannei\\LayAdmin\\Support\\Facades\\LayAdmin"
             }
         }
     }
