@@ -3,6 +3,7 @@
 namespace Jiannei\LayAdmin\View\Composers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -16,21 +17,21 @@ class PageComposer
      */
     public function compose(View $view)
     {
-        $pageUid = $this->getPageUid($view);
-        $pageConf = $this->getPageConf($view);
+        $pageUid = $this->getPageUid();
+        $pageConf = $this->getPageConf();
 
-        $page = array_merge(['uid' => $pageUid], $pageConf);
+        $page = array_merge(['uid' => $pageUid, 'styles' => [], 'scripts' => []], $pageConf);
 
         $view->with(compact('page'));
     }
 
-    protected function getPageUid(View $view)
+    protected function getPageUid()
     {
-        return 'LAY-'.Str::replace('.', '-', $view->getPath());
+        return 'LAY-'.Str::replace('.', '-', Route::currentRouteName());
     }
 
-    protected function getPageConf(View $view)
+    protected function getPageConf()
     {
-        return Arr::get(config('layadmin'), 'page.'.$view->getPath(), []);
+        return Arr::get(config('layadmin'), 'page.'.Route::currentRouteName(), []);
     }
 }
