@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the jiannei/layadmin.
+ *
+ * (c) jiannei <longjian.huang@foxmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Jiannei\LayAdmin;
 
 use Illuminate\Support\Arr;
@@ -9,7 +18,7 @@ use Illuminate\Support\Str;
 class LayAdmin
 {
     /**
-     * Lay Admin version
+     * Lay Admin version.
      *
      * @return string
      */
@@ -19,7 +28,7 @@ class LayAdmin
     }
 
     /**
-     * Gets the unique ID of the page
+     * Gets the unique ID of the page.
      *
      * @return string
      */
@@ -29,7 +38,7 @@ class LayAdmin
     }
 
     /**
-     * Get page configurations
+     * Get page configurations.
      *
      * @return array|\ArrayAccess|mixed
      */
