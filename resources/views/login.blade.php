@@ -1,4 +1,4 @@
-<x-layadmin::layouts.base background="{{ asset('/admin/images/background.svg') }}" style="background-size: cover;" page="login">
+<x-layadmin::layouts.base background="{{ asset('/admin/images/background.svg') }}" style="background-size: cover;">
     <form class="layui-form" action="javascript:void(0);">
         <div class="layui-form-item">
             <img class="logo" src="{{ asset('/admin/images/logo.png') }}"/>

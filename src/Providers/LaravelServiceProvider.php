@@ -2,7 +2,9 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Jiannei\LayAdmin\View\Composers\PageComposer;
 
 class LaravelServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,8 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        View::composer('*', PageComposer::class);
+
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
     }
 }
