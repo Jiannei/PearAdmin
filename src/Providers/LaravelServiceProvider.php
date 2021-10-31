@@ -4,7 +4,7 @@ namespace Jiannei\LayAdmin\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Jiannei\LayAdmin\View\Composers\PageComposer;
+use Jiannei\LayAdmin\Support\Facades\LayAdmin;
 
 class LaravelServiceProvider extends ServiceProvider
 {
@@ -28,7 +28,15 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        View::composer('*', PageComposer::class);
+        View::composer('*', function (\Illuminate\View\View $view) {
+            $page = array_merge([
+                'uid' => LayAdmin::getPageUid(),
+                'styles' => [],
+                'scripts' => [],
+            ], LayAdmin::getPageConf());
+
+            $view->with(compact('page'));
+        });
 
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
     }
