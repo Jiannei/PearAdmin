@@ -5,6 +5,8 @@ layui.use(['admin', 'popup'], function () {
   admin.setConfigType("json");
   admin.setConfigPath("/admin/config/admin.config.json");
 
+  admin.render();
+
   // 登出逻辑
   admin.logout(function () {
     popup.success("注销成功", function () {
