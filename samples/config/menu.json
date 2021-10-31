@@ -10,14 +10,14 @@
 			"icon": "layui-icon layui-icon-console",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "view/console/console1.html"
+			"href": "view/console"
 		}, {
 			"id": 13,
 			"title": "数据分析",
 			"icon": "layui-icon layui-icon-console",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "view/console/console2.html"
+			"href": "admin/view/console/console2.html"
 		}, {
 			"id": 14,
 			"title": "百度一下",
@@ -31,14 +31,14 @@
 			"icon": "layui-icon layui-icon-console",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "view/system/theme.html"
+			"href": "admin/view/system/theme.html"
 		}, {
 			"id": 16,
 			"title": "酸爽翻倍",
 			"icon": "layui-icon layui-icon-console",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "view/document/core.html"
+			"href": "admin/view/document/core.html"
 		}]
 	},
 	{
@@ -59,35 +59,35 @@
 				"icon": "layui-icon layui-icon-face-smile",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/button.html"
+				"href": "admin/view/document/button.html"
 			}, {
 				"id": 2014,
 				"title": "表单集合",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/form.html"
+				"href": "admin/view/document/form.html"
 			}, {
 				"id": 2010,
 				"title": "字体图标",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/icon.html"
+				"href": "admin/view/document/icon.html"
 			}, {
 				"id": 2012,
 				"title": "多选下拉",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/select.html"
+				"href": "admin/view/document/select.html"
 			}, {
 				"id": 2013,
 				"title": "动态标签",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/tag.html"
+				"href": "admin/view/document/tag.html"
 			}]
 		}, {
 			"id": 203,
@@ -100,42 +100,42 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/table.html"
+				"href": "admin/view/document/table.html"
 			}, {
 				"id": 2032,
 				"title": "分布表单",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/step.html"
+				"href": "admin/view/document/step.html"
 			}, {
 				"id": 2033,
 				"title": "树形表格",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/treetable.html"
+				"href": "admin/view/document/treetable.html"
 			}, {
 				"id": 2034,
 				"title": "树状结构",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/dtree.html"
+				"href": "admin/view/document/dtree.html"
 			}, {
 				"id": 2035,
 				"title": "文本编辑",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/tinymce.html"
+				"href": "admin/view/document/tinymce.html"
 			}, {
 				"id": 2036,
 				"title": "卡片组件",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/card.html"
+				"href": "admin/view/document/card.html"
 			}]
 		}, {
 			"id": 202,
@@ -148,35 +148,35 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/drawer.html"
+				"href": "admin/view/document/drawer.html"
 			}, {
 				"id": 2022,
 				"title": "消息通知 (过时)",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/notice.html"
+				"href": "admin/view/document/notice.html"
 			}, {
 				"id": 2025,
 				"title": "消息通知 (新增)",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/toast.html"
+				"href": "admin/view/document/toast.html"
 			}, {
 				"id": 2024,
 				"title": "加载组件",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/loading.html"
+				"href": "admin/view/document/loading.html"
 			}, {
 				"id": 2023,
 				"title": "弹层组件",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/popup.html"
+				"href": "admin/view/document/popup.html"
 			}]
 		},{
 			"id": 60331,
@@ -189,14 +189,14 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/tab.html"
+				"href": "admin/view/document/tab.html"
 			},{
 				"id": 60132,
 				"title": "数据菜单",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/document/menu.html"
+				"href": "admin/view/document/menu.html"
 			}]
 		}, {
 			"id": 204,
@@ -209,7 +209,7 @@
 					"icon": "layui-icon layui-icon-face-cry",
 					"type": 1,
 					"openType": "_iframe",
-					"href": "view/document/hash.html"
+					"href": "admin/view/document/hash.html"
 				},
 				{
 					"id": 2042,
@@ -217,7 +217,7 @@
 					"icon": "layui-icon layui-icon-face-cry",
 					"type": 1,
 					"openType": "_iframe",
-					"href": "view/document/iconPicker.html"
+					"href": "admin/view/document/iconPicker.html"
 				},
 				{
 					"id": 2043,
@@ -225,7 +225,7 @@
 					"icon": "layui-icon layui-icon-face-cry",
 					"type": 1,
 					"openType": "_iframe",
-					"href": "view/document/area.html"
+					"href": "admin/view/document/area.html"
 				},
 				{
 					"id": 2044,
@@ -233,7 +233,7 @@
 					"icon": "layui-icon layui-icon-face-cry",
 					"type": 1,
 					"openType": "_iframe",
-					"href": "view/document/count.html"
+					"href": "admin/view/document/count.html"
 				},
 				{
 					"id": 2045,
@@ -241,7 +241,7 @@
 					"icon": "layui-icon layui-icon-face-cry",
 					"type": 1,
 					"openType": "_iframe",
-					"href": "view/document/topBar.html"
+					"href": "admin/view/document/topBar.html"
 				}
 			]
 		}]
@@ -258,7 +258,7 @@
 				"icon": "layui-icon layui-icon-face-smile",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/result/success.html"
+				"href": "admin/view/result/success.html"
 			},
 			{
 				"id": "failure",
@@ -266,7 +266,7 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/result/error.html"
+				"href": "admin/view/result/error.html"
 			}
 		]
 	},
@@ -282,7 +282,7 @@
 				"icon": "layui-icon layui-icon-face-smile",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/error/403.html"
+				"href": "admin/view/error/403.html"
 			},
 			{
 				"id": 404,
@@ -290,7 +290,7 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/error/404.html"
+				"href": "admin/view/error/404.html"
 			},
 
 			{
@@ -299,7 +299,7 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/error/500.html"
+				"href": "admin/view/error/500.html"
 			}
 
 		]
@@ -316,7 +316,7 @@
 				"icon": "layui-icon layui-icon-face-smile",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/system/user.html"
+				"href": "admin/view/system/user.html"
 			},
 			{
 				"id": 602,
@@ -324,7 +324,7 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/system/role.html"
+				"href": "admin/view/system/role.html"
 			},
 
 			{
@@ -333,7 +333,7 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/system/power.html"
+				"href": "admin/view/system/power.html"
 			},
 
 			{
@@ -342,7 +342,7 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/system/deptment.html"
+				"href": "admin/view/system/deptment.html"
 			},
 			{
 				"id": 605,
@@ -350,14 +350,14 @@
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/system/log.html"
+				"href": "admin/view/system/log.html"
 			}, {
 				"id": 606,
 				"title": "数据字典",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
-				"href": "view/system/dict.html"
+				"href": "admin/view/system/dict.html"
 			}
 
 		]
@@ -381,7 +381,7 @@
 			"icon": "layui-icon layui-icon-face-smile",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "view/system/space.html"
+			"href": "admin/view/system/space.html"
 		}]
 	}, {
 		"id": "echarts",
@@ -395,14 +395,14 @@
 			"icon": "layui-icon layui-icon-face-smile",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "view/echarts/line.html"
+			"href": "admin/view/echarts/line.html"
 		}, {
 			"id": 121212,
 			"title": "柱状图",
 			"icon": "layui-icon layui-icon-face-smile",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "view/echarts/column.html"
+			"href": "admin/view/echarts/column.html"
 		}]
 	},
 	{
@@ -417,7 +417,7 @@
 			"icon": "layui-icon layui-icon-util",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "/admin/code.html"
+			"href": "view/code"
 		}]
 	}
 ]

@@ -1,4 +1,4 @@
-<x-layadmin::layouts.blank class="layui-layout-body pear-admin">
+<x-layadmin::layouts.base class="layui-layout-body pear-admin">
     <!-- 布 局 框 架 -->
     <div class="layui-layout layui-layout-admin">
         <!-- 顶 部 样 式 -->
@@ -66,4 +66,4 @@
     <div class="pear-collasped-pe collaspe">
         <a href="#" class="layui-icon layui-icon-shrink-right"></a>
     </div>
-    </x-layadmin::blank>
+</x-layadmin::layouts.base>
