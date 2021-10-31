@@ -12,7 +12,7 @@
                 "icon": "layui-icon layui-icon-console",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/console/console1.html"
+                "href": "/admin/view/console/console1.html"
             },
             {
                 "id": 13,
@@ -20,7 +20,7 @@
                 "icon": "layui-icon layui-icon-console",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/console/console2.html"
+                "href": "/admin/view/console/console2.html"
             },
             {
                 "id": 14,
@@ -36,7 +36,7 @@
                 "icon": "layui-icon layui-icon-console",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/system/theme.html"
+                "href": "/admin/view/system/theme.html"
             },
             {
                 "id": 16,
@@ -44,7 +44,7 @@
                 "icon": "layui-icon layui-icon-console",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/document/core.html"
+                "href": "/admin/view/document/core.html"
             }
         ]
     },
@@ -67,7 +67,7 @@
                         "icon": "layui-icon layui-icon-face-smile",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/button.html"
+                        "href": "/admin/view/document/button.html"
                     },
                     {
                         "id": 2014,
@@ -75,7 +75,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/form.html"
+                        "href": "/admin/view/document/form.html"
                     },
                     {
                         "id": 2010,
@@ -83,7 +83,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/icon.html"
+                        "href": "/admin/view/document/icon.html"
                     },
                     {
                         "id": 2012,
@@ -91,7 +91,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/select.html"
+                        "href": "/admin/view/document/select.html"
                     },
                     {
                         "id": 2013,
@@ -99,7 +99,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/tag.html"
+                        "href": "/admin/view/document/tag.html"
                     }
                 ]
             },
@@ -115,7 +115,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/table.html"
+                        "href": "/admin/view/document/table.html"
                     },
                     {
                         "id": 2032,
@@ -123,7 +123,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/step.html"
+                        "href": "/admin/view/document/step.html"
                     },
                     {
                         "id": 2033,
@@ -131,7 +131,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/treetable.html"
+                        "href": "/admin/view/document/treetable.html"
                     },
                     {
                         "id": 2034,
@@ -139,7 +139,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/dtree.html"
+                        "href": "/admin/view/document/dtree.html"
                     },
                     {
                         "id": 2035,
@@ -147,7 +147,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/tinymce.html"
+                        "href": "/admin/view/document/tinymce.html"
                     },
                     {
                         "id": 2036,
@@ -155,7 +155,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/card.html"
+                        "href": "/admin/view/document/card.html"
                     }
                 ]
             },
@@ -171,7 +171,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/drawer.html"
+                        "href": "/admin/view/document/drawer.html"
                     },
                     {
                         "id": 2022,
@@ -179,7 +179,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/notice.html"
+                        "href": "/admin/view/document/notice.html"
                     },
                     {
                         "id": 2025,
@@ -187,7 +187,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/toast.html"
+                        "href": "/admin/view/document/toast.html"
                     },
                     {
                         "id": 2024,
@@ -195,7 +195,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/loading.html"
+                        "href": "/admin/view/document/loading.html"
                     },
                     {
                         "id": 2023,
@@ -203,7 +203,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/popup.html"
+                        "href": "/admin/view/document/popup.html"
                     }
                 ]
             },
@@ -219,7 +219,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/tab.html"
+                        "href": "/admin/view/document/tab.html"
                     },
                     {
                         "id": 60132,
@@ -227,7 +227,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/menu.html"
+                        "href": "/admin/view/document/menu.html"
                     }
                 ]
             },
@@ -243,7 +243,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/hash.html"
+                        "href": "/admin/view/document/hash.html"
                     },
                     {
                         "id": 2042,
@@ -251,7 +251,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/iconPicker.html"
+                        "href": "/admin/view/document/iconPicker.html"
                     },
                     {
                         "id": 2043,
@@ -259,7 +259,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/area.html"
+                        "href": "/admin/view/document/area.html"
                     },
                     {
                         "id": 2044,
@@ -267,7 +267,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/count.html"
+                        "href": "/admin/view/document/count.html"
                     },
                     {
                         "id": 2045,
@@ -275,7 +275,7 @@
                         "icon": "layui-icon layui-icon-face-cry",
                         "type": 1,
                         "openType": "_iframe",
-                        "href": "admin/view/document/topBar.html"
+                        "href": "/admin/view/document/topBar.html"
                     }
                 ]
             }
@@ -294,7 +294,7 @@
                 "icon": "layui-icon layui-icon-face-smile",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/result/success.html"
+                "href": "/admin/view/result/success.html"
             },
             {
                 "id": "failure",
@@ -302,7 +302,7 @@
                 "icon": "layui-icon layui-icon-face-cry",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/result/error.html"
+                "href": "/admin/view/result/error.html"
             }
         ]
     },
@@ -319,7 +319,7 @@
                 "icon": "layui-icon layui-icon-face-smile",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/error/403.html"
+                "href": "/admin/view/error/403.html"
             },
             {
                 "id": 404,
@@ -327,7 +327,7 @@
                 "icon": "layui-icon layui-icon-face-cry",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/error/404.html"
+                "href": "/admin/view/error/404.html"
             },
             {
                 "id": 500,
@@ -335,7 +335,7 @@
                 "icon": "layui-icon layui-icon-face-cry",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/error/500.html"
+                "href": "/admin/view/error/500.html"
             }
         ]
     },
@@ -352,7 +352,7 @@
                 "icon": "layui-icon layui-icon-face-smile",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/system/user.html"
+                "href": "/admin/view/system/user.html"
             },
             {
                 "id": 602,
@@ -360,7 +360,7 @@
                 "icon": "layui-icon layui-icon-face-cry",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/system/role.html"
+                "href": "/admin/view/system/role.html"
             },
             {
                 "id": 603,
@@ -368,7 +368,7 @@
                 "icon": "layui-icon layui-icon-face-cry",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/system/power.html"
+                "href": "/admin/view/system/power.html"
             },
             {
                 "id": 604,
@@ -376,7 +376,7 @@
                 "icon": "layui-icon layui-icon-face-cry",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/system/deptment.html"
+                "href": "/admin/view/system/deptment.html"
             },
             {
                 "id": 605,
@@ -384,7 +384,7 @@
                 "icon": "layui-icon layui-icon-face-cry",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/system/log.html"
+                "href": "/admin/view/system/log.html"
             },
             {
                 "id": 606,
@@ -392,7 +392,7 @@
                 "icon": "layui-icon layui-icon-face-cry",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/system/dict.html"
+                "href": "/admin/view/system/dict.html"
             }
         ]
     },
@@ -417,7 +417,7 @@
                 "icon": "layui-icon layui-icon-face-smile",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/system/space.html"
+                "href": "/admin/view/system/space.html"
             }
         ]
     },
@@ -434,7 +434,7 @@
                 "icon": "layui-icon layui-icon-face-smile",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/echarts/line.html"
+                "href": "/admin/view/echarts/line.html"
             },
             {
                 "id": 121212,
@@ -442,7 +442,7 @@
                 "icon": "layui-icon layui-icon-face-smile",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "admin/view/echarts/column.html"
+                "href": "/admin/view/echarts/column.html"
             }
         ]
     },
@@ -459,7 +459,7 @@
                 "icon": "layui-icon layui-icon-util",
                 "type": 1,
                 "openType": "_iframe",
-                "href": "view/code"
+                "href": "/admin/code.html"
             }
         ]
     }
