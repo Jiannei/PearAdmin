@@ -574,19 +574,27 @@ return [
         'errors' => [
             '403' => [
                 'styles' => [
-                    'admin/css/error.css',
+                    'layadmin/css/error.css',
                 ],
             ],
             '404' => [
                 'styles' => [
-                    'admin/css/error.css',
+                    'layadmin/css/error.css',
                 ],
             ],
             '500' => [
                 'styles' => [
-                    'admin/css/error.css',
+                    'layadmin/css/error.css',
                 ],
             ],
+        ],
+        'result' => [
+            'error' => [
+                'styles' => [
+                    'layadmin/css/result.css',
+                ],
+            ],
+            'success' => [],
         ],
         'login' => [
             'title' => '后台登录',

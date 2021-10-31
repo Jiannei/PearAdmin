@@ -1,6 +1,6 @@
 <x-layadmin::layouts.base>
     <div class="content">
-        <img src="{{ asset('admin/images/403.svg') }}" alt="">
+        <img src="{{ asset('layadmin/images/403.svg') }}" alt="">
         <div class="content-r">
             <h1>403</h1>
             <p>抱歉，你无权访问该页面</p>
