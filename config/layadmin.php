@@ -32,13 +32,22 @@ return [
                 ],
             ],
         ],
+        'login' => [
+            'title' => '后台登录',
+            'styles' => [
+                'admin/css/login.css',
+            ],
+            'scripts' => [
+                'admin/js/login.js',
+            ],
+        ],
         'console' => [
             'title' => '首页',
             'styles' => [
                 'admin/css/console1.css',
             ],
             'scripts' => [
-                'admin/js/index.js',
+                'admin/js/console.js',
             ],
         ],
         'code' => [

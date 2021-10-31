@@ -14,9 +14,9 @@
     @endforeach
 
     {{-- 自定义 CSS   --}}
-    {{ $attributes->get('style') }}
+    @stack('style')
 </head>
-<body class="{{ $attributes->get('class') }}">
+<body class="{{ $attributes->get('class') }}" background="{{ $attributes->get('background') }}" style="{{ $attributes->get('style') }}">
     {{ $slot }}
 
     {{-- 全局 scripts --}}
@@ -29,6 +29,6 @@
     @endforeach
 
     {{--自定义 scripts--}}
-    {{ $attributes->get('script') }}
+    @stack('script')
 </body>
 </html>
