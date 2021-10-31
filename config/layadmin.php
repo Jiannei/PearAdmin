@@ -30,7 +30,7 @@ return [
                     'image' => '/admin/images/logo.png', // 网站图标
                 ],
                 'menu' => [
-                    'collaspe' => true, // 侧边的默认状态
+                    'collaspe' => false, // 侧边的默认状态
                     // 菜单数据
                     'data' => [
                         [
@@ -62,7 +62,7 @@ return [
                                     'icon' => 'layui-icon layui-icon-console',
                                     'type' => 1,
                                     'openType' => '_iframe',
-                                    'href' => 'http=>//www.bing.com',
+                                    'href' => 'http://www.bing.com',
                                 ],
                                 [
                                     'id' => 15,
@@ -443,7 +443,7 @@ return [
                                     'icon' => 'layui-icon layui-icon-face-smile',
                                     'type' => 1,
                                     'openType' => '_iframe',
-                                    'href' => 'login.html',
+                                    'href' => 'admin/login.html',
                                 ],
                                 [
                                     'id' => 702,
@@ -493,7 +493,7 @@ return [
                                     'icon' => 'layui-icon layui-icon-util',
                                     'type' => 1,
                                     'openType' => '_iframe',
-                                    'href' => 'view/code',
+                                    'href' => 'admin/code.html',
                                 ],
                             ],
                         ],
@@ -549,17 +549,17 @@ return [
                     [
                         'icon' => 'layui-icon layui-icon-auz',
                         'title' => '官方网站',
-                        'href' => 'http=>//www.pearadmin.com',
+                        'href' => 'http://www.pearadmin.com',
                     ],
                     [
                         'icon' => 'layui-icon layui-icon-auz',
                         'title' => '开发文档',
-                        'href' => 'http=>//www.pearadmin.com',
+                        'href' => 'http://www.pearadmin.com',
                     ],
                     [
                         'icon' => 'layui-icon layui-icon-auz',
                         'title' => '开源地址',
-                        'href' => 'https=>//gitee.com/Jmysy/Pear-Admin-Layui',
+                        'href' => 'https://gitee.com/Jmysy/Pear-Admin-Layui',
                     ],
                 ],
                 'other' => [

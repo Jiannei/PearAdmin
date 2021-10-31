@@ -5,7 +5,7 @@
     },
     "menu": {
         "data": "/admin/config/menu.json",
-        "collaspe": true,
+        "collaspe": false,
         "accordion": true,
         "method": "GET",
         "control": false,
