@@ -1,4 +1,4 @@
-<x-layadmin::layouts.base class="layui-layout-body pear-admin">
+<x-layadmin::layouts.base class="layui-layout-body pear-admin" page="index">
     <!-- 布 局 框 架 -->
     <div class="layui-layout layui-layout-admin">
         <!-- 顶 部 样 式 -->

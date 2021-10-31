@@ -1,4 +1,4 @@
-<x-layadmin::layouts.base class="pear-container">
+<x-layadmin::layouts.base class="pear-container" page="console">
     <div>
         <div class="layui-row layui-col-space10">
             <div class="layui-col-xs6 layui-col-md3">

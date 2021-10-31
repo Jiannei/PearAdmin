@@ -1,4 +1,4 @@
-<x-layadmin::layouts.base>
+<x-layadmin::layouts.base page="code">
     <div class="layui-fluid">
         <div class="layui-row layui-col-space10">
             <div class="layui-col-md1">
