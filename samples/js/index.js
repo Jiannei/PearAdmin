@@ -1,11 +1,10 @@
-layui.use(['admin', 'popup'], function () {
+layui.use(['admin', 'popup', 'context'], function () {
   var admin = layui.admin;
   var popup = layui.popup;
 
-  admin.setConfigType("json");
-  admin.setConfigPath("/admin/config/admin.config.json");
+  var layadmin = JSON.parse(layui.context.get('layadmin'));
 
-  admin.render();
+  admin.render(layadmin.page.config);
 
   // 登出逻辑
   admin.logout(function () {

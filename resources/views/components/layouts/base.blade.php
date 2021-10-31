@@ -23,7 +23,9 @@
     <script src="{{ asset('layadmin/component/layui/layui.js') }}"></script>
     <script src="{{ asset('layadmin/component/pear/pear.js') }}"></script>
     <script>
-        window.layadmin = @json(array_merge($layadmin,['page' => $page]),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)
+        layui.use(['context'], function () {
+            layui.context.put("layadmin", JSON.stringify(@json(array_merge($layadmin,['page' => $page]),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)))
+        })
     </script>
 
     {{-- Page scripts  --}}
