@@ -29,13 +29,18 @@ class LaravelServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function (\Illuminate\View\View $view) {
+            $layadmin = [
+                'version' => LayAdmin::version(),
+            ];
+
             $page = array_merge([
                 'uid' => LayAdmin::getPageUid(),
                 'styles' => [],
                 'scripts' => [],
+                'config' => [],
             ], LayAdmin::getPageConf());
 
-            $view->with(compact('page'));
+            $view->with(compact('layadmin', 'page'));
         });
 
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
