@@ -18,7 +18,7 @@ class PageComposer
     public function compose(View $view)
     {
         $pageUid = $this->getPageUid();
-        $pageConf = Arr::get(config('layadmin'), Route::currentRouteName());
+        $pageConf = $this->getPageConf();
 
         $page = array_merge(['uid' => $pageUid], $pageConf);
 

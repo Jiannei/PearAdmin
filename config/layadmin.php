@@ -11,7 +11,7 @@ return [
                 'layadmin/css/admin.css',
             ],
             'scripts' => [
-                'admin/index.js',
+                'admin/js/index.js',
             ],
         ],
     ],
