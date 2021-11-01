@@ -49,7 +49,7 @@ class LaravelServiceProvider extends ServiceProvider
                 'styles' => [],
                 'scripts' => [],
                 'config' => [],
-            ], LayAdmin::getPageConf());
+            ], LayAdmin::getPageConfig());
 
             $view->with(compact('layadmin', 'page'));
         });
