@@ -1,4 +1,5 @@
 {
+    "layout": "base",
     "title": "表单生成器",
     "styles": [
         "admin/css/code.css"

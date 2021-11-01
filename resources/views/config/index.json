@@ -1,4 +1,5 @@
 {
+    "layout": "base",
     "title": "LayAdmin",
     "styles": [
         "layadmin/css/loader.css",
