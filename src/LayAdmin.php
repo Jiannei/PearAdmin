@@ -11,9 +11,9 @@
 
 namespace Jiannei\LayAdmin;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
+use Jiannei\LayAdmin\Exceptions\InvalidPageConfException;
+use Jiannei\LayAdmin\Exceptions\InvalidPagePathException;
 
 class LayAdmin
 {
@@ -24,26 +24,57 @@ class LayAdmin
      */
     public function version()
     {
-        return 'v1.0.4';
+        return 'v2.2.0';
     }
 
     /**
-     * Gets the unique ID of the page.
+     * 获取页面的唯一ID
      *
      * @return string
+     * @throws InvalidPagePathException
      */
     public function getPageUid()
     {
-        return 'LAY-'.Str::replace('.', '-', Route::currentRouteName());
+        return 'LAY-'.implode('-', $this->getPagePath());
     }
 
+
     /**
-     * Get page configurations.
+     * 获取视图页面配置
      *
      * @return array|\ArrayAccess|mixed
+     * @throws InvalidPageConfException
+     * @throws InvalidPagePathException
      */
     public function getPageConf()
     {
-        return Arr::get(config('layadmin'), 'page.'.Route::currentRouteName(), []);
+        $pagePath = $this->getPagePath();
+
+        $confPath = implode(DIRECTORY_SEPARATOR, $pagePath);
+        if (!file_exists($conf = resource_path("config/{$confPath}.json"))) {
+            throw new InvalidPageConfException("视图配置文件不存在");
+        }
+
+        return json_decode(file_get_contents($conf), true) ?? [];
+    }
+
+    /**
+     * 获取页面的视图路径
+     *
+     * @return mixed
+     * @throws InvalidPagePathException
+     */
+    protected function getPagePath()
+    {
+        $pagePathPrefix = Config::get('layadmin.page_path_prefix', 'page');
+
+        $segments = optional(request())->segments();
+        if (count($segments) < 2 || !isset($segments[0]) || $segments[0] !== $pagePathPrefix) {
+            throw new InvalidPagePathException("视图路径前缀错误");
+        }
+
+        array_shift($segments);
+
+        return $segments;
     }
 }

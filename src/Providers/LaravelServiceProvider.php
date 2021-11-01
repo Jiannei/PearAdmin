@@ -11,6 +11,7 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Jiannei\LayAdmin\Support\Facades\LayAdmin;
@@ -37,10 +38,11 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        // todo 每个组件都会触发一次，待优化
         View::composer('*', function (\Illuminate\View\View $view) {
-            $layadmin = [
+            $layadmin = array_merge(Config::get('layadmin'), [
                 'version' => LayAdmin::version(),
-            ];
+            ]);
 
             $page = array_merge([
                 'uid' => LayAdmin::getPageUid(),

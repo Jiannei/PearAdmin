@@ -29,6 +29,7 @@
     </script>
 
     {{-- Page scripts  --}}
+    <script src="{{ asset('layadmin/component/app.js') }}"></script>
     @foreach($page['scripts'] as $src)
         <script src="{{ asset($src) }}"></script>
     @endforeach
