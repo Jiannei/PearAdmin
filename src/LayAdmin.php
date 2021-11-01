@@ -11,6 +11,7 @@
 
 namespace Jiannei\LayAdmin;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfException;
 use Jiannei\LayAdmin\Exceptions\InvalidPagePathException;
@@ -56,7 +57,7 @@ class LayAdmin
             $confPath = implode(DIRECTORY_SEPARATOR, explode('.', $confPath));
         }
 
-        if (! file_exists($conf = resource_path("config/{$confPath}.json"))) {
+        if (! file_exists($conf = resource_path("views/config/{$confPath}.json"))) {
             throw new InvalidPageConfException('视图配置文件不存在');
         }
 
@@ -72,10 +73,18 @@ class LayAdmin
      */
     protected function getPagePath()
     {
-        $pagePathPrefix = Config::get('layadmin.page_path_prefix', 'page');
-
+        $layadminConfig = Config::get('layadmin');
         $segments = optional(request())->segments();
-        if (count($segments) < 2 || ! isset($segments[0]) || $segments[0] !== $pagePathPrefix) {
+
+        $pagePathPrefix = Arr::get($layadminConfig,'page.path_prefix');
+
+        // 后台主页
+        if (empty($segments)) {
+            $indexPagePath = Arr::get($layadminConfig,'page.home');
+            $segments = [$pagePathPrefix,$indexPagePath];
+        }
+
+        if (count($segments) < 2 || ! isset($segments[0]) || $segments[0] !== Config::get('layadmin.page_path.prefix', 'page')) {
             throw new InvalidPagePathException('视图路径前缀错误');
         }
 

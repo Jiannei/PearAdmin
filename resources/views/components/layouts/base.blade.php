@@ -22,6 +22,7 @@
     {{-- 全局 scripts --}}
     <script src="{{ asset('layadmin/component/layui/layui.js') }}"></script>
     <script src="{{ asset('layadmin/component/pear/pear.js') }}"></script>
+    <script src="{{ asset('layadmin/component/lodash.min.js') }}"></script>
     <script>
         layui.use(['context'], function () {
             layui.context.put("layadmin", JSON.stringify(@json(array_merge($layadmin,['page' => $page]),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)))
