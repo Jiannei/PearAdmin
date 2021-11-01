@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
 /**
  * @method static string version()
  * @method static string getPageUid()
- * @method static array getPageConfig()
+ * @method static array getPageConfig(string $path = null)
+ * @method static string getPageConfigPath(string $path = null)
  *
  * @see \Jiannei\LayAdmin\LayAdmin
  */

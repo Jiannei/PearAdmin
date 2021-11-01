@@ -48,20 +48,36 @@ class LayAdmin
      * @throws InvalidPageConfException
      * @throws InvalidPagePathException
      */
-    public function getPageConfig(string $confPath = null)
+    public function getPageConfig(string $path = null)
     {
-        if (is_null($confPath)) {
+       $configPath = $this->getPageConfigPath($path);
+
+        return json_decode(file_get_contents($configPath), true) ?? [];
+    }
+
+
+    /**
+     * 获取视图配置文件的路径
+     *
+     * @param  string|null  $path
+     * @return string
+     * @throws InvalidPageConfException
+     * @throws InvalidPagePathException
+     */
+    public function getPageConfigPath(string $path = null)
+    {
+        if (is_null($path)) {
             $pagePath = $this->getPagePath();
-            $confPath = implode(DIRECTORY_SEPARATOR, $pagePath);
+            $path = implode(DIRECTORY_SEPARATOR, $pagePath);
         } else {
-            $confPath = implode(DIRECTORY_SEPARATOR, explode('.', $confPath));
+            $path = implode(DIRECTORY_SEPARATOR, explode('.', $path));
         }
 
-        if (! file_exists($conf = resource_path("views/config/{$confPath}.json"))) {
+        if (! file_exists($configPath = resource_path("views/config/{$path}.json"))) {
             throw new InvalidPageConfException('视图配置文件不存在');
         }
 
-        return json_decode(file_get_contents($conf), true) ?? [];
+        return $configPath;
     }
 
     /**
