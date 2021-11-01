@@ -10,7 +10,7 @@
  */
 
 return [
-    'page_path_prefix' => 'page',// 视图路由路径前缀，需要与视图配置文件的路径对应
+    'page_path_prefix' => 'page', // 视图路由路径前缀，需要与视图配置文件的路径对应
 
     // 后台配置
     'title' => env('APP_NAME', 'LayAdmin'),

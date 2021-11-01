@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-if (!function_exists('layadmin_version')) {
+if (! function_exists('layadmin_version')) {
     /**
      * Get Lay Admin version.
      *
@@ -21,7 +21,7 @@ if (!function_exists('layadmin_version')) {
     }
 }
 
-if (!function_exists('layadmin_page_config')) {
+if (! function_exists('layadmin_page_config')) {
     /**
      * Get page config.
      *
