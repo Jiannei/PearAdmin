@@ -76,12 +76,12 @@ class LayAdmin
         $layadminConfig = Config::get('layadmin');
         $segments = optional(request())->segments();
 
-        $pagePathPrefix = Arr::get($layadminConfig,'page.path_prefix');
+        $pagePathPrefix = Arr::get($layadminConfig, 'page.path_prefix');
 
         // 后台主页
         if (empty($segments)) {
-            $indexPagePath = Arr::get($layadminConfig,'page.home');
-            $segments = [$pagePathPrefix,$indexPagePath];
+            $indexPagePath = Arr::get($layadminConfig, 'page.home');
+            $segments = [$pagePathPrefix, $indexPagePath];
         }
 
         if (count($segments) < 2 || ! isset($segments[0]) || $segments[0] !== Config::get('layadmin.page_path.prefix', 'page')) {
