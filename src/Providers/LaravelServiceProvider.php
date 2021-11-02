@@ -56,7 +56,7 @@ class LaravelServiceProvider extends ServiceProvider
                 'config_path' => LayAdmin::getPageConfigPath(),
                 'styles' => [],
                 'scripts' => [],
-                'config' => [],
+                'components' => [],
             ], LayAdmin::getPageConfig());
 
             $view->with(compact('layadmin', 'page'));
