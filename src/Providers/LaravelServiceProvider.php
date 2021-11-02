@@ -38,7 +38,14 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        // todo 每个组件都会触发一次，待优化
+        $this->setupViewData();
+
+        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
+    }
+
+    protected function setupViewData()
+    {
+        // todo 待优化
         View::composer('*', function (\Illuminate\View\View $view) {
             $layadmin = array_merge(Config::get('layadmin'), [
                 'version' => LayAdmin::version(),
@@ -54,7 +61,5 @@ class LaravelServiceProvider extends ServiceProvider
 
             $view->with(compact('layadmin', 'page'));
         });
-
-        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
     }
 }

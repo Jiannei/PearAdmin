@@ -11,7 +11,7 @@
 
 namespace Jiannei\LayAdmin\Exceptions;
 
-class InvalidPageConfException extends \Exception
+class InvalidPageConfigException extends \Exception
 {
     public function __construct($message)
     {

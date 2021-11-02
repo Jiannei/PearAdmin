@@ -4,7 +4,7 @@ layui.use(['admin', 'popup', 'context'], function () {
 
   var layadmin = JSON.parse(layui.context.get('layadmin'));
 
-  admin.render(layadmin.page.config);
+  admin.render(layadmin.page.components);
 
   // 登出逻辑
   admin.logout(function () {

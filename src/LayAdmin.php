@@ -13,8 +13,9 @@ namespace Jiannei\LayAdmin;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use Jiannei\LayAdmin\Exceptions\InvalidPageConfException;
+use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 use Jiannei\LayAdmin\Exceptions\InvalidPagePathException;
+use Jiannei\LayAdmin\Exceptions\InvalidTableConfigException;
 
 class LayAdmin
 {
@@ -45,8 +46,9 @@ class LayAdmin
      *
      * @return array|\ArrayAccess|mixed
      *
-     * @throws InvalidPageConfException
+     * @throws InvalidPageConfigException
      * @throws InvalidPagePathException
+     * @throws InvalidTableConfigException
      */
     public function getPageConfig(string $path = null)
     {
@@ -61,7 +63,7 @@ class LayAdmin
      *
      * @param  string|null  $path
      * @return string
-     * @throws InvalidPageConfException
+     * @throws InvalidPageConfigException
      * @throws InvalidPagePathException
      */
     public function getPageConfigPath(string $path = null)
@@ -74,7 +76,7 @@ class LayAdmin
         }
 
         if (! file_exists($configPath = resource_path("views/config/{$path}.json"))) {
-            throw new InvalidPageConfException('视图配置文件不存在');
+            throw new InvalidPageConfigException('视图配置文件不存在');
         }
 
         return $configPath;

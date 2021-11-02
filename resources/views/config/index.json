@@ -8,7 +8,7 @@
     "scripts": [
         "admin/js/index.js"
     ],
-    "config": {
+    "components": {
         "logo": {
             "title": "Lay Admin",
             "image": "/admin/images/logo.png"
