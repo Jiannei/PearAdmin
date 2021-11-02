@@ -45,6 +45,11 @@ return [
     ],
 
     'select' => [
-
+        'response' => [
+            'statusCode' => 200,
+            'statusName' => 'code',
+            'msgName' => 'message',
+            'dataName' => 'data',
+        ],
     ],
 ];

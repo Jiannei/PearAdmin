@@ -1,9 +1,11 @@
-layui.use(['context', 'table', 'select', 'toast'], function () {
+layui.use(['context', 'table', 'select'], function () {
   var context = layui.context;
-  var toast = layui.toast;
+  var select = layui.select;
 
   try {
     var layadmin = JSON.parse(context.get('layadmin'));
+
+    select.config(layadmin.select)
 
     var pageConfig = layadmin.page;// 页面配置
 
@@ -30,14 +32,14 @@ layui.use(['context', 'table', 'select', 'toast'], function () {
         even: tableConfig.even,
       })
 
-      var pageTableConfig = _.get(pageConfig, 'config.table', false)
+      var pageTableConfig = _.get(pageConfig, 'components.table', false)
       if (!pageTableConfig) {
-        throw new Error('请检查页面配置中是否有准确设置 table')
+        throw new Error('页面配置文件中未准确设置表格参数！')
       }
 
-      table.render(pageConfig.config.table);
+      table.render(pageTableConfig);
     }
   } catch (exception) {
-    toast.error({title: "页面错误", position: 'topRight', message: exception.message})
+    console.log(exception.message)
   }
 })
