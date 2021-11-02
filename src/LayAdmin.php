@@ -48,13 +48,16 @@ class LayAdmin
      *
      * @throws InvalidPageConfigException
      * @throws InvalidPagePathException
-     * @throws InvalidTableConfigException
      */
     public function getPageConfig(string $path = null)
     {
-       $configPath = $this->getPageConfigPath($path);
+        $configPath = $this->getPageConfigPath($path);
 
-        return json_decode(file_get_contents($configPath), true) ?? [];
+        try {
+            return json_decode(file_get_contents($configPath), true,512,JSON_THROW_ON_ERROR) ?? [];
+        } catch (\JsonException $exception) {
+            throw new InvalidPageConfigException('视图配置解析错误：'.$exception->getMessage());
+        }
     }
 
 
