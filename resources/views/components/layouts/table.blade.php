@@ -8,7 +8,7 @@
                         @foreach($search['items'] as $k => $formItem)
                             {{-- todo 换行限制--}}
                             <div class="layui-form-item layui-inline">
-                                <label class="layui-form-label" for="{{ $formItem['id'] }}"></label>
+                                <label class="layui-form-label" for="{{ $formItem['id'] }}">{{ $formItem['label'] }}</label>
                                 <div class="layui-input-inline">
                                     @switch($formItem['type'])
                                         @case('text')
@@ -40,7 +40,7 @@
     {{-- 数据表格  --}}
     <div class="layui-card">
         <div class="layui-card-body">
-            <table id="{{ $page['elem'] }}" lay-filter="{{ $page['elem'] }}"></table>
+            <table id="{{ $page['components']['table']['elem'] }}" lay-filter="{{ $page['components']['table']['elem'] }}"></table>
         </div>
     </div>
 </x-layadmin::layouts.base>
