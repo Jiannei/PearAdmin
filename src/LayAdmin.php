@@ -15,7 +15,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 use Jiannei\LayAdmin\Exceptions\InvalidPagePathException;
-use Jiannei\LayAdmin\Exceptions\InvalidTableConfigException;
 
 class LayAdmin
 {
@@ -54,18 +53,18 @@ class LayAdmin
         $configPath = $this->getPageConfigPath($path);
 
         try {
-            return json_decode(file_get_contents($configPath), true,512,JSON_THROW_ON_ERROR) ?? [];
+            return json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR) ?? [];
         } catch (\JsonException $exception) {
             throw new InvalidPageConfigException('视图配置解析错误：'.$exception->getMessage());
         }
     }
 
-
     /**
-     * 获取视图配置文件的路径
+     * 获取视图配置文件的路径.
      *
      * @param  string|null  $path
      * @return string
+     *
      * @throws InvalidPageConfigException
      * @throws InvalidPagePathException
      */
