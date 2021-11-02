@@ -52,17 +52,17 @@ class LayAdmin
      */
     public function getPageConfig(string $path = null)
     {
-       $configPath = $this->getPageConfigPath($path);
+        $configPath = $this->getPageConfigPath($path);
 
         return json_decode(file_get_contents($configPath), true) ?? [];
     }
 
-
     /**
-     * 获取视图配置文件的路径
+     * 获取视图配置文件的路径.
      *
      * @param  string|null  $path
      * @return string
+     *
      * @throws InvalidPageConfigException
      * @throws InvalidPagePathException
      */
