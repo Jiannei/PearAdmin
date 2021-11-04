@@ -12,7 +12,6 @@
 namespace Jiannei\LayAdmin;
 
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
-use Jiannei\LayAdmin\Exceptions\InvalidPagePathException;
 
 class LayAdmin
 {
@@ -32,7 +31,6 @@ class LayAdmin
      * @return array|\ArrayAccess|mixed
      *
      * @throws InvalidPageConfigException
-     * @throws InvalidPagePathException
      */
     public function getPageConfig()
     {
@@ -51,7 +49,6 @@ class LayAdmin
      * @return string
      *
      * @throws InvalidPageConfigException
-     * @throws InvalidPagePathException
      */
     public function getPageConfigPath()
     {
