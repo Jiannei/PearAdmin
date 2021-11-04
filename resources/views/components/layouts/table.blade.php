@@ -19,8 +19,7 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
-                    <div class="layui-form-item">
+
                         <div class="layui-form-item layui-inline">
                             <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="{{ $search['submit']['lay-filter'] }}">
                                 <i class="layui-icon {{ $search['submit']['icon'] }}"></i>
@@ -40,7 +39,9 @@
     {{-- 数据表格  --}}
     <div class="layui-card">
         <div class="layui-card-body">
-            <table id="{{ $page['components']['table']['elem'] }}" lay-filter="{{ $page['components']['table']['elem'] }}"></table>
+            <table id="{{ str_replace('#','',$page['components']['table']['elem']) }}" lay-filter="{{ str_replace('#','',$page['components']['table']['elem']) }}"></table>
         </div>
     </div>
+
+    {{ $slot }}
 </x-layadmin::layouts.base>
