@@ -22,7 +22,7 @@ class LayAdmin
      */
     public function version()
     {
-        return 'v2.4.0';
+        return 'v2.4.1';
     }
 
     /**
