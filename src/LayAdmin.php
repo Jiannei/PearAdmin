@@ -39,7 +39,7 @@ class LayAdmin
         try {
             return json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR) ?? [];
         } catch (\JsonException $exception) {
-            throw new InvalidPageConfigException('视图配置解析错误：'.$exception->getMessage());
+            throw new InvalidPageConfigException('View config json file parse error：'.$exception->getMessage());
         }
     }
 
@@ -52,10 +52,18 @@ class LayAdmin
      */
     public function getPageConfigPath()
     {
-        $pageConfigPath = base_path('public/').optional(request())->path().'.json';
+        $paths = explode('/', optional(request())->path());
 
-        if (! file_exists($pageConfigPath)) {
-            throw new InvalidPageConfigException("视图配置文件[$pageConfigPath]不存在");
+        if (current($paths) !== config('layadmin.path_prefix')) {
+            throw new InvalidPageConfigException("Route path prefix error.");
+        }
+
+        array_splice($paths, 1, 0, 'config');
+
+        $pageConfigPath = base_path('public/').implode(DIRECTORY_SEPARATOR, $paths).'.json';
+
+        if (!file_exists($pageConfigPath)) {
+            throw new InvalidPageConfigException("View config json file [$pageConfigPath] not exist.");
         }
 
         return $pageConfigPath;
