@@ -49,6 +49,7 @@ class LaravelServiceProvider extends ServiceProvider
         View::composer('*', function (\Illuminate\View\View $view) {
             $layadmin = array_merge(Config::get('layadmin'), [
                 'version' => LayAdmin::version(),
+                'request' => optional(request())->all() ?: (object)[]
             ]);
 
             $page = array_merge([
