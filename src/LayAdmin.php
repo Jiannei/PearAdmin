@@ -77,11 +77,11 @@ class LayAdmin
             $path = implode(DIRECTORY_SEPARATOR, explode('.', $path));
         }
 
-        if (! file_exists($configPath = resource_path("views/config/{$path}.json"))) {
+        if (! file_exists($pageConfigPath = resource_path("views/config/{$path}.json")) && ! file_exists($pageConfigPath = resource_path("views/vendor/layadmin/config/{$path}.json"))) {
             throw new InvalidPageConfigException('视图配置文件不存在');
         }
 
-        return $configPath;
+        return $pageConfigPath;
     }
 
     /**

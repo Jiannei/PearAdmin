@@ -31,7 +31,7 @@ class LaravelServiceProvider extends ServiceProvider
             ], 'layadmin-config');
 
             $this->publishes([
-                dirname(__DIR__, 2).'/resources/views/' => resource_path('views'),
+                dirname(__DIR__, 2).'/resources/views/' => resource_path('views/vendor/layadmin'),
             ], 'layadmin-blades');
         }
     }
