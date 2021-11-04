@@ -6,7 +6,7 @@
         "layadmin/css/admin.css"
     ],
     "scripts": [
-        "admin/js/index.js"
+        "admin/js/home.js"
     ],
     "components": {
         "logo": {

@@ -24,7 +24,7 @@ class LayAdmin
      */
     public function version()
     {
-        return 'v2.3.1';
+        return 'v2.3.2';
     }
 
     /**
@@ -76,8 +76,8 @@ class LayAdmin
             $path = implode(DIRECTORY_SEPARATOR, explode('.', $path));
         }
 
-        if (! file_exists($pageConfigPath = resource_path("views/config/{$path}.json")) && ! file_exists($pageConfigPath = resource_path("views/vendor/layadmin/config/{$path}.json"))) {
-            throw new InvalidPageConfigException('视图配置文件不存在');
+        if (! file_exists($pageConfigPath = resource_path("views/config/{$path}.json"))) {
+            throw new InvalidPageConfigException("视图配置文件[views/config/{$path}.json]不存在");
         }
 
         return $pageConfigPath;
@@ -97,6 +97,8 @@ class LayAdmin
         if (count($segments) < 2 || ! isset($segments[0]) || $segments[0] !== Config::get('layadmin.path_prefix', 'admin')) {
             throw new InvalidPagePathException('视图路径前缀错误');
         }
+
+        array_shift($segments);
 
         return $segments;
     }
