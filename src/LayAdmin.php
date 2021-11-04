@@ -11,7 +11,6 @@
 
 namespace Jiannei\LayAdmin;
 
-use Illuminate\Support\Facades\Config;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 use Jiannei\LayAdmin\Exceptions\InvalidPagePathException;
 
@@ -35,9 +34,9 @@ class LayAdmin
      * @throws InvalidPageConfigException
      * @throws InvalidPagePathException
      */
-    public function getPageConfig(string $path = null)
+    public function getPageConfig()
     {
-        $configPath = $this->getPageConfigPath($path);
+        $configPath = $this->getPageConfigPath();
 
         try {
             return json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR) ?? [];
@@ -49,45 +48,19 @@ class LayAdmin
     /**
      * 获取视图配置文件的路径.
      *
-     * @param  string|null  $path
      * @return string
      *
      * @throws InvalidPageConfigException
      * @throws InvalidPagePathException
      */
-    public function getPageConfigPath(string $path = null)
+    public function getPageConfigPath()
     {
-        if (is_null($path)) {
-            $pagePath = $this->getPagePath();
-            $path = implode(DIRECTORY_SEPARATOR, $pagePath);
-        } else {
-            $path = implode(DIRECTORY_SEPARATOR, explode('.', $path));
-        }
+        $pageConfigPath = base_path('public/').optional(request())->path().'.json';
 
-        if (! file_exists($pageConfigPath = resource_path("views/config/{$path}.json"))) {
-            throw new InvalidPageConfigException("视图配置文件[views/config/{$path}.json]不存在");
+        if (! file_exists($pageConfigPath)) {
+            throw new InvalidPageConfigException("视图配置文件[$pageConfigPath]不存在");
         }
 
         return $pageConfigPath;
-    }
-
-    /**
-     * 获取页面的视图路径.
-     *
-     * @return mixed
-     *
-     * @throws InvalidPagePathException
-     */
-    protected function getPagePath()
-    {
-        $segments = optional(request())->segments();
-
-        if (count($segments) < 2 || ! isset($segments[0]) || $segments[0] !== Config::get('layadmin.path_prefix', 'admin')) {
-            throw new InvalidPagePathException('视图路径前缀错误');
-        }
-
-        array_shift($segments);
-
-        return $segments;
     }
 }

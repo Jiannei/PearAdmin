@@ -24,7 +24,7 @@ class LaravelServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([dirname(__DIR__, 2).'/resources/assets' => public_path('layadmin')], 'layadmin-assets');
-            $this->publishes([dirname(__DIR__, 2).'/samples' => public_path('admin')], 'layadmin-samples');
+            $this->publishes([dirname(__DIR__, 2).'/samples' => public_path('admin')], 'layadmin-samples');// todo config('layadmin.path_prefix')
 
             $this->publishes([
                 dirname(__DIR__, 2).'/config/layadmin.php' => config_path('layadmin.php'),
@@ -53,7 +53,6 @@ class LaravelServiceProvider extends ServiceProvider
             ]);
 
             $page = array_merge([
-                'config_path' => LayAdmin::getPageConfigPath(),
                 'styles' => [],
                 'scripts' => [],
                 'components' => [],
