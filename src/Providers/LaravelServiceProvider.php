@@ -53,7 +53,6 @@ class LaravelServiceProvider extends ServiceProvider
             ]);
 
             $page = array_merge([
-                'uid' => LayAdmin::getPageUid(),
                 'config_path' => LayAdmin::getPageConfigPath(),
                 'styles' => [],
                 'scripts' => [],

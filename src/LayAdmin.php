@@ -28,18 +28,6 @@ class LayAdmin
     }
 
     /**
-     * 获取页面的唯一ID.
-     *
-     * @return string
-     *
-     * @throws InvalidPagePathException
-     */
-    public function getPageUid()
-    {
-        return 'LAY-'.implode('-', $this->getPagePath());
-    }
-
-    /**
      * 获取视图页面配置.
      *
      * @return array|\ArrayAccess|mixed

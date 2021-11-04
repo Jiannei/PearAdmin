@@ -3,7 +3,7 @@ layui.use(['context', 'table', 'select'], function () {
   var select = layui.select;
 
   try {
-    var layadmin = JSON.parse(context.get('layadmin'));
+    window.layadmin = JSON.parse(context.get('layadmin'));
 
     select.config(layadmin.select)
 

@@ -16,7 +16,7 @@
     {{-- 自定义 CSS   --}}
     @stack('style')
 </head>
-<body class="{{ $attributes->get('class') }}" background="{{ $attributes->get('background') }}" style="{{ $attributes->get('style') }}" data-uid="{{ $page['uid'] }}">
+<body class="{{ $attributes->get('class') }}" background="{{ $attributes->get('background') }}" style="{{ $attributes->get('style') }}">
     {{ $slot }}
 
     {{-- 全局 scripts --}}
