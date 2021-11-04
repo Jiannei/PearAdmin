@@ -60,7 +60,9 @@ class LayAdmin
 
         array_splice($paths, 1, 0, 'config');
 
-        $pageConfigPath = base_path('public/').implode(DIRECTORY_SEPARATOR, $paths).'.json';
+        $pageConfigPath = base_path('public/').collect($paths)->map(function ($path) {
+                return explode('.', $path);
+            })->flatten()->join(DIRECTORY_SEPARATOR).'.json';
 
         if (!file_exists($pageConfigPath)) {
             throw new InvalidPageConfigException("View config json file [$pageConfigPath] not exist.");
