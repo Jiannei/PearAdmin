@@ -11,7 +11,6 @@
 
 namespace Jiannei\LayAdmin;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 use Jiannei\LayAdmin\Exceptions\InvalidPagePathException;
@@ -25,7 +24,7 @@ class LayAdmin
      */
     public function version()
     {
-        return 'v2.2.0';
+        return 'v2.3.1';
     }
 
     /**
@@ -93,22 +92,11 @@ class LayAdmin
      */
     protected function getPagePath()
     {
-        $layadminConfig = Config::get('layadmin');
         $segments = optional(request())->segments();
 
-        $pagePathPrefix = Arr::get($layadminConfig, 'page.path_prefix');
-
-        // 后台主页
-        if (empty($segments)) {
-            $indexPagePath = Arr::get($layadminConfig, 'page.home');
-            $segments = [$pagePathPrefix, $indexPagePath];
-        }
-
-        if (count($segments) < 2 || ! isset($segments[0]) || $segments[0] !== Config::get('layadmin.page_path.prefix', 'page')) {
+        if (count($segments) < 2 || ! isset($segments[0]) || $segments[0] !== Config::get('layadmin.path_prefix', 'admin')) {
             throw new InvalidPagePathException('视图路径前缀错误');
         }
-
-        array_shift($segments);
 
         return $segments;
     }

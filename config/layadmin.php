@@ -11,15 +11,9 @@
 
 return [
     // 后台配置
-    'title' => env('APP_NAME', 'LayAdmin'),
+    'path_prefix' => env('ADMIN_PATH_PREFIX', 'admin'), // 视图路由路径前缀，需要与视图配置文件的路径对应
 
-    // 视图页面配置
-    'page' => [
-        'path_prefix' => 'page', // 视图路由路径前缀，需要与视图配置文件的路径对应
-
-        'home' => 'index', // 后台主页视图名称
-        'login' => 'login', // 登录页视图名称
-    ],
+    'title' => env('ADMIN_TITLE', 'LayAdmin'),
 
     // layui 组件配置
     'table' => [
