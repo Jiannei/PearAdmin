@@ -7,26 +7,37 @@
                     <div class="mainBox">
                         <div class="main-container">
                             @foreach($search['items'] as $k => $formItem)
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label" for="{{ $formItem['id'] }}">{{ $formItem['label'] }}</label>
-                                    <div class="layui-input-block">
-                                        @if($formItem['element'] === 'input' || $formItem['element'] === 'laydate')
-                                            @switch($formItem['type'])
-                                                @case('text')
-                                                <input type="{{ $formItem['type'] }}" id="{{ $formItem['id'] }}" name="{{ $formItem['name'] }}"
-                                                       placeholder="{{ $formItem['placeholder'] }}"
-                                                       class="layui-input">
-                                                @break;
-                                            @endswitch
-                                        @endif
-
-                                        @if($formItem['element'] === 'select')
-                                            @if($formItem['type'] === 'radio')
-                                                <select name="{{ $formItem['name'] }}" id="{{ $formItem['id'] }}"></select>
-                                            @endif
-                                        @endif
+                                @if($formItem['element'] === 'laydate')
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label" for="{{ $formItem['id'] }}">{{ $formItem['label'] }}</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" id="{{ $formItem['id'] }}" name="{{ $formItem['name'] }}[]" class="layui-input"
+                                                   placeholder="{{ $formItem['placeholder'] }}"
+                                                   autocomplete="off">
+                                        </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label" for="{{ $formItem['id'] }}">{{ $formItem['label'] }}</label>
+                                        <div class="layui-input-block">
+                                            @if($formItem['element'] === 'input')
+                                                @switch($formItem['type'])
+                                                    @case('text')
+                                                    <input type="{{ $formItem['type'] }}" id="{{ $formItem['id'] }}" name="{{ $formItem['name'] }}"
+                                                           placeholder="{{ $formItem['placeholder'] }}"
+                                                           class="layui-input">
+                                                    @break;
+                                                @endswitch
+                                            @endif
+
+                                            @if($formItem['element'] === 'select')
+                                                @if($formItem['type'] === 'radio')
+                                                    <select name="{{ $formItem['name'] }}" id="{{ $formItem['id'] }}"></select>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     </div>
