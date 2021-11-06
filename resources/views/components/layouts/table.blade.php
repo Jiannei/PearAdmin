@@ -1,36 +1,16 @@
 <x-layadmin::layouts.base class="pear-container">
     {{--搜索区--}}
     @if($search = $page['components']['search'] ?? [])
-        <div class="layui-card">
-            <div class="layui-card-body">
+        <div class="layui-hide">
+            <div id="LAY_SEARCH">
                 <form class="layui-form {{ $search['class'] ?? '' }}" action="javascript:void(0);">
-                    <div class="layui-form-item">
-                        @foreach($search['items'] as $k => $formItem)
-                            {{-- todo 换行限制--}}
-                            @if($formItem['element'] === 'laydate')
-                                <div class="layui-form-item layui-inline">
+                    <div class="mainBox">
+                        <div class="main-container">
+                            @foreach($search['items'] as $k => $formItem)
+                                <div class="layui-form-item">
                                     <label class="layui-form-label" for="{{ $formItem['id'] }}">{{ $formItem['label'] }}</label>
-                                    @if($range = $formItem['range'] ?? [])
-                                        <div class="layui-inline" id="{{ $formItem['id'] }}">
-                                            <div class="layui-input-inline">
-                                                <input type="text" id="{{ str_replace('#','',$range[0]) }}" name="{{ $formItem['name'] }}[]" class="layui-input"
-                                                       placeholder="{{ $formItem['placeholder'][0] ?? '开始时间'}}"
-                                                       autocomplete="off">
-                                            </div>
-                                            <div class="layui-form-mid">-</div>
-                                            <div class="layui-input-inline">
-                                                <input type="text" id="{{ str_replace('#','',$range[1]) }}" name="{{ $formItem['name'] }}[]" class="layui-input"
-                                                       placeholder="{{ $formItem['placeholder'][1] ?? '结束时间'}}"
-                                                       autocomplete="off">
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            @else
-                                <div class="layui-form-item layui-inline">
-                                    <label class="layui-form-label" for="{{ $formItem['id'] }}">{{ $formItem['label'] }}</label>
-                                    <div class="layui-input-inline">
-                                        @if($formItem['element'] === 'input')
+                                    <div class="layui-input-block">
+                                        @if($formItem['element'] === 'input' || $formItem['element'] === 'laydate')
                                             @switch($formItem['type'])
                                                 @case('text')
                                                 <input type="{{ $formItem['type'] }}" id="{{ $formItem['id'] }}" name="{{ $formItem['name'] }}"
@@ -47,10 +27,11 @@
                                         @endif
                                     </div>
                                 </div>
-                            @endif
-                        @endforeach
-
-                        <div class="layui-form-item layui-inline">
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="button-container">
                             <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="{{ $search['submit']['lay-filter'] }}">
                                 <i class="layui-icon {{ $search['submit']['icon'] }}"></i>
                                 {{ $search['submit']['label'] }}
