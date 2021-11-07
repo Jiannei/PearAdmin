@@ -20,8 +20,8 @@ class LumenServiceProvider extends LaravelServiceProvider
 
     public function boot()
     {
-        $this->setupViewData();
-
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
+
+        $this->setupViewData();
     }
 }

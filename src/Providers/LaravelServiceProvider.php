@@ -38,15 +38,15 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->setupViewData();
-
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
+
+        $this->setupViewData();
     }
 
     protected function setupViewData()
     {
         // todo 待优化
-        View::composer('*', function (\Illuminate\View\View $view) {
+        View::composer('layadmin::components.*', function (\Illuminate\View\View $view) {
             $layadmin = array_merge(Config::get('layadmin'), [
                 'version' => LayAdmin::version(),
                 'request' => optional(request())->all() ?: (object) [],
