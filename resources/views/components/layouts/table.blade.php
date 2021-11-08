@@ -1,6 +1,6 @@
 <x-layadmin::layouts.base class="pear-container">
     {{--搜索区--}}
-    @if($search = $page['components']['search'] ?? [])
+    @if($search = $layadmin['page']['components']['search'] ?? [])
         <div class="layui-hide">
             <div id="LAY_SEARCH">
                 <form class="layui-form {{ $search['class'] ?? '' }}" action="javascript:void(0);">
@@ -61,7 +61,7 @@
     {{-- 数据表格  --}}
     <div class="layui-card">
         <div class="layui-card-body">
-            <table id="{{ str_replace('#','',$page['components']['table']['elem']) }}" lay-filter="{{ str_replace('#','',$page['components']['table']['elem']) }}"></table>
+            <table id="{{ str_replace('#','',$layadmin['page']['components']['table']['elem']) }}" lay-filter="{{ str_replace('#','',$layadmin['page']['components']['table']['elem']) }}"></table>
         </div>
     </div>
 

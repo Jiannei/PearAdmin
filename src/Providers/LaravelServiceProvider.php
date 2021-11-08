@@ -18,6 +18,8 @@ use Jiannei\LayAdmin\Support\Facades\LayAdmin;
 
 class LaravelServiceProvider extends ServiceProvider
 {
+    private $layAdmin = [];
+
     public function register()
     {
         $this->mergeConfigFrom(dirname(__DIR__, 2).'/config/layadmin.php', 'layadmin');
@@ -45,20 +47,22 @@ class LaravelServiceProvider extends ServiceProvider
 
     protected function setupViewData()
     {
-        // todo 待优化
         View::composer('layadmin::components.*', function (\Illuminate\View\View $view) {
-            $layadmin = array_merge(Config::get('layadmin'), [
-                'version' => LayAdmin::version(),
-                'request' => optional(request())->all() ?: (object) [],
-            ]);
+            if (!$this->layAdmin) {
+                $page = array_merge([
+                    'styles' => [],
+                    'scripts' => [],
+                    'components' => [],
+                ], LayAdmin::getPageConfig());
 
-            $page = array_merge([
-                'styles' => [],
-                'scripts' => [],
-                'components' => [],
-            ], LayAdmin::getPageConfig());
+                $this->layAdmin = array_merge(Config::get('layadmin'), [
+                    'version' => LayAdmin::version(),
+                    'request' => optional(request())->all() ?: (object)[],
+                    'page' => $page,
+                ]);
+            }
 
-            $view->with(compact('layadmin', 'page'));
+            $view->with(['layadmin' => $this->layAdmin]);
         });
     }
 }
