@@ -11,7 +11,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label" for="{{ $formItem['id'] }}">{{ $formItem['label'] }}</label>
                                         <div class="layui-input-block">
-                                            <input type="text" id="{{ $formItem['id'] }}" name="{{ $formItem['name'] }}[]" class="layui-input"
+                                            <input type="text" id="{{ $formItem['id'] }}" name="{{ $formItem['name'] }}" class="layui-input"
                                                    placeholder="{{ $formItem['placeholder'] }}"
                                                    autocomplete="off">
                                         </div>
