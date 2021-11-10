@@ -1,0 +1,10 @@
+{
+  "layout": "base",
+  "title": "页面调试",
+  "styles": [
+    "admin/css/debug.css"
+  ],
+  "scripts": [
+    "admin/js/tool/debug.js"
+  ]
+}
