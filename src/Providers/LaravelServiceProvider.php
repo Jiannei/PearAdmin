@@ -48,7 +48,7 @@ class LaravelServiceProvider extends ServiceProvider
     protected function setupViewData()
     {
         View::composer('layadmin::components.*', function (\Illuminate\View\View $view) {
-            if (!$this->layAdmin) {
+            if (! $this->layAdmin) {
                 $page = array_merge([
                     'styles' => [],
                     'scripts' => [],
@@ -60,8 +60,8 @@ class LaravelServiceProvider extends ServiceProvider
 
                 $this->layAdmin = array_merge(Config::get('layadmin'), [
                     'version' => LayAdmin::version(),
-                    'request' => $this->app['request']->all() ?: (object)[],
-                    'referer' => ltrim($refererUrl['path'],DIRECTORY_SEPARATOR),
+                    'request' => $this->app['request']->all() ?: (object) [],
+                    'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
                     'page' => $page,
                 ]);
             }
