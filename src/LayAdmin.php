@@ -28,13 +28,14 @@ class LayAdmin
     /**
      * 获取视图页面配置.
      *
+     * @param  string|null  $path
      * @return array|\ArrayAccess|mixed
      *
      * @throws InvalidPageConfigException
      */
-    public function getPageConfig()
+    public function getPageConfig(string $path = null)
     {
-        $configPath = $this->getPageConfigPath();
+        $configPath = $this->getPageConfigPath($path);
 
         try {
             return json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR) ?? [];
@@ -46,13 +47,15 @@ class LayAdmin
     /**
      * 获取视图配置文件的路径.
      *
+     * @param  string|null  $path
      * @return string
      *
      * @throws InvalidPageConfigException
      */
-    public function getPageConfigPath()
+    public function getPageConfigPath(string $path = null)
     {
-        $paths = explode('/', optional(request())->path());
+        $requestPath = $path ?: optional(request())->path();
+        $paths = explode('/', $requestPath);
 
         if (current($paths) !== config('layadmin.path_prefix')) {
             throw new InvalidPageConfigException('Route path prefix error.');
