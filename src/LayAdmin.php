@@ -11,6 +11,7 @@
 
 namespace Jiannei\LayAdmin;
 
+use Illuminate\Support\Str;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 
 class LayAdmin
@@ -37,11 +38,15 @@ class LayAdmin
     {
         $configPath = $this->getPageConfigPath($path);
 
-        try {
-            return json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR) ?? [];
-        } catch (\JsonException $exception) {
-            throw new InvalidPageConfigException('View config json file parse error：'.$exception->getMessage());
+        if (!class_exists($enumClass = config('layadmin.enum'))) {
+            throw new InvalidPageConfigException('Page config error： layadmin config enum error');
         }
+
+        if (!method_exists($enumClass, $configPath)) {
+            throw new InvalidPageConfigException("Page config error： layadmin enum class miss [{$configPath}] method");
+        }
+
+        return $enumClass::$configPath();
     }
 
     /**
@@ -61,16 +66,6 @@ class LayAdmin
             throw new InvalidPageConfigException('Route path prefix error.');
         }
 
-        array_splice($paths, 1, 0, 'config');
-
-        $pageConfigPath = base_path('public/').collect($paths)->map(function ($path) {
-            return explode('.', $path);
-        })->flatten()->join(DIRECTORY_SEPARATOR).'.json';
-
-        if (! file_exists($pageConfigPath)) {
-            throw new InvalidPageConfigException("View config json file [$pageConfigPath] not exist.");
-        }
-
-        return $pageConfigPath;
+        return Str::camel(Str::replace('.', '_', end($paths)));
     }
 }
