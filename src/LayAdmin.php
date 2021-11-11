@@ -38,11 +38,11 @@ class LayAdmin
     {
         $configPath = $this->getPageConfigPath($path);
 
-        if (!class_exists($enumClass = config('layadmin.enum'))) {
+        if (! class_exists($enumClass = config('layadmin.enum'))) {
             throw new InvalidPageConfigException('Page config error： layadmin config enum error');
         }
 
-        if (!method_exists($enumClass, $configPath)) {
+        if (! method_exists($enumClass, $configPath)) {
             throw new InvalidPageConfigException("Page config error： layadmin enum class miss [{$configPath}] method");
         }
 
