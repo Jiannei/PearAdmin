@@ -30,7 +30,7 @@ class LaravelServiceProvider extends ServiceProvider
 
             $this->publishes([
                 dirname(__DIR__, 2).'/config/layadmin.php' => config_path('layadmin.php'),
-                dirname(__DIR__, 2).'/resources/config' => resource_path('config')
+                dirname(__DIR__, 2).'/resources/config' => resource_path('config'),
             ], 'layadmin-config');
 
             $this->publishes([
