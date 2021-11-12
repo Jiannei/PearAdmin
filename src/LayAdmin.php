@@ -61,7 +61,7 @@ class LayAdmin
             throw new InvalidPageConfigException('Route path prefix error.');
         }
 
-        $configPath = implode(DIRECTORY_SEPARATOR,explode('.',end($paths)));
+        $configPath = implode(DIRECTORY_SEPARATOR, explode('.', end($paths)));
 
         $pageConfigPath = resource_path('config/'.$configPath.'.php');
 
