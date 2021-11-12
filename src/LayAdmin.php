@@ -11,6 +11,7 @@
 
 namespace Jiannei\LayAdmin;
 
+use Illuminate\Support\Facades\View;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 
 class LayAdmin
@@ -61,8 +62,12 @@ class LayAdmin
             throw new InvalidPageConfigException('Route path prefix error.');
         }
 
-        $configPath = implode(DIRECTORY_SEPARATOR, explode('.', end($paths)));
+        $viewPath = end($paths);
+        if (!View::exists($viewPath)) {
+            $viewPath = 'errors.404';
+        }
 
+        $configPath = implode(DIRECTORY_SEPARATOR, explode('.', $viewPath));
         $pageConfigPath = resource_path('config/'.$configPath.'.php');
 
         if (! file_exists($pageConfigPath)) {
