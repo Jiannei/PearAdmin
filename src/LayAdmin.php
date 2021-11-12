@@ -27,6 +27,25 @@ class LayAdmin
     }
 
     /**
+     * Lay Admin 配置
+     *
+     * @return array
+     * @throws InvalidPageConfigException
+     */
+    public function getConfig()
+    {
+        $referer = request()->headers->get('referer', request('referer'));
+        $refererUrl = parse_url($referer);
+
+       return array_merge(\config('layadmin'), [
+            'version' => $this->version(),
+            'request' => optional(request())->all() ?: (object) [],
+            'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
+            'page' => $this->getPageConfig(),
+        ]);
+    }
+
+    /**
      * 获取视图页面配置.
      *
      * @param  string|null  $path
@@ -39,7 +58,11 @@ class LayAdmin
         $configPath = $this->getPageConfigPath($path);
 
         try {
-            return require($configPath);
+            return array_merge([
+                'styles' => [],
+                'scripts' => [],
+                'components' => [],
+            ], require($configPath));
         } catch (\Throwable $exception) {
             throw new InvalidPageConfigException('View config parse error：'.$exception->getMessage());
         }
@@ -70,7 +93,7 @@ class LayAdmin
         $configPath = implode(DIRECTORY_SEPARATOR, explode('.', $viewPath));
         $pageConfigPath = resource_path('config/'.$configPath.'.php');
 
-        if (! file_exists($pageConfigPath)) {
+        if (!file_exists($pageConfigPath)) {
             throw new InvalidPageConfigException("View config file [$pageConfigPath] not exist.");
         }
 

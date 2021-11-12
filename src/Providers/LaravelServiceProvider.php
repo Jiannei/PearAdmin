@@ -50,21 +50,7 @@ class LaravelServiceProvider extends ServiceProvider
     {
         View::composer('layadmin::components.*', function (\Illuminate\View\View $view) {
             if (! $this->layAdmin) {
-                $page = array_merge([
-                    'styles' => [],
-                    'scripts' => [],
-                    'components' => [],
-                ], LayAdmin::getPageConfig());
-
-                $referer = $this->app['request']->headers->get('referer', $this->app['request']->get('referer'));
-                $refererUrl = parse_url($referer);
-
-                $this->layAdmin = array_merge(Config::get('layadmin'), [
-                    'version' => LayAdmin::version(),
-                    'request' => $this->app['request']->all() ?: (object) [],
-                    'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
-                    'page' => $page,
-                ]);
+                $this->layAdmin = LayAdmin::getConfig();
             }
 
             $view->with(['layadmin' => $this->layAdmin]);
