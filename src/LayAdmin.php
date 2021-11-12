@@ -11,7 +11,6 @@
 
 namespace Jiannei\LayAdmin;
 
-use Illuminate\Support\Str;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 
 class LayAdmin
@@ -38,15 +37,11 @@ class LayAdmin
     {
         $configPath = $this->getPageConfigPath($path);
 
-        if (! class_exists($enumClass = config('layadmin.enum'))) {
-            throw new InvalidPageConfigException('Page config error： layadmin config enum error');
+        try {
+            return file_get_contents($configPath);
+        } catch (\Throwable $exception) {
+            throw new InvalidPageConfigException('View config parse error：'.$exception->getMessage());
         }
-
-        if (! method_exists($enumClass, $configPath)) {
-            throw new InvalidPageConfigException("Page config error： layadmin enum class miss [{$configPath}] method");
-        }
-
-        return $enumClass::$configPath();
     }
 
     /**
@@ -66,6 +61,14 @@ class LayAdmin
             throw new InvalidPageConfigException('Route path prefix error.');
         }
 
-        return Str::camel(Str::replace('.', '_', end($paths)));
+        $configPath = implode(DIRECTORY_SEPARATOR,explode('.',end($paths)));
+
+        $pageConfigPath = resource_path('config/'.$configPath.'.php');
+
+        if (! file_exists($pageConfigPath)) {
+            throw new InvalidPageConfigException("View config file [$pageConfigPath] not exist.");
+        }
+
+        return $pageConfigPath;
     }
 }
