@@ -38,7 +38,7 @@ class LayAdmin
         $configPath = $this->getPageConfigPath($path);
 
         try {
-            return file_get_contents($configPath);
+            return require($configPath);
         } catch (\Throwable $exception) {
             throw new InvalidPageConfigException('View config parse error：'.$exception->getMessage());
         }
