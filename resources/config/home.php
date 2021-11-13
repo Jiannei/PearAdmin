@@ -558,7 +558,7 @@ return [
         ],
         'other' => [
             'keepLoad' => 1200,
-            'autoHead' => true,
+            'autoHead' => false,
         ],
         'header' => [
             'message' => '/admin/data/message.json',
