@@ -23,7 +23,7 @@ layui.config({
 	treetable:"treetable",   // 树状表格
 	dtree:"dtree",			// 树结构
 	tinymce:"tinymce/tinymce", // 编辑器
-	area:"area",			// 省市级联  
+	area:"area",			// 省市级联
 	count:"count",			// 数字滚动组件
 	topBar: "topBar",		// 置顶组件
 	button: "button",		// 加载按钮
@@ -37,7 +37,8 @@ layui.config({
 	http: "http",			// ajax请求组件
 	theme: "theme",			// 主题转换
 	message: "message",     // 通知组件
-	toast: "toast"          // 消息通知
+	toast: "toast",         // 消息通知
+  slierVerify: "slierVerify",// 拖动验证
 }).use(['layer', 'theme'], function () {
 	layui.theme.changeTheme(window, false);
 });
