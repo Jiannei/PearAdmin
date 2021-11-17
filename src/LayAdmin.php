@@ -63,7 +63,7 @@ class LayAdmin
                 'styles' => [],
                 'scripts' => [],
                 'components' => [],
-            ], require($configPath));
+            ], json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR));
         } catch (\Throwable $exception) {
             throw new InvalidPageConfigException('View config parse error：'.$exception->getMessage());
         }
@@ -92,7 +92,7 @@ class LayAdmin
         }
 
         $configPath = implode(DIRECTORY_SEPARATOR, explode('.', $viewPath));
-        $pageConfigPath = resource_path('config/'.$configPath.'.php');
+        $pageConfigPath = resource_path('config/'.$configPath.'.json');
 
         if (! file_exists($pageConfigPath)) {
             throw new InvalidPageConfigException("View config file [$pageConfigPath] not exist.");
