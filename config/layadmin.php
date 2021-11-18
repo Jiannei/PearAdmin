@@ -18,7 +18,7 @@ return [
 
     'log' => [
         'debug' => [
-            'channel' => env('ADMIN_LOG_CHANNEL', 'default'),
+            'channel' => env('ADMIN_LOG_CHANNEL', 'daily'),
         ],
     ],
 
