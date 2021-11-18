@@ -32,7 +32,7 @@ layui.use(['context', 'table', 'select'], function () {
         even: tableConfig.even,
       })
 
-      var pageTableConfig = _.get(pageConfig, 'components.table', false)
+      var pageTableConfig = _.get(pageConfig, 'components.table.config', false)
       if (!pageTableConfig) {
         throw new Error('页面配置文件中未准确设置表格参数！')
       }
