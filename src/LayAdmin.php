@@ -27,34 +27,14 @@ class LayAdmin
     }
 
     /**
-     * Lay Admin 配置.
+     * 获取视图页面配置.
      *
+     * @param  string|null  $path
      * @return array
      *
      * @throws InvalidPageConfigException
      */
-    public function getConfig()
-    {
-        $referer = request()->headers->get('referer', request('referer'));
-        $refererUrl = parse_url($referer);
-
-        return array_merge(\config('layadmin'), [
-            'version' => $this->version(),
-            'request' => optional(request())->all() ?: (object) [],
-            'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
-            'page' => $this->getPageConfig(),
-        ]);
-    }
-
-    /**
-     * 获取视图页面配置.
-     *
-     * @param  string|null  $path
-     * @return array|\ArrayAccess|mixed
-     *
-     * @throws InvalidPageConfigException
-     */
-    public function getPageConfig(string $path = null)
+    public function getPageConfig(string $path)
     {
         $configPath = $this->getPageConfigPath($path);
 
@@ -77,11 +57,9 @@ class LayAdmin
      *
      * @throws InvalidPageConfigException
      */
-    public function getPageConfigPath(string $path = null)
+    public function getPageConfigPath(string $path)
     {
-        $requestPath = $path ?: optional(request())->path();
-        $paths = explode('/', $requestPath);
-
+        $paths = explode('/', $path);
         if (current($paths) !== config('layadmin.path_prefix')) {
             throw new InvalidPageConfigException('Route path prefix error.');
         }
