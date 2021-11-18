@@ -58,7 +58,7 @@ class LaravelServiceProvider extends ServiceProvider
                         'styles' => [],
                         'scripts' => [],
                         'components' => [],
-                    ],LayAdmin::getPageConfig($this->app['request']->path()));
+                    ], LayAdmin::getPageConfig($this->app['request']->path()));
 
                     $this->layAdmin = array_merge(\config('layadmin'), [
                         'version' => LayAdmin::version(),
@@ -67,7 +67,7 @@ class LaravelServiceProvider extends ServiceProvider
                         'page' => $pageConfig,
                     ]);
                 } catch (\Throwable $exception) {
-                    Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin',['page' => $exception->getMessage()]);
+                    Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['page' => $exception->getMessage()]);
                 }
             }
 
