@@ -60,7 +60,7 @@ class LayAdmin
                 'styles' => [],
                 'scripts' => [],
                 'components' => [],
-            ], json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR));
+            ], json_decode(file_get_contents($pageConfigPath), true, 512, JSON_THROW_ON_ERROR));
         } catch (\Throwable $exception) {
             throw new InvalidPageConfigException('View config parse error：'.$exception->getMessage());
         }
