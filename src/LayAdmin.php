@@ -39,11 +39,7 @@ class LayAdmin
         $configPath = $this->getPageConfigPath($path);
 
         try {
-            return array_merge([
-                'styles' => [],
-                'scripts' => [],
-                'components' => [],
-            ], json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR));
+            return json_decode(file_get_contents($configPath), true, 512, JSON_THROW_ON_ERROR);
         } catch (\Throwable $exception) {
             throw new InvalidPageConfigException('View config parse error：'.$exception->getMessage());
         }
