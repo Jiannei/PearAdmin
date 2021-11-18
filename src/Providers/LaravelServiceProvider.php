@@ -61,7 +61,7 @@ class LaravelServiceProvider extends ServiceProvider
                         'page' => LayAdmin::getPageConfig($this->app['request']->path()),
                     ]);
                 } catch (\Throwable $exception) {
-                    Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin',['page' => $exception->getMessage()]);
+                    Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['page' => $exception->getMessage()]);
                 }
             }
 
