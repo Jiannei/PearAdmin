@@ -54,17 +54,11 @@ class LaravelServiceProvider extends ServiceProvider
                     $referer = $this->app['request']->headers->get('referer', '');
                     $refererUrl = parse_url($referer);
 
-                    $pageConfig = array_merge([
-                        'styles' => [],
-                        'scripts' => [],
-                        'components' => [],
-                    ], LayAdmin::getPageConfig($this->app['request']->path()));
-
                     $this->layAdmin = array_merge(\config('layadmin'), [
                         'version' => LayAdmin::version(),
                         'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
                         'request' => $this->app['request']->all() ?: (object) [],
-                        'page' => $pageConfig,
+                        'page' => LayAdmin::getPageConfig($this->app['request']->path()),
                     ]);
                 } catch (\Throwable $exception) {
                     Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['page' => $exception->getMessage()]);
