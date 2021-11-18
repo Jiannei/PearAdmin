@@ -43,20 +43,20 @@ class LayAdmin
         }
 
         $viewPath = end($paths);
-        if (!View::exists($viewPath)) {
+        if (! View::exists($viewPath)) {
             $viewPath = 'errors.404';
         }
 
         $configPath = implode(DIRECTORY_SEPARATOR, explode('.', $viewPath));
 
         $pageConfigPath = resource_path('config/'.$configPath.'.json');
-        if (!file_exists($pageConfigPath)) {
+        if (! file_exists($pageConfigPath)) {
             throw new InvalidPageConfigException("View config file [$pageConfigPath] not exist.");
         }
 
         try {
             return array_merge([
-                'id' => Str::replace('.','-',$viewPath),
+                'id' => Str::replace('.', '-', $viewPath),
                 'styles' => [],
                 'scripts' => [],
                 'components' => [],
