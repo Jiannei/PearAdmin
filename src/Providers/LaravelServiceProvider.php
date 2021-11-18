@@ -11,6 +11,7 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Jiannei\LayAdmin\Support\Facades\LayAdmin;
@@ -49,15 +50,19 @@ class LaravelServiceProvider extends ServiceProvider
     {
         View::composer('layadmin::components.*', function (\Illuminate\View\View $view) {
             if (! $this->layAdmin) {
-                $referer = $this->app['request']->headers->get('referer', '');
-                $refererUrl = parse_url($referer);
+                try {
+                    $referer = $this->app['request']->headers->get('referer', '');
+                    $refererUrl = parse_url($referer);
 
-                $this->layAdmin = array_merge(\config('layadmin'), [
-                    'version' => LayAdmin::version(),
-                    'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
-                    'request' => $this->app['request']->all() ?: (object) [],
-                    'page' => LayAdmin::getPageConfig($this->app['request']->path()),
-                ]);
+                    $this->layAdmin = array_merge(\config('layadmin'), [
+                        'version' => LayAdmin::version(),
+                        'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
+                        'request' => $this->app['request']->all() ?: (object) [],
+                        'page' => LayAdmin::getPageConfig($this->app['request']->path()),
+                    ]);
+                } catch (\Throwable $exception) {
+                    Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin',['page' => $exception->getMessage()]);
+                }
             }
 
             $view->with(['layadmin' => $this->layAdmin]);
