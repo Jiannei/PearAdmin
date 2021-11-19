@@ -60,7 +60,7 @@ class LaravelServiceProvider extends ServiceProvider
             ]);
         } catch (\Throwable $exception) {
             // TODO 更友好提示配置错误
-            Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['exception' => $exception->getMessage(),'config' => $layadmin]);
+            Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['exception' => $exception->getMessage(), 'config' => $layadmin]);
         }
 
         $this->app['config']->set(compact('layadmin'));
