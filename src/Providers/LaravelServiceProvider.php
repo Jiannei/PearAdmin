@@ -12,14 +12,11 @@
 namespace Jiannei\LayAdmin\Providers;
 
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Jiannei\LayAdmin\Support\Facades\LayAdmin;
 
 class LaravelServiceProvider extends ServiceProvider
 {
-    private $layAdmin = [];
-
     public function register()
     {
         $this->mergeConfigFrom(dirname(__DIR__, 2).'/config/layadmin.php', 'layadmin');
@@ -48,24 +45,24 @@ class LaravelServiceProvider extends ServiceProvider
 
     protected function setupViewData()
     {
-        View::composer('layadmin::components.*', function (\Illuminate\View\View $view) {
-            if (! $this->layAdmin) {
-                try {
-                    $referer = $this->app['request']->headers->get('referer', '');
-                    $refererUrl = parse_url($referer);
+        // TODO octane
+        $layadmin = \config('layadmin');
 
-                    $this->layAdmin = array_merge(\config('layadmin'), [
-                        'version' => LayAdmin::version(),
-                        'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
-                        'request' => $this->app['request']->all() ?: (object) [],
-                        'page' => LayAdmin::getPageConfig($this->app['request']->path()),
-                    ]);
-                } catch (\Throwable $exception) {
-                    Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['page' => $exception->getMessage()]);
-                }
-            }
+        try {
+            $referer = $this->app['request']->headers->get('referer', '');
+            $refererUrl = parse_url($referer);
 
-            $view->with(['layadmin' => $this->layAdmin]);
-        });
+            $layadmin = array_merge($layadmin, [
+                'version' => LayAdmin::version(),
+                'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
+                'request' => $this->app['request']->all() ?: (object) [],
+                'page' => LayAdmin::getPageConfig($this->app['request']->path()),
+            ]);
+        } catch (\Throwable $exception) {
+            // TODO 更友好提示配置错误
+            Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['exception' => $exception->getMessage(),'config' => $layadmin]);
+        }
+
+        $this->app['config']->set(compact('layadmin'));
     }
 }

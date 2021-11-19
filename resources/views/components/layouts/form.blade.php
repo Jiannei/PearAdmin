@@ -1,5 +1,5 @@
 <x-layadmin::layouts.base>
-    @if($form = $layadmin['page']['components']['form'] ?? [])
+    @if($form = config('layadmin.page.components.form',[]))
         <x-layadmin::form :form="$form"></x-layadmin::form>
     @endif
 

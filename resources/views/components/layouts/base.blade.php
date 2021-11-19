@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>{{ $layadmin['page']['title'] ?? config('layadmin.title') }}</title>
+    <title>{{ config('layadmin.page.title',config('layadmin.title'))}}</title>
 
     {{-- 全局 styles --}}
     <link rel="stylesheet" href="{{ asset('layadmin/component/pear/css/pear.css') }}"/>
 
     {{-- Page styles  --}}
-    @foreach($layadmin['page']['styles'] as $href)
+    @foreach(config('layadmin.page.styles',[]) as $href)
         <link rel="stylesheet" href="{{ asset($href) }}"/>
     @endforeach
 
@@ -25,13 +25,13 @@
     <script src="{{ asset('layadmin/component/lodash.min.js') }}"></script>
     <script>
         layui.use(['context'], function () {
-            layui.context.put("layadmin", JSON.stringify(@json($layadmin,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)))
+            layui.context.put("layadmin", JSON.stringify(@json(config('layadmin'),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)))
         })
     </script>
 
     {{-- Page scripts  --}}
     <script src="{{ asset('layadmin/component/app.js') }}"></script>
-    @foreach($layadmin['page']['scripts'] as $src)
+    @foreach(config('layadmin.page.scripts',[]) as $src)
         <script src="{{ asset($src) }}"></script>
     @endforeach
 
