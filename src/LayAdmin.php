@@ -11,7 +11,6 @@
 
 namespace Jiannei\LayAdmin;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 
@@ -28,7 +27,7 @@ class LayAdmin
     }
 
     /**
-     * 获取视图页面配置.
+     * 根据请求路径解析页面配置
      *
      * @param  string|null  $path
      * @return array
@@ -37,30 +36,29 @@ class LayAdmin
      */
     public function getPageConfig(string $path)
     {
-        $paths = explode('/', $path);
-        if (current($paths) !== config('layadmin.path_prefix')) {
+        $prefix = config('layadmin.path_prefix');
+
+        if (!Str::startsWith($path,$prefix)) {
             return [];
         }
 
-        $viewPath = end($paths);
-        if (! View::exists($viewPath)) {
-            $viewPath = 'errors.404';
-        }
-
-        $configPath = implode(DIRECTORY_SEPARATOR, explode('.', $viewPath));
-        $pageConfigPath = resource_path('config/'.$configPath.'.json');
+        $pageConfigPath = resource_path('config'.Str::remove($prefix,$path).'.json');
         if (! file_exists($pageConfigPath)) {
             throw new InvalidPageConfigException("页面配置文件[$pageConfigPath]不存在");
         }
 
         try {
+            $pageConfig = json_decode(file_get_contents($pageConfigPath), true, 512, JSON_THROW_ON_ERROR);
+
+            $view = $pageConfig['view'] ?? 'errors.404';// todo
+
             return array_merge([
-                'id' => Str::replace('.', '-', $viewPath),
-                'view' => $viewPath,
+                'id' => Str::replace('.', '-', $view),
+                'view' => $view,
                 'styles' => [],
                 'scripts' => [],
                 'components' => [],
-            ], json_decode(file_get_contents($pageConfigPath), true, 512, JSON_THROW_ON_ERROR));
+            ], $pageConfig);
         } catch (\Throwable $exception) {
             throw new InvalidPageConfigException('页面配置解析错误：'.$exception->getMessage());
         }
