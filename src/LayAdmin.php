@@ -50,17 +50,15 @@ class LayAdmin
         try {
             $pageConfig = json_decode(file_get_contents($pageConfigPath), true, 512, JSON_THROW_ON_ERROR);
 
-            $view = $pageConfig['view'] ?? 'errors.404'; // todo
-
             return array_merge([
-                'id' => Str::replace('.', '-', $view),
-                'view' => $view,
+                'id' => Str::replace('.', '-', $pageConfig['view']),
+                'view' => $pageConfig['view'],
                 'styles' => [],
                 'scripts' => [],
                 'components' => [],
             ], $pageConfig);
         } catch (\Throwable $exception) {
-            throw new InvalidPageConfigException('页面配置解析错误：'.$exception->getMessage());
+            throw new InvalidPageConfigException('页面配置解析错误：[错误]'.$exception->getMessage().'；[配置文件]'.$pageConfigPath);
         }
     }
 }
