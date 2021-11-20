@@ -1,11 +1,13 @@
 {{--  数据表格：表头操作 --}}
+@if(count($table['toolbar']))
 <script type="text/html" id="{{ $table['attributes']['id'].'-toolbar' }}">
     @foreach($table['toolbar'] as $item)
     <{{$item['element']}} @foreach($item['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach>
-    {!! $action['content'] !!}
+    {!! $item['content'] !!}
     </{{$item['element']}}>
     @endforeach
 </script>
+@endif
 
 {{-- 数据表格  --}}
 <div class="layui-card">
@@ -15,10 +17,12 @@
 </div>
 
 {{-- 数据表格：行操作按钮 --}}
-<script type="text/html" id="{{ $table['attributes']['id'.'-bar'] }}">
+@if(count($table['column']['actions']))
+<script type="text/html" id="{{ $table['attributes']['id'].'-bar' }}">
     @foreach($table['column']['actions'] as $action)
     <{{$action['element']}} @foreach($action['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach>
     {!! $action['content'] !!}
     </{{$action['element']}}>
     @endforeach
 </script>
+@endif
