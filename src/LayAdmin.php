@@ -44,7 +44,7 @@ class LayAdmin
 
         $pageConfigPath = resource_path('config'.Str::remove($prefix,$path).'.json');
         if (! file_exists($pageConfigPath)) {
-            throw new InvalidPageConfigException("页面配置文件[$pageConfigPath]不存在");
+            throw new InvalidPageConfigException("页面配置解析错误：配置文件[$pageConfigPath]不存在");
         }
 
         try {
