@@ -45,8 +45,8 @@ class LaravelServiceProvider extends ServiceProvider
 
     protected function setupViewData()
     {
-        // TODO octane
         $layadmin = \config('layadmin');
+        $requestPath = $this->app['request']->path();
 
         try {
             $referer = $this->app['request']->headers->get('referer', '');
@@ -56,11 +56,10 @@ class LaravelServiceProvider extends ServiceProvider
                 'version' => LayAdmin::version(),
                 'referer' => ltrim($refererUrl['path'], DIRECTORY_SEPARATOR),
                 'request' => $this->app['request']->all() ?: (object) [],
-                'page' => LayAdmin::getPageConfig($this->app['request']->path()),
+                'page' => LayAdmin::getPageConfig($requestPath),
             ]);
         } catch (\Throwable $exception) {
-            // TODO 更友好提示配置错误
-            Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['exception' => $exception->getMessage(), 'config' => $layadmin]);
+            Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['exception' => $exception->getMessage(),'path'=>$requestPath,'config' => $layadmin]);
         }
 
         $this->app['config']->set(compact('layadmin'));

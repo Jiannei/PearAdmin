@@ -39,7 +39,7 @@ class LayAdmin
     {
         $paths = explode('/', $path);
         if (current($paths) !== config('layadmin.path_prefix')) {
-            throw new InvalidPageConfigException('Route path prefix error.');
+            return [];
         }
 
         $viewPath = end($paths);
@@ -48,21 +48,21 @@ class LayAdmin
         }
 
         $configPath = implode(DIRECTORY_SEPARATOR, explode('.', $viewPath));
-
         $pageConfigPath = resource_path('config/'.$configPath.'.json');
         if (! file_exists($pageConfigPath)) {
-            throw new InvalidPageConfigException("View config file [$pageConfigPath] not exist.");
+            throw new InvalidPageConfigException("页面配置文件[$pageConfigPath]不存在");
         }
 
         try {
             return array_merge([
                 'id' => Str::replace('.', '-', $viewPath),
+                'view' => $viewPath,
                 'styles' => [],
                 'scripts' => [],
                 'components' => [],
             ], json_decode(file_get_contents($pageConfigPath), true, 512, JSON_THROW_ON_ERROR));
         } catch (\Throwable $exception) {
-            throw new InvalidPageConfigException('View config parse error：'.$exception->getMessage());
+            throw new InvalidPageConfigException('页面配置解析错误：'.$exception->getMessage());
         }
     }
 }
