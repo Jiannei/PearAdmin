@@ -17,7 +17,7 @@
         <div class="button-container">
             @foreach($form['actions'] as $action)
                 <{{$action['element']}} @foreach($action['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach>
-                @if(is_string($action['label'])) {{ $action['label'] }} @else <i class="{{ $action['label']['icon'] }}"></i> <span>{{ $action['label']['text'] }}</span> @endif
+                {!! $action['content'] !!}
                 </{{$action['element']}}>
             @endforeach
         </div>
