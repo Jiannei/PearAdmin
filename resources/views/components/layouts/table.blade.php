@@ -6,7 +6,7 @@
 
         $attributes = config('layadmin.page.components.table.attributes',[]);
 
-        $columnActions = config('layadmin.page.components.table.cols.actions',[]);
+        $columnActions = config('layadmin.page.components.table.column.actions',[]);
 
         $table = [
             'toolbar' => $toolbar,

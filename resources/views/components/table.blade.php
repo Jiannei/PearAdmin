@@ -2,7 +2,7 @@
 <script type="text/html" id="{{ $table['attributes']['id'].'-toolbar' }}">
     @foreach($table['toolbar'] as $item)
     <{{$item['element']}} @foreach($item['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach>
-    @if(is_array($item['label']))<i class="{{ $item['label']['icon'] }}"></i> {{$item['label']['text']}}@else {{$item['label']}} @endif
+    {!! $action['content'] !!}
     </{{$item['element']}}>
     @endforeach
 </script>
