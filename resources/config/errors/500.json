@@ -1,5 +1,6 @@
 {
     "layout": "base",
+    "view": "layadmin::errors.500",
     "styles": [
         "layadmin/css/error.css"
     ]

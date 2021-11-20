@@ -1,6 +1,7 @@
 {
     "layout": "base",
     "title": "表单生成器",
+    "view": "layadmin::code",
     "styles": [
         "admin/css/code.css"
     ],

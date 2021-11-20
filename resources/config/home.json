@@ -1,6 +1,7 @@
 {
     "layout": "base",
     "title": "LayAdmin",
+    "view": "layadmin::home",
     "styles": [
         "layadmin/css/loader.css",
         "layadmin/css/admin.css"

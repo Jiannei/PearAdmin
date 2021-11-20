@@ -1,6 +1,7 @@
 {
     "layout": "base",
     "title": "首页",
+    "view": "layadmin::console",
     "styles": [
         "admin/css/console1.css"
     ],
