@@ -36,7 +36,7 @@ class LayAdmin
      */
     public function getPageConfig(string $path)
     {
-        $prefix = config('layadmin.path_prefix');
+        $prefix = config('layadmin.path.prefix');
 
         if (! Str::startsWith($path, $prefix)) {
             return [];
