@@ -1,4 +1,8 @@
 layui.use(['admin', 'popup', 'context'], function () {
+  if (window !== top) {
+    top.location.href = location.href;
+  }
+
   var admin = layui.admin;
   var popup = layui.popup;
 
