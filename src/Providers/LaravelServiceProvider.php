@@ -62,8 +62,8 @@ class LaravelServiceProvider extends ServiceProvider
         } catch (\Throwable $exception) {
             $errors = ['page' => $exception->getMessage()];
 
-            View::composer("layadmin::errors.*", function (\Illuminate\View\View $view) use ($errors) {
-                $view->withErrors($errors,'layadmin');
+            View::composer('layadmin::errors.*', function (\Illuminate\View\View $view) use ($errors) {
+                $view->withErrors($errors, 'layadmin');
             });
 
             Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['path'=>$requestPath, 'exception' => $exception->getMessage()]);
