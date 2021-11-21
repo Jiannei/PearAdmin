@@ -12,6 +12,7 @@
 namespace Jiannei\LayAdmin\Providers;
 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Jiannei\LayAdmin\Support\Facades\LayAdmin;
 
@@ -59,6 +60,12 @@ class LaravelServiceProvider extends ServiceProvider
                 'page' => LayAdmin::getPageConfig($requestPath),
             ]);
         } catch (\Throwable $exception) {
+            $errors = ['page' => $exception->getMessage()];
+
+            View::composer("layadmin::errors.*", function (\Illuminate\View\View $view) use ($errors) {
+                $view->withErrors($errors,'layadmin');
+            });
+
             Log::channel(\config('layadmin.log.debug.channel'))->debug('layadmin', ['path'=>$requestPath, 'exception' => $exception->getMessage()]);
         }
 

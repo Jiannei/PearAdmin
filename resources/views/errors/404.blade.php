@@ -1,4 +1,8 @@
 <x-layadmin::layouts.base>
+    @push('style')
+        <link rel="stylesheet" href="{{ asset("layadmin/css/error.css") }}">
+    @endpush
+
     <div class="content">
         <img src="{{ asset('layadmin/images/404.svg') }}" alt="">
         <div class="content-r">
