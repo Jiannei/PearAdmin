@@ -25,7 +25,8 @@
     <script src="{{ asset('layadmin/component/lodash.min.js') }}"></script>
     <script>
         layui.use(['context'], function () {
-            layui.context.put("layadmin", JSON.stringify(@json(config('layadmin'),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)))
+            window.layadmin = @json(config('layadmin'),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+            layui.context.put("layadmin", JSON.stringify(layadmin))
         })
     </script>
 
