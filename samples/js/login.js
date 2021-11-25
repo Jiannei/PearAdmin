@@ -1,4 +1,8 @@
-layui.use(['form', 'button', 'popup','sliderVerify'], function () {
+layui.use(['form', 'button', 'popup', 'http', 'sliderVerify'], function () {
+  if (window !== top) {
+    top.location.href = location.href;
+  }
+
   var form = layui.form;
   var button = layui.button;
   var popup = layui.popup;
