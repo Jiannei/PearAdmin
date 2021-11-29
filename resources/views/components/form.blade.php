@@ -2,6 +2,7 @@
 {{--  表单内容  --}}
 <div class="mainBox">
     <div class="main-container">
+        {{ $slot }}
         @foreach($form['items'] as $item)
             <div class="layui-form-item @if($item['hidden'] ?? '') layui-hide @endif" data-id="{{$item['attributes']['id']}}">
                 <label class="layui-form-label" for="{{ $item['attributes']['id'] }}">{{ $item['label']}}</label>
