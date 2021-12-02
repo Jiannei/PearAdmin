@@ -17,7 +17,7 @@ return [
     ],
 
     'title' => env('ADMIN_TITLE', 'LayAdmin'),
-    'desc' => env('ADMIN_DESC', '江 夏 区 最 具 影 响 力 的 后 台 系 统 之 一'),
+    'desc' => env('ADMIN_DESC', '江 城 最 具 影 响 力 的 后 台 系 统 之 一'),
 
     'log' => [
         'debug' => [
