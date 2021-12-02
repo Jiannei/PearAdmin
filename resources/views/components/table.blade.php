@@ -8,7 +8,7 @@
 {{-- 数据表格  --}}
 <div class="layui-card">
     <div class="layui-card-body">
-        <table @foreach( as $key => $val) {{ $key }}="{{ $val }}" @endforeach></table>
+        <table @foreach($table['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach></table>
     </div>
 </div>
 
