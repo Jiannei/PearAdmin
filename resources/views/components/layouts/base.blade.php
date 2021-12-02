@@ -24,10 +24,8 @@
     <script src="{{ asset('vendor/layadmin/component/pear/pear.js') }}"></script>
     <script src="{{ asset('vendor/layadmin/component/lodash.min.js') }}"></script>
     <script>
-        layui.use(['context'], function () {
-            window.layadmin = @json(config('layadmin'),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
-            layui.context.put("layadmin", JSON.stringify(layadmin))
-        })
+      window.layadmin = @json(config('layadmin'),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+      localStorage.setItem('layadmin',JSON.stringify(window.layadmin));
     </script>
 
     {{-- Page scripts  --}}

@@ -1,8 +1,8 @@
-layui.use(['context', 'table', 'select','toast','treetable'], function () {
+layui.use(['table', 'select','treetable'], function () {
   try {
-    window.layadmin = JSON.parse(layui.context.get('layadmin'));
+    let layadmin = layui.data('layadmin');
 
-    layui.select.config(layadmin.select)
+    layui.select.config(layadmin.select);
 
     var pageConfig = layadmin.page;// 页面配置
 
@@ -48,10 +48,6 @@ layui.use(['context', 'table', 'select','toast','treetable'], function () {
       }
     }
   } catch (exception) {
-    layui.toast.error({
-      title: '页面错误',
-      message: exception.message,
-      position: 'topRight'
-    })
+    layui.hint().error(exception.message)
   }
 })
