@@ -1,4 +1,4 @@
-layui.use(['table', 'select','treetable'], function () {
+layui.use(['table', 'select', 'treetable'], function () {
   try {
     let layadmin = layui.data('layadmin');
 
@@ -30,11 +30,18 @@ layui.use(['table', 'select','treetable'], function () {
         throw new Error('表格配置参数错误！')
       }
 
+      layui.each(pageTableConfig.cols[0], function (key, item) {
+        if (item.templet !== undefined && layui._typeof(item.templet) === 'string' && item.templet.startsWith('(') && item.templet.endsWith(')')) {
+          item.templet = eval(item.templet)
+          pageTableConfig.cols[0][key] = item
+        }
+      })
+
       table.set(tableGlobalSet);
 
       if (pageConfig.layout === 'table') {
         table.render(pageTableConfig);
-      }else if (pageConfig.layout === 'treetable'){
+      } else if (pageConfig.layout === 'treetable') {
         pageTableConfig.parseData = tableGlobalSet.parseData;
 
         layui.treetable.render(pageTableConfig);
