@@ -16,11 +16,7 @@
 {{-- 表单底部操作按钮  --}}
 <div class="bottom">
     <div class="button-container">
-        @foreach($form['actions'] as $action)
-            <{{$action['element']}} @foreach($action['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach>
-                {!! $action['content'] !!}
-            </{{$action['element']}}>
-        @endforeach
+        <x-layadmin::action :actions="$form['actions']"></x-layadmin::action>
     </div>
 </div>
 </form>
