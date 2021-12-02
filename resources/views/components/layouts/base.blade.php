@@ -6,7 +6,7 @@
     <title>{{ config('layadmin.page.title',config('layadmin.title'))}}</title>
 
     {{-- 全局 styles --}}
-    <link rel="stylesheet" href="{{ asset('layadmin/component/pear/css/pear.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('vendor/layadmin/component/pear/css/pear.css') }}"/>
 
     {{-- Page styles  --}}
     @foreach(config('layadmin.page.styles',[]) as $href)
@@ -20,9 +20,9 @@
     {{ $slot }}
 
     {{-- 全局 scripts --}}
-    <script src="{{ asset('layadmin/component/layui/layui.js') }}"></script>
-    <script src="{{ asset('layadmin/component/pear/pear.js') }}"></script>
-    <script src="{{ asset('layadmin/component/lodash.min.js') }}"></script>
+    <script src="{{ asset('vendor/layadmin/component/layui/layui.js') }}"></script>
+    <script src="{{ asset('vendor/layadmin/component/pear/pear.js') }}"></script>
+    <script src="{{ asset('vendor/layadmin/component/lodash.min.js') }}"></script>
     <script>
         layui.use(['context'], function () {
             window.layadmin = @json(config('layadmin'),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
@@ -31,7 +31,7 @@
     </script>
 
     {{-- Page scripts  --}}
-    <script src="{{ asset('layadmin/component/app.js') }}"></script>
+    <script src="{{ asset('vendor/layadmin/component/app.js') }}"></script>
     @foreach(config('layadmin.page.scripts',[]) as $src)
         <script src="{{ asset($src) }}"></script>
     @endforeach
