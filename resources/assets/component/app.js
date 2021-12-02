@@ -14,14 +14,7 @@ layui.use(['table', 'select','treetable'], function () {
       var table = layui.table;
       var tableConfig = layadmin.table;
       var tableGlobalSet = {
-        parseData: function (res) {
-          return {
-            code: _.get(res, tableConfig.parseData.code, res.code),
-            msg: _.get(res, tableConfig.parseData.msg, res.msg),
-            count: _.get(res, tableConfig.parseData.count, res.count),
-            data: _.get(res, tableConfig.parseData.data, res.data)
-          }
-        },
+        parseData: eval(tableConfig.parseData),
         response: {
           statusName: tableConfig.response.statusName,
           statusCode: tableConfig.response.statusCode,

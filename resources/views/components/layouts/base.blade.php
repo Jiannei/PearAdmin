@@ -22,7 +22,6 @@
     {{-- 全局 scripts --}}
     <script src="{{ asset('vendor/layadmin/component/layui/layui.js') }}"></script>
     <script src="{{ asset('vendor/layadmin/component/pear/pear.js') }}"></script>
-    <script src="{{ asset('vendor/layadmin/component/lodash.min.js') }}"></script>
     <script>
       window.layadmin = @json(config('layadmin'),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
       localStorage.setItem('layadmin',JSON.stringify(window.layadmin));
