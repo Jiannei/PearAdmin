@@ -25,7 +25,7 @@ layui.use(['table', 'select','treetable'], function () {
         even: tableConfig.even,
       }
 
-      var pageTableConfig = _.get(pageConfig, 'components.table.config', false);
+      var pageTableConfig = pageConfig.components.table.config || false;
       if (!pageTableConfig) {
         throw new Error('表格配置参数错误！')
       }
