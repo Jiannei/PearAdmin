@@ -65,7 +65,7 @@ class LayAdmin
     }
 
     /**
-     * 渲染后台视图
+     * 渲染后台视图.
      *
      * @return \Closure
      */
@@ -75,13 +75,13 @@ class LayAdmin
             $requestPath = request()->path();
             $pageConfig = $this->getPageConfig($requestPath);
 
-            if (!($view = Arr::get($pageConfig, 'view')) || !View::exists($view)) {
+            if (! ($view = Arr::get($pageConfig, 'view')) || ! View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
 
             $layadmin = array_merge(\config('layadmin'), [
                 'version' => LayAdmin::version(),
-                'request' => request()->all() ?: (object)[],
+                'request' => request()->all() ?: (object) [],
                 'page' => $pageConfig,
             ]);
 
