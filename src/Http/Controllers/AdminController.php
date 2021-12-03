@@ -1,7 +1,15 @@
 <?php
 
-namespace Jiannei\LayAdmin\Http\Controllers;
+/*
+ * This file is part of the jiannei/layadmin.
+ *
+ * (c) jiannei <longjian.huang@foxmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
+namespace Jiannei\LayAdmin\Http\Controllers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\View;
@@ -13,16 +21,16 @@ class AdminController extends Controller
     {
         $prefix = config('layadmin.path.prefix');
 
-        $requestPath = $prefix . '/' . $path;
+        $requestPath = $prefix.'/'.$path;
         $pageConfig = LayAdmin::getPageConfig($requestPath);
 
-        if (!($view = Arr::get($pageConfig, 'view')) || !View::exists($view)) {// 配置错误
+        if (! ($view = Arr::get($pageConfig, 'view')) || ! View::exists($view)) {// 配置错误
             return \view('layadmin::errors.404');
         }
 
         $layadmin = array_merge(\config('layadmin'), [
             'version' => LayAdmin::version(),
-            'request' => request()->all() ?: (object)[],
+            'request' => request()->all() ?: (object) [],
             'page' => LayAdmin::getPageConfig($requestPath),
         ]);
 
