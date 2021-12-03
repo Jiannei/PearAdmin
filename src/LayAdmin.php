@@ -88,6 +88,8 @@ class LayAdmin
     public function view()
     {
         return function () {
+            $this->setupConfig();
+
             if (!($view = config('layadmin.page.view')) || !View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
