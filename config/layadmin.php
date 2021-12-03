@@ -19,8 +19,6 @@ return [
     'title' => env('ADMIN_TITLE', 'LayAdmin'),
     'desc' => env('ADMIN_DESC', '江 城 最 具 影 响 力 的 后 台 系 统 之 一'),
 
-    'guard' => env('ADMIN_AUTH_GUARD', 'admin'),
-
     // layui 组件配置
     'table' => [
         'parseData' => '(function(res){return {code:res.code,msg:res.message,count:res.data.meta.pagination.total,data:res.data.list}})',

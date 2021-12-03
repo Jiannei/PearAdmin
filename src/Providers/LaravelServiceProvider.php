@@ -11,7 +11,6 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelServiceProvider extends ServiceProvider
@@ -37,22 +36,6 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->registerRoutes();
-
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
-    }
-
-    protected function registerRoutes()
-    {
-        Route::group($this->routeConfiguration(), function () {
-            $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/admin.php');
-        });
-    }
-
-    protected function routeConfiguration()
-    {
-        return [
-            'prefix' => config('layadmin.path.prefix'),
-        ];
     }
 }

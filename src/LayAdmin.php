@@ -11,6 +11,8 @@
 
 namespace Jiannei\LayAdmin;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 
@@ -60,5 +62,32 @@ class LayAdmin
         } catch (\Throwable $exception) {
             throw new InvalidPageConfigException('页面配置解析错误：[错误]'.$exception->getMessage().'；[配置文件]'.$pageConfigPath);
         }
+    }
+
+    /**
+     * 渲染后台视图
+     *
+     * @return \Closure
+     */
+    public function view()
+    {
+        return function () {
+            $requestPath = request()->path();
+            $pageConfig = $this->getPageConfig($requestPath);
+
+            if (!($view = Arr::get($pageConfig, 'view')) || !View::exists($view)) {
+                return \view('layadmin::errors.404');
+            }
+
+            $layadmin = array_merge(\config('layadmin'), [
+                'version' => LayAdmin::version(),
+                'request' => request()->all() ?: (object)[],
+                'page' => $pageConfig,
+            ]);
+
+            config(compact('layadmin'));
+
+            return \view($view);
+        };
     }
 }
