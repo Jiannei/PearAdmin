@@ -64,16 +64,17 @@ class LayAdmin
     }
 
     /**
-     * 初始化页面配置
+     * 初始化页面配置.
      *
      * @return void
+     *
      * @throws InvalidPageConfigException
      */
     public function setupConfig()
     {
         $layadmin = array_merge(\config('layadmin'), [
             'version' => LayAdmin::version(),
-            'request' => request()->all() ?: (object)[],
+            'request' => request()->all() ?: (object) [],
             'page' => $this->getPageConfig(request()->path()),
         ]);
 
@@ -81,7 +82,7 @@ class LayAdmin
     }
 
     /**
-     * 渲染后台视图
+     * 渲染后台视图.
      *
      * @return \Closure
      */
@@ -90,7 +91,7 @@ class LayAdmin
         return function () {
             $this->setupConfig();
 
-            if (!($view = config('layadmin.page.view')) || !View::exists($view)) {
+            if (! ($view = config('layadmin.page.view')) || ! View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
 
