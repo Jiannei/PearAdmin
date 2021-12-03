@@ -19,11 +19,7 @@ return [
     'title' => env('ADMIN_TITLE', 'LayAdmin'),
     'desc' => env('ADMIN_DESC', '江 城 最 具 影 响 力 的 后 台 系 统 之 一'),
 
-    'log' => [
-        'debug' => [
-            'channel' => env('ADMIN_LOG_CHANNEL', 'daily'),
-        ],
-    ],
+    'guard' => env('ADMIN_AUTH_GUARD', 'admin'),
 
     // layui 组件配置
     'table' => [
