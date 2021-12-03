@@ -11,7 +11,6 @@
 
 namespace Jiannei\LayAdmin;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
@@ -65,27 +64,33 @@ class LayAdmin
     }
 
     /**
-     * 渲染后台视图.
+     * 初始化页面配置
+     *
+     * @return void
+     * @throws InvalidPageConfigException
+     */
+    public function setupConfig()
+    {
+        $layadmin = array_merge(\config('layadmin'), [
+            'version' => LayAdmin::version(),
+            'request' => request()->all() ?: (object)[],
+            'page' => $this->getPageConfig(request()->path()),
+        ]);
+
+        config(compact('layadmin'));
+    }
+
+    /**
+     * 渲染后台视图
      *
      * @return \Closure
      */
     public function view()
     {
         return function () {
-            $requestPath = request()->path();
-            $pageConfig = $this->getPageConfig($requestPath);
-
-            if (! ($view = Arr::get($pageConfig, 'view')) || ! View::exists($view)) {
+            if (!($view = config('layadmin.page.view')) || !View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
-
-            $layadmin = array_merge(\config('layadmin'), [
-                'version' => LayAdmin::version(),
-                'request' => request()->all() ?: (object) [],
-                'page' => $pageConfig,
-            ]);
-
-            config(compact('layadmin'));
 
             return \view($view);
         };
