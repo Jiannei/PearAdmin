@@ -1,10 +1,10 @@
 layui.use(['table', 'select', 'treetable'], function () {
   try {
-    let layadmin = layui.data('layadmin');
+    let layadmin = layui.sessionData('layadmin');
 
-    layui.select.config(layadmin.select);
+    layui.select.config(layadmin.config.select);
 
-    var pageConfig = layadmin.page;// 页面配置
+    var pageConfig = layadmin[layadmin.current.id];// 页面配置
 
     if (pageConfig === undefined) {
       throw new Error('页面配置参数错误！')
@@ -12,7 +12,7 @@ layui.use(['table', 'select', 'treetable'], function () {
 
     if (pageConfig.layout === 'table' || pageConfig.layout === 'treetable') {
       var table = layui.table;
-      var tableConfig = layadmin.table;
+      var tableConfig = layadmin.config.table;
       var tableGlobalSet = {
         parseData: eval(tableConfig.parseData),
         response: {
@@ -25,7 +25,7 @@ layui.use(['table', 'select', 'treetable'], function () {
         even: tableConfig.even,
       }
 
-      var pageTableConfig = pageConfig.components.table.config || false;
+      const pageTableConfig = pageConfig.components.table.config || false;
       if (!pageTableConfig) {
         throw new Error('表格配置参数错误！')
       }

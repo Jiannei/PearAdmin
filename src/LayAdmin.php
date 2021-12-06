@@ -51,9 +51,14 @@ class LayAdmin
         try {
             $pageConfig = json_decode(file_get_contents($pageConfigPath), true, 512, JSON_THROW_ON_ERROR);
 
+            if (isset($pageConfig['title']) && $pageConfig['title']) {
+                $pageConfig['title'] = config('layadmin.title').'|'.$pageConfig['title'];
+            }
+
             return array_merge([
-                'id' => Str::replace('.', '-', $pageConfig['view']),
+                'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $pageConfig['uri']),
                 'view' => $pageConfig['view'],
+                'title' => config('layadmin.title'),
                 'styles' => [],
                 'scripts' => [],
                 'components' => [],
@@ -64,38 +69,34 @@ class LayAdmin
     }
 
     /**
-     * 初始化页面配置.
+     * 初始视图数据
      *
-     * @return void
-     *
+     * @return array
      * @throws InvalidPageConfigException
      */
-    public function setupConfig()
+    public function setupData()
     {
-        $layadmin = array_merge(\config('layadmin'), [
+        // todo 配置校验；table\form 处理
+        return [
             'version' => LayAdmin::version(),
-            'request' => request()->all() ?: (object) [],
+            'request' => request()->all() ?: (object)[],
             'page' => $this->getPageConfig(request()->path()),
-        ]);
-
-        config(compact('layadmin'));
+        ];
     }
 
     /**
-     * 渲染后台视图.
+     * 渲染后台视图
      *
      * @return \Closure
      */
     public function view()
     {
         return function () {
-            $this->setupConfig();
-
-            if (! ($view = config('layadmin.page.view')) || ! View::exists($view)) {
+            if (!($view = config('layadmin.page.view')) || !View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
 
-            return \view($view);
+            return \view($view,['layadmin' => $this->setupData()]);
         };
     }
 }

@@ -1,4 +1,4 @@
-layui.use(['admin', 'popup', 'context'], function () {
+layui.use(['admin', 'popup'], function () {
   if (window !== top) {
     top.location.href = location.href;
   }
@@ -6,9 +6,9 @@ layui.use(['admin', 'popup', 'context'], function () {
   var admin = layui.admin;
   var popup = layui.popup;
 
-  var layadmin = JSON.parse(layui.context.get('layadmin'));
+  var layadmin = layui.sessionData('layadmin');
 
-  admin.render(layadmin.page.components);
+  admin.render(layadmin[layadmin.current.id].components);
 
   // 登出逻辑
   admin.logout(function () {
