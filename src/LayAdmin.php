@@ -69,9 +69,10 @@ class LayAdmin
     }
 
     /**
-     * 初始视图数据
+     * 初始视图数据.
      *
      * @return array
+     *
      * @throws InvalidPageConfigException
      */
     public function setupData()
@@ -79,24 +80,24 @@ class LayAdmin
         // todo 配置校验；table\form 处理
         return [
             'version' => LayAdmin::version(),
-            'request' => request()->all() ?: (object)[],
+            'request' => request()->all() ?: (object) [],
             'page' => $this->getPageConfig(request()->path()),
         ];
     }
 
     /**
-     * 渲染后台视图
+     * 渲染后台视图.
      *
      * @return \Closure
      */
     public function view()
     {
         return function () {
-            if (!($view = config('layadmin.page.view')) || !View::exists($view)) {
+            if (! ($view = config('layadmin.page.view')) || ! View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
 
-            return \view($view,['layadmin' => $this->setupData()]);
+            return \view($view, ['layadmin' => $this->setupData()]);
         };
     }
 }
