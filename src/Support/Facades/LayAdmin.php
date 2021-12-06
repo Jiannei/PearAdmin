@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
 
 /**
  * @method static string version()
- * @method static array setupData()
+ * @method static array bootstrap()
  * @method static array getPageConfig(string $path)
  * @method static \Closure view()
  *

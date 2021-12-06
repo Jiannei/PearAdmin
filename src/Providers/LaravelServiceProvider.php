@@ -11,7 +11,9 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Jiannei\LayAdmin\Http\Middleware\Bootstrap;
 
 class LaravelServiceProvider extends ServiceProvider
 {
@@ -37,5 +39,8 @@ class LaravelServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
+
+        $router = $this->app->make(Router::class);
+        $router->pushMiddlewareToGroup('web', Bootstrap::class);
     }
 }

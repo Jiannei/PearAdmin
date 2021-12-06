@@ -52,7 +52,7 @@ class LayAdmin
             $pageConfig = json_decode(file_get_contents($pageConfigPath), true, 512, JSON_THROW_ON_ERROR);
 
             if (isset($pageConfig['title']) && $pageConfig['title']) {
-                $pageConfig['title'] = config('layadmin.title').'|'.$pageConfig['title'];
+                $pageConfig['title'] = config('layadmin.title').' | '.$pageConfig['title'];
             }
 
             return array_merge([
@@ -69,20 +69,20 @@ class LayAdmin
     }
 
     /**
-     * 初始视图数据.
+     * 初始化视图依赖的数据.
      *
      * @return array
      *
      * @throws InvalidPageConfigException
      */
-    public function setupData()
+    public function bootstrap()
     {
         // todo 配置校验；table\form 处理
-        return [
-            'version' => LayAdmin::version(),
-            'request' => request()->all() ?: (object) [],
-            'page' => $this->getPageConfig(request()->path()),
-        ];
+      return [
+          'version' => LayAdmin::version(),
+          'request' => request()->all() ?: (object) [],
+          'page' => $this->getPageConfig(request()->path()),
+      ];
     }
 
     /**
@@ -97,7 +97,7 @@ class LayAdmin
                 return \view('layadmin::errors.404');
             }
 
-            return \view($view, ['layadmin' => $this->setupData()]);
+            return \view($view);
         };
     }
 }
