@@ -11,12 +11,20 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Jiannei\LayAdmin\Http\Middleware\Bootstrap;
 
 class LaravelServiceProvider extends ServiceProvider
 {
+    /**
+     * The middleware aliases.
+     *
+     * @var array
+     */
+    protected $middlewareAliases = [
+        'admin.bootstrap' => Bootstrap::class,
+    ];
+
     public function register()
     {
         $this->mergeConfigFrom(dirname(__DIR__, 2).'/config/layadmin.php', 'layadmin');
@@ -40,7 +48,22 @@ class LaravelServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
 
-        $router = $this->app->make(Router::class);
-        $router->pushMiddlewareToGroup('web', Bootstrap::class);
+        $this->aliasMiddleware();
+    }
+
+    /**
+     * Alias the middleware.
+     *
+     * @return void
+     */
+    protected function aliasMiddleware()
+    {
+        $router = $this->app['router'];
+
+        $method = method_exists($router, 'aliasMiddleware') ? 'aliasMiddleware' : 'middleware';
+
+        foreach ($this->middlewareAliases as $alias => $middleware) {
+            $router->$method($alias, $middleware);
+        }
     }
 }

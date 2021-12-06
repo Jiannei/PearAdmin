@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="{{ config('layadmin.desc') }}">
-    <title>{{ $layadmin['page']['title'] }}</title>
+    <title>{{ request('layadmin.page.title') }}</title>
 
     {{-- 全局 styles --}}
     <link rel="stylesheet" href="{{ asset('vendor/layadmin/component/pear/css/pear.css') }}"/>
 
     {{-- Page styles  --}}
-    @foreach($layadmin['page']['styles'] ?? [] as $href)
+    @foreach( request('layadmin.page.styles',[]) as $href)
         <link rel="stylesheet" href="{{ asset($href) }}"/>
     @endforeach
 
@@ -26,7 +26,7 @@
     <script>
       layui.sessionData('layadmin',{
         key:'version',
-        value: '{{ $layadmin['version'] }}'
+        value: '{{ request('layadmin.version') }}'
       });
 
       layui.sessionData('layadmin',{
@@ -35,22 +35,22 @@
       });
 
       layui.sessionData('layadmin',{
-        key:'{{ $layadmin['page']['id'] }}',
-        value: @json($layadmin['page'])
+        key:'{{ request('layadmin.page.id') }}',
+        value: @json( request('layadmin.page'))
       });
 
       layui.sessionData('layadmin',{
         key:'current',
         value: {
-          id : '{{ $layadmin['page']['id'] }}',
-          request: @json($layadmin['request'])
+          id : '{{ request('layadmin.page.id') }}',
+          request: @json(request('layadmin.params'))
         }
       })
     </script>
 
     {{-- Page scripts  --}}
     <script src="{{ asset('vendor/layadmin/component/app.js') }}"></script>
-    @foreach($layadmin['page']['scripts'] ?? [] as $src)
+    @foreach(request('layadmin.page.scripts',[]) as $src)
         <script src="{{ asset($src) }}"></script>
     @endforeach
 

@@ -1,13 +1,13 @@
 <x-layadmin::layouts.base class="pear-container">
     @php
         // todo
-        $search = $layadmin['page']['components']['search'] ?? [];
+        $search = request('layadmin.page.components.search',[]);
 
-        $toolbar = $layadmin['page']['components']['table']['toolbar'] ?? [];
+        $toolbar = request('layadmin.page.components.table.toolbar',[]);
 
-        $attributes = $layadmin['page']['components']['table']['attributes'] ?? [];
+        $attributes = request('layadmin.page.components.table.attributes',[]);
 
-        $columnActions = $layadmin['page']['components']['table']['column']['actions'] ?? [];
+        $columnActions = request('layadmin.page.components.table.column.actions',[]);
 
         $table = [
             'toolbar' => $toolbar,

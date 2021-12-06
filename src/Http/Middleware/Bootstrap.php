@@ -11,16 +11,16 @@
 
 namespace Jiannei\LayAdmin\Http\Middleware;
 
-use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
 use Jiannei\LayAdmin\Support\Facades\LayAdmin;
 
 class Bootstrap
 {
-    public function handle($request, \Closure $next)
+    public function handle(Request $request, \Closure $next)
     {
         $layadmin = LayAdmin::bootstrap();
 
-        View::share('layadmin', $layadmin);
+        $request->merge(compact('layadmin'));
 
         return $next($request);
     }

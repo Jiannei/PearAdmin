@@ -78,11 +78,11 @@ class LayAdmin
     public function bootstrap()
     {
         // todo 配置校验；table\form 处理
-        return [
-            'version' => LayAdmin::version(),
-            'request' => request()->all() ?: (object) [],
-            'page' => $this->getPageConfig(request()->path()),
-        ];
+      return [
+          'version' => LayAdmin::version(),
+          'params' => request()->all() ?: (object) [],
+          'page' => $this->getPageConfig(request()->path()),
+      ];
     }
 
     /**
@@ -93,7 +93,7 @@ class LayAdmin
     public function view()
     {
         return function () {
-            if (! ($view = config('layadmin.page.view')) || ! View::exists($view)) {
+            if (! ($view = request('layadmin.page.view')) || ! View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
 
