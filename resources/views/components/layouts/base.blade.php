@@ -43,7 +43,7 @@
         key:'current',
         value: {
           id : '{{ request('layadmin.page.id') }}',
-          request: @json(request('layadmin.params'))
+          params: @json(request('layadmin.params'))
         }
       })
     </script>
