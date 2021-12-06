@@ -78,11 +78,11 @@ class LayAdmin
     public function bootstrap()
     {
         // todo 配置校验；table\form 处理
-      return [
-          'version' => LayAdmin::version(),
-          'params' => request()->all() ?: (object) [],
-          'page' => $this->getPageConfig(request()->path()),
-      ];
+        return [
+            'version' => LayAdmin::version(),
+            'params' => request()->all() ?: (object) [],
+            'page' => $this->getPageConfig(request()->path()),
+        ];
     }
 
     /**
