@@ -40,6 +40,37 @@ layui.use(['table', 'select', 'treetable'], function () {
       table.set(tableGlobalSet);
 
       if (pageConfig.layout === 'table') {
+        if (pageConfig.components.search !== undefined && pageConfig.components.search.items.length > 3) {
+          layui.util.event('lay-active',{
+            searchExpand:function () {
+              let pageSession = layui.sessionData(layadmin.current.id);
+
+              var $this = layui.$(this);
+              var $form = $this.parents('.layui-form').first();
+
+              if (pageSession.expand === undefined || pageSession.expand === true) {
+                layui.sessionData(layadmin.current.id,{
+                  key:'expand',
+                  value:false
+                })
+
+                $this.html('收起 <i class="layui-icon layui-icon-up"></i>');
+                var $elem = $form.find('.layui-hide');
+                $elem.attr('expand-show', '');
+                $elem.removeClass('layui-hide');
+              }else{
+                layui.sessionData(layadmin.current.id,{
+                  key:'expand',
+                  value:true
+                })
+
+                $this.html('展开 <i class="layui-icon layui-icon-down"></i>');
+                $form.find('[expand-show]').addClass('layui-hide');
+              }
+            }
+          });
+        }
+
         table.render(pageTableConfig);
       } else if (pageConfig.layout === 'treetable') {
         pageTableConfig.parseData = tableGlobalSet.parseData;

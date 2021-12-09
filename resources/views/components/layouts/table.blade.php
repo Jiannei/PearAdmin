@@ -20,9 +20,9 @@
 
     {{-- 搜索区 --}}
     @if($search)
-        <div class="layui-hide">
-            <div id="LAY_SEARCH">
-                <x-layadmin::form :form="$search"></x-layadmin::form>
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <x-layadmin::search :form="$search"></x-layadmin::search>
             </div>
         </div>
     @endif
