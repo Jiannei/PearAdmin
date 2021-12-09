@@ -1,9 +1,9 @@
 <form class="layui-form" action="javascript:void(0);" @foreach($form['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach>
 <div class="layui-form-item">
     @foreach($form['items'] as $key => $item)
-        <div class="layui-inline">
+        <div class="layui-inline  @if($key > 2) layui-hide @endif">
             <label class="layui-form-label" for="{{ $item['attributes']['id'] }}">{{ $item['label']}}</label>
-            <div class="layui-input-inline @if($key > 2) layui-hide @endif">
+            <div class="layui-input-inline">
                 <{{$item['element']}} @foreach($item['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach></{{$item['element']}}>
             </div>
         </div>
