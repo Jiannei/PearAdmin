@@ -171,25 +171,25 @@
  				this.config.showCount = 19921012;
  			}
 		};
-
+	
 	//一些简单的处理方法
 	let Common = function(){
 		this.appender();
 		this.on();
 		this.onreset();
 	};
-
+	
 	Common.prototype.appender = function(){//针对IE做的一些拓展
 		//拓展Array map方法
 		if(!Array.prototype.map){Array.prototype.map=function(i,h){var b,a,c,e=Object(this),f=e.length>>>0;if(h){b=h}a=new Array(f);c=0;while(c<f){var d,g;if(c in e){d=e[c];g=i.call(b,d,c,e);a[c]=g}c++}return a}};
-
+		
 		//拓展Array foreach方法
 		if(!Array.prototype.forEach){Array.prototype.forEach=function forEach(g,b){var d,c;if(this==null){throw new TypeError("this is null or not defined")}var f=Object(this);var a=f.length>>>0;if(typeof g!=="function"){throw new TypeError(g+" is not a function")}if(arguments.length>1){d=b}c=0;while(c<a){var e;if(c in f){e=f[c];g.call(d,e,c,f)}c++}}};
-
+	
 		//拓展Array filter方法
  		if(!Array.prototype.filter){Array.prototype.filter=function(b){if(this===void 0||this===null){throw new TypeError()}var f=Object(this);var a=f.length>>>0;if(typeof b!=="function"){throw new TypeError()}var e=[];var d=arguments[1];for(var c=0;c<a;c++){if(c in f){var g=f[c];if(b.call(d,g,c,f)){e.push(g)}}}return e}};
 	}
-
+	
 	Common.prototype.init = function(target){
 		//初始化页面上已有的select
 		$((target ? target : `select[${NAME}]`)).each((index, select) => {
@@ -222,9 +222,9 @@
 					}
 				}),
 				fs = new FormSelects(options);
-
+			
 			fs.values = value;
-
+			
 			if(fs.config.init) {
 				fs.values = fs.config.init.map(item => {
 					if(typeof item == 'object') {
@@ -241,7 +241,7 @@
 			}else{
 				fs.config.init = value.concat([]);
 			}
-
+			
 			!fs.values && (fs.values = []);
 
 			data[id] = fs;
@@ -251,7 +251,7 @@
 			hasRender[0] && hasRender.remove();
 
 			//构造渲染div
-			let dinfo = this.renderSelect(id, fs.config.placeholder, select);
+			let dinfo = this.renderSelect(id, fs.config.placeholder, select); 
 			let heightStyle = !fs.config.height || fs.config.height == 'auto' ? '' : `xm-hg style="height: 34px;"`;
 			let inputHtml = [
 				`<div class="${LABEL}">`,
@@ -273,14 +273,14 @@
 					</div>
 					<dl xid="${id}" class="${DL} ${fs.config.radio ? RADIO:''}">${dinfo}</dl>
 				</div>`);
-
+				
 			var $parent = $(`<div class="${PNAME}" FS_ID="${id}"></div>`);
  			$parent.append(reElem)
  			othis.after($parent);
  			othis.attr('lay-ignore', '');
  			othis.removeAttr('name') && othis.attr('_name', fs.config.formname);
  			othis.removeAttr('lay-verify') && othis.attr('_lay-verify', fs.config.layverify);
-
+			
 			//如果可搜索, 加上事件
 			if(fs.config.isSearch){
 				ajaxs[id] = $.extend({}, ajax, {searchUrl: fs.config.searchUrl}, ajaxs[id]);
@@ -295,7 +295,7 @@
 			}
 		});
 	}
-
+	
 	Common.prototype.search = function(id, e, searchUrl, call){
 		let input;
 		if(call){
@@ -310,7 +310,7 @@
 		let inputValue = $.trim(input.value);
 		//过滤一下tips
 		this.changePlaceHolder($(input));
-
+		
 		let ajaxConfig = ajaxs[id] ? ajaxs[id] : ajax;
 		searchUrl = ajaxConfig.searchUrl || searchUrl;
 		let fs = data[id],
@@ -361,11 +361,11 @@
 			}
 		}
 	}
-
+	
 	Common.prototype.isArray = function(obj){
 		return Object.prototype.toString.call(obj) == "[object Array]";
 	}
-
+	
 	Common.prototype.triggerSearch = function(div, isCall){
 		(div ? [div] : $(`.${FORM_SELECT}`).toArray()).forEach((reElem, index) => {
 			reElem = $(reElem);
@@ -375,13 +375,13 @@
 			}
 		});
 	}
-
+	
 	Common.prototype.clearInput = function(id){
 		let div = $(`.${PNAME}[fs_id="${id}"]`);
 		let input = data[id].config.searchType == 0 ? div.find(`.${LABEL} .${INPUT}`) : div.find(`dl .${FORM_DL_INPUT} .${INPUT}`);
 		input.val('');
 	}
-
+	
 	Common.prototype.ajax = function(id, searchUrl, inputValue, isLinkage, linkageWidth, isSearch, successCallback, isReplace){
 		let reElem = $(`.${PNAME} dl[xid="${id}"]`).parents(`.${FORM_SELECT}`);
 		if(!reElem[0] || !searchUrl){
@@ -426,7 +426,7 @@
 			}
 		});
 	}
-
+	
 	Common.prototype.renderData = function(id, dataArr, linkage, linkageWidth, isSearch, isReplace){
 		if(linkage){//渲染多级联动
 			this.renderLinkage(id, dataArr, linkageWidth);
@@ -436,7 +436,7 @@
 			this.renderReplace(id, dataArr);
 			return;
 		}
-
+		
 		let reElem = $(`.${PNAME} dl[xid="${id}"]`).parents(`.${FORM_SELECT}`);
 		let ajaxConfig = ajaxs[id] ? ajaxs[id] : ajax;
 		let pcInput = reElem.find(`.${TDIV} input`);
@@ -481,7 +481,7 @@
 		}
 		this.commonHandler(id, label);
 	}
-
+	
 	Common.prototype.renderLinkage = function(id, dataArr, linkageWidth){
 		let result = [],
 			index = 0,
@@ -508,10 +508,10 @@
 				});
 			});
 		}while(Object.getOwnPropertyNames(temp).length);
-
+		
 		let reElem = $(`.${PNAME} dl[xid="${id}"]`).parents(`.${FORM_SELECT}`);
 		let html = ['<div class="xm-select-linkage">'];
-
+		
 		$.each(result, (idx, arr) => {
 			let groupDiv = [`<div style="left: ${(linkageWidth-0) * idx}px;" class="xm-select-linkage-group xm-select-linkage-group${idx + 1} ${idx != 0 ? 'xm-select-linkage-hide':''}">`];
 			$.each(arr, (idx2, item) => {
@@ -526,14 +526,14 @@
 		reElem.find('dl').html(html.join(''));
 		reElem.find(`.${INPUT}`).css('display', 'none');//联动暂时不支持搜索
 	}
-
+	
 	Common.prototype.renderReplace = function(id, dataArr){
 		let dl = $(`.${PNAME} dl[xid="${id}"]`);
 		let ajaxConfig = ajaxs[id] ? ajaxs[id] : ajax;
 
 		dataArr = this.exchangeData(id, dataArr);
 		db[id] = dataArr;
-
+		
 		let html = dataArr.map((item) => {
 			let itemVal = $.extend({}, item, {
 				innerHTML: item[ajaxConfig.keyName],
@@ -545,7 +545,7 @@
 			});
 			return this.createDD(id, itemVal);
 		}).join('');
-
+		
 		dl.find(`dd:not(.${FORM_SELECT_TIPS}),dt:not([style])`).remove();
 		dl.find(`dt[style]`).after($(html));
 	}
@@ -616,7 +616,7 @@
 			$(`[xid=${id}] dd.${TEMP}`).remove();
 		}
 	}
-
+	
 	Common.prototype.createDD = function(id, item, clz){
 		let ajaxConfig = ajaxs[id] ? ajaxs[id] : ajax;
 		let name = $.trim(item.innerHTML);
@@ -638,11 +638,11 @@
 					</div>
 				</dd>`;
 	}
-
+	
 	Common.prototype.createQuickBtn = function(obj, right){
 		return `<div class="${CZ}" method="${obj.name}" title="${obj.name}" ${right ? 'style="margin-right: ' + right + '"': ''}><i class="${obj.icon}"></i><span>${obj.name}</span></div>`
 	}
-
+	
 	Common.prototype.renderBtns = function(id, show, right){
 		let quickBtn = [];
 		let dl = $(`dl[xid="${id}"]`);
@@ -654,7 +654,7 @@
 		quickBtn.push(this.createQuickBtn({icon: 'xm-iconfont icon-caidan', name: ''}));
 		return quickBtn.join('');
 	}
-
+	
 	Common.prototype.renderSelect = function(id, tips, select){
 		db[id] = {};
 		let arr = [];
@@ -702,10 +702,10 @@
 		arr.push(`<dd class="${FORM_SELECT_TIPS} ${FORM_NONE} ${arr.length === 2 ? FORM_EMPTY:''}">没有选项</dd>`);
 		return arr.join('');
 	}
-
+	
 	Common.prototype.on = function(){//事件绑定
 		this.one();
-
+		
 		$(document).on('click', (e) => {
 			if(!$(e.target).parents(`.${FORM_TITLE}`)[0]){//清空input中的值
 				$(`.${PNAME} dl .${DD_HIDE}`).removeClass(DD_HIDE);
@@ -723,7 +723,7 @@
 			}) ;
 		});
 	}
-
+	
 	Common.prototype.calcLabelLeft = function(label, w, call){
 		let pos = this.getPosition(label[0]);
     	pos.y = pos.x + label[0].clientWidth;
@@ -735,7 +735,7 @@
     		span.css('display') == 'none' ? (span = span.prev()[0]) : (span = span[0]);
 			let spos = this.getPosition(span);
 			spos.y = spos.x + span.clientWidth;
-
+			
 			if(spos.y > pos.y){
 				left = left - (spos.y - pos.y) - 5;
 			}else{
@@ -761,20 +761,20 @@
     	}
     	label.css('left', left + 'px');
 	}
-
+	
 	Common.prototype.one = function(target){//一次性事件绑定
 		$(target ? target : document).off('click', `.${FORM_TITLE}`).on('click', `.${FORM_TITLE}`, (e) => {
 			let othis = $(e.target),
 				title = othis.is(FORM_TITLE) ? othis : othis.parents(`.${FORM_TITLE}`),
 				dl = title.next(),
 				id = dl.attr('xid');
-
+			
 			//清空非本select的input val
 			$(`dl[xid]`).not(dl).each((index, item) => {
 				this.clearInput($(item).attr('xid'));
 			});
 			$(`dl[xid]`).not(dl).find(`dd.${DD_HIDE}`).removeClass(DD_HIDE);
-
+			
 			//如果是disabled select
 			if(title.hasClass(DIS)){
 				return false;
@@ -799,7 +799,7 @@
 					epos.x -= 50;
 				}
 			}
-
+			
 			//如果点击的是可搜索的input
 			if(othis.is(`.${INPUT}`)){
 				this.changeShow(title, true);
@@ -815,7 +815,7 @@
 				this.handlerLabel(id, dd, false, val);
 				return false;
 			}
-
+			
 			this.changeShow(title, !title.parents(`.${FORM_SELECT}`).hasClass(FORM_SELECTED));
 			return false;
 		});
@@ -849,7 +849,7 @@
 							name: othis.find('span').text(),
 							value: othis.attr('xm-value')
 						}
-						othis = othis.parents('.xm-select-linkage-group').prev().find(`li[xm-value="${othis.attr('pid')}"]`);
+						othis = othis.parents('.xm-select-linkage-group').prev().find(`li[xm-value="${othis.attr('pid')}"]`);			
 					}while(othis.length);
 					vals.reverse();
 					let val = {
@@ -866,16 +866,16 @@
 				}
 				return false;
 			}
-
+			
 			if(othis.is('dl')){
 				return false;
 			}
-
+			
 			if(othis.is('dt')){
 				othis.nextUntil(`dt`).each((index, item) => {
 					item = $(item);
 					if(item.hasClass(DISABLED) || item.hasClass(THIS)){
-
+												
 					}else{
 						item.find('i:not(.icon-expand)').click();
 					}
@@ -884,16 +884,16 @@
 			}
 			let dd = othis.is('dd') ? othis : othis.parents('dd');
 			let id = dd.parent('dl').attr('xid');
-
+			
 			if(dd.hasClass(DISABLED)){//被禁用选项的处理
 				return false;
 			}
-
+			
 			//菜单功效
 			if(othis.is('i.icon-caidan')){
 				let opens = [], closes = [];
 				othis.parents('dl').find('dd[tree-folder="true"]').each((index, item) => {
-					$(item).attr('xm-tree-hidn') == undefined ? opens.push(item) : closes.push(item);
+					$(item).attr('xm-tree-hidn') == undefined ? opens.push(item) : closes.push(item); 
 				});
 				let arr = closes.length ? closes : opens;
 				arr.forEach(item => item.click());
@@ -916,7 +916,7 @@
 						this.addTreeHeight(dd, len),
 						len = 0
 					) : (
-						len = dd.attr('xm-tree-hidn') || 36,
+						len = dd.attr('xm-tree-hidn') || 36, 
 						dd.removeAttr('xm-tree-hidn'),
 						dd.find('>i').remove(),
 						(childrens = childrens.filter((index, item) => $(item).attr('tree-id').split('-').length - 1 == treeId.split('-').length))
@@ -946,7 +946,7 @@
 					}
 				}
 			}
-
+			
 			if(dd.hasClass(FORM_SELECT_TIPS)){//tips的处理
 				let btn = othis.is(`.${CZ}`) ? othis : othis.parents(`.${CZ}`);
 				if(!btn[0]){
@@ -961,12 +961,12 @@
 			return false;
 		});
 	}
-
+	
 	Common.prototype.addTreeHeight = function(dd, len){
 		let treeId = dd.attr('tree-id');
 		let childrens = dd.nextAll(`dd[tree-id^="${treeId}"]`);
 		if(childrens.length){
-			dd.append('<i class="xm-iconfont icon-expand"></i>');
+			dd.append('<i class="xm-iconfont icon-expand"></i>');		
 			dd.attr('xm-tree-hidn', len);
 			childrens.each((index, item) => {
 				let that = $(item);
@@ -974,7 +974,7 @@
 			})
 		}
 	}
-
+	
 	let db = {};
 	Common.prototype.getItem = function(id, value){
 		if(value instanceof $){
@@ -998,7 +998,7 @@
 		}
 		return db[id][value];
 	}
-
+	
 	Common.prototype.linkageAdd = function(id, val){
 		let dl = $(`dl[xid="${id}"]`);
 		dl.find('.xm-select-active').removeClass('xm-select-active');
@@ -1017,7 +1017,7 @@
 			});
 		}
 	}
-
+	
 	Common.prototype.linkageDel = function(id, val){
 		let dl = $(`dl[xid="${id}"]`);
 		let vs = val.value.split('/');
@@ -1031,7 +1031,7 @@
 			index --;
 		}while(li.length && pid != undefined);
 	}
-
+	
 	Common.prototype.valToName = function(id, val){
 		let dl = $(`dl[xid="${id}"]`);
 		let vs = (val + "").split('/');
@@ -1045,7 +1045,7 @@
 		});
 		return names.length == vs.length ? names.join('/') : null;
 	}
-
+	
 	Common.prototype.commonHandler = function(key, label){
 		if(!label || !label[0]){
 			return ;
@@ -1063,7 +1063,7 @@
 			return val.name;
 		}).join(','));
 	}
-
+	
 	Common.prototype.initVal = function(id){
 		let target = {};
 		if(id){
@@ -1072,12 +1072,12 @@
 			target = data;
 		}
 		$.each(target, (key, val) => {
-			let values = val.values,
+			let values = val.values,		
 				div = $(`dl[xid="${key}"]`).parent(),
 				label = div.find(`.${LABEL}`),
 				dl = div.find('dl');
 			dl.find(`dd.${THIS}`).removeClass(THIS);
-
+			
 			let _vals = values.concat([]);
 			_vals.concat([]).forEach((item, index) => {
 				this.addLabel(key, label, item);
@@ -1089,7 +1089,7 @@
 			this.commonHandler(key, label);
 		});
 	}
-
+	
 	Common.prototype.setHidnVal = function(key, label) {
  		if(!label || !label[0]) {
  			return;
@@ -1098,7 +1098,7 @@
  			return val.value;
  		}).join(','));
  	}
-
+	
 	Common.prototype.handlerLabel = function(id, dd, isAdd, oval, notOn){
 		let div = $(`[xid="${id}"]`).prev().find(`.${LABEL}`),
 			val = dd && this.getItem(id, dd),
@@ -1122,7 +1122,7 @@
 		let dl = $(`dl[xid="${id}"]`);
 		isAdd ? (
 			(dd && dd[0] ? (
-				dd.addClass(THIS),
+				dd.addClass(THIS), 
 				dd.removeClass(TEMP)
 			) : (
 				dl.find('.xm-select-linkage')[0] && this.linkageAdd(id, val)
@@ -1145,20 +1145,20 @@
 		}
 		//移除表单验证的红色边框
 		div.parents(`.${FORM_TITLE}`).prev().removeClass('layui-form-danger');
-
+		
 		//清空搜索值
 		fs.config.clearInput && this.clearInput(id);
-
+		
 		this.commonHandler(id, div);
-
+		
 		!notOn && endOn && endOn instanceof Function && endOn(id, vals.concat([]), val, isAdd, dd && dd.hasClass(DISABLED));
 	}
-
+	
 	Common.prototype.addLabel = function(id, div, val){
 		if(!val) return ;
 		let tips = `fsw="${NAME}"`;
 		let [$label, $close] = [
-			$(`<span ${tips} value="${val.value}"><font ${tips}>${val.name}</font></span>`),
+			$(`<span ${tips} value="${val.value}"><font ${tips}>${val.name}</font></span>`), 
 			$(`<i ${tips} class="xm-iconfont icon-close"></i>`)
 		];
 		$label.append($close);
@@ -1173,35 +1173,35 @@
 		div.find('input').css('width', '50px');
 		div.find('input').before($label);
 	}
-
+	
 	Common.prototype.delLabel = function(id, div, val){
 		if(!val) return ;
 		div.find(`span[value="${val.value}"]:first`).remove();
 	}
-
+	
 	Common.prototype.checkHideSpan = function(id, div){
 		let parentHeight = div.parents(`.${NAME}`)[0].offsetHeight + 5;
 		div.find('span.xm-span-hide').removeClass('xm-span-hide');
 		div.find('span[style]').remove();
-
+		
 		let count = data[id].config.showCount;
 		div.find('span').each((index, item) => {
 			if(index >= count){
 				$(item).addClass('xm-span-hide');
 			}
 		});
-
+		
 		let prefix = div.find(`span:eq(${count})`);
 		prefix[0] && prefix.before($(`<span style="padding-right: 6px;" fsw="${NAME}"> + ${div.find('span').length - count}</span>`))
 	}
-
+	
 	Common.prototype.retop = function(div){//计算dl显示的位置
 		let dl = div.find('dl'),
 			top = div.offset().top + div.outerHeight() + 5 - $win.scrollTop(),
             dlHeight = dl.outerHeight();
 		let up = div.hasClass('layui-form-selectup') || dl.css('top').indexOf('-') != -1 || (top + dlHeight > $win.height() && top >= dlHeight);
 		div = div.find(`.${NAME}`);
-
+		
 		let fs = data[dl.attr('xid')];
 		let base = dl.parents('.layui-form-pane')[0] && dl.prev()[0].clientHeight > 38 ? 14 : 10;
 		if((fs && fs.config.direction == 'up') || up){
@@ -1223,7 +1223,7 @@
 			});
 		}
 	}
-
+	
 	Common.prototype.changeShow = function(children, isShow){//显示于隐藏
 		$('.layui-form-selected').removeClass('layui-form-selected');
 		let top = children.parents(`.${FORM_SELECT}`),
@@ -1256,7 +1256,7 @@
 			!isShow && closeFun && closeFun instanceof Function && closeFun(id);
 		}
 	}
-
+	
 	Common.prototype.changePlaceHolder = function(div){//显示于隐藏提示语
 		//调整pane模式下的高度
 		let title = div.parents(`.${FORM_TITLE}`);
@@ -1264,10 +1264,10 @@
 		if(!title[0]){
 			return ;
 		}
-
+		
 		let id = div.parents(`.${PNAME}`).find(`dl[xid]`).attr('xid');
 		if(data[id] && data[id].config.height){//既然固定高度了, 那就看着办吧
-
+						
 		}else{
 			let height = title.find(`.${NAME}`)[0].clientHeight;
 			title.css('height' , (height > 36 ? height + 4 : height) + 'px');
@@ -1282,7 +1282,7 @@
 				})
 			}
 		}
-
+		
 		let input = title.find(`.${TDIV} input`),
 			isShow = !div.find('span:last')[0] && !title.find(`.${INPUT}`).val();
 		if(isShow){
@@ -1295,7 +1295,7 @@
 			input.attr('back', ph)
 		}
 	}
-
+	
 	Common.prototype.indexOf = function(arr, val){
 		for(let i = 0; i < arr.length; i++) {
 			if(arr[i].value == val || arr[i].value == (val ? val.value : val) || arr[i] == val || JSON.stringify(arr[i]) == JSON.stringify(val)) {
@@ -1304,7 +1304,7 @@
 		}
 		return -1;
 	}
-
+	
 	Common.prototype.remove = function(arr, val){
 		let idx = this.indexOf(arr, val ? val.value : val);
 		if(idx > -1) {
@@ -1313,7 +1313,7 @@
 		}
 		return false;
 	}
-
+	
 	Common.prototype.selectAll = function(id, isOn, skipDis){
 		let dl = $(`[xid="${id}"]`);
 		if(!dl[0]){
@@ -1328,7 +1328,7 @@
 			this.handlerLabel(id, dl.find(`dd[lay-value="${val.value}"]`), true, val, !isOn);
 		});
 	}
-
+	
 	Common.prototype.removeAll = function(id, isOn, skipDis){
 		let dl = $(`[xid="${id}"]`);
 		if(!dl[0]){
@@ -1348,13 +1348,13 @@
 		}
 		data[id].values.concat([]).forEach((item, index) => {
 			if(skipDis && dl.find(`dd[lay-value="${item.value}"]`).hasClass(DISABLED)){
-
+				
 			}else{
 				this.handlerLabel(id, dl.find(`dd[lay-value="${item.value}"]`), false, item, !isOn);
 			}
 		});
 	}
-
+	
 	Common.prototype.reverse = function(id, isOn, skipDis){
 		let dl = $(`[xid="${id}"]`);
 		if(!dl[0]){
@@ -1369,14 +1369,14 @@
 			this.handlerLabel(id, dl.find(`dd[lay-value="${val.value}"]`), !item.hasClass(THIS), val, !isOn);
 		});
 	}
-
+	
 	Common.prototype.skin = function(id){
 		let skins = ['default' ,'primary', 'normal', 'warm', 'danger'];
 		let skin = skins[Math.floor(Math.random() * skins.length)];
 		$(`dl[xid="${id}"]`).parents(`.${PNAME}`).find(`.${FORM_SELECT}`).attr('xm-select-skin', skin);
 		this.check(id) && this.commonHandler(id, $(`dl[xid="${id}"]`).parents(`.${PNAME}`).find(`.${LABEL}`));
 	}
-
+	
 	Common.prototype.getPosition = function(e){
 		let x = 0, y = 0;
         while (e != null) {
@@ -1386,7 +1386,7 @@
         }
         return { x: x, y: y };
 	};
-
+	
 	Common.prototype.onreset = function(){//监听reset按钮, 然后重置多选
 		$(document).on('click', '[type=reset]', (e) => {
 			$(e.target).parents('form').find(`.${PNAME} dl[xid]`).each((index, item) => {
@@ -1404,7 +1404,7 @@
 			})
 		});
 	}
-
+	
 	Common.prototype.bindEvent = function(name, id, fun){
 		if(id && id instanceof Function){
 			fun = id;
@@ -1413,14 +1413,14 @@
 		if(fun && fun instanceof Function){
 			if(!id){
 				$.each(data, (id, val) => {
-					data[id] ? (data[id].config[name] = fun) : (events[name][id] = fun)
+					data[id] ? (data[id].config[name] = fun) : (events[name][id] = fun)				
 				})
 			}else{
 				data[id] ? (data[id].config[name] = fun, delete events[name][id]) : (events[name][id] = fun)
 			}
 		}
 	}
-
+	
 	Common.prototype.check = function(id, notAutoRender){
 		if($(`dl[xid="${id}"]`).length) {
 			return true;
@@ -1434,23 +1434,23 @@
 			return false;
 		}
 	}
-
+	
 	Common.prototype.render = function(id, select){
 		common.init(select);
 		common.one($(`dl[xid="${id}"]`).parents(`.${PNAME}`));
 		common.initVal(id);
 	}
-
+	
 	Common.prototype.log = function(obj){
 		console.log(obj);
 	}
-
+	
 	let Select4 = function(){
 		this.v = v;
 		this.render();
 	};
 	let common = new Common();
-
+	
 	Select4.prototype.value = function(id, type, isAppend){
 		if(typeof id != 'string'){
 			return [];
@@ -1506,7 +1506,7 @@
 						common.handlerLabel(id, dd, isAdd, null, true);
 						temp[val] = 1;
 					}else{
-						let name = common.valToName(id, val);
+						let name = common.valToName(id, val);						
 						if(name){
 							common.handlerLabel(id, dd, isAdd, common.getItem(id, val), true);
 							temp[val] = 1;
@@ -1516,32 +1516,32 @@
 			});
 		}
 	}
-
+	
 	Select4.prototype.on = function(id, fun, isEnd) {
 		common.bindEvent(isEnd ? 'endOn' : 'on', id, fun);
 		return this;
 	}
-
+	
 	Select4.prototype.filter = function(id, fun){
 		common.bindEvent('filter', id, fun);
 		return this;
 	}
-
+	
 	Select4.prototype.maxTips = function(id, fun){
 		common.bindEvent('maxTips', id, fun);
 		return this;
 	}
-
+	
 	Select4.prototype.opened = function(id, fun){
 		common.bindEvent('opened', id, fun);
 		return this;
 	}
-
+	
 	Select4.prototype.closed = function(id, fun){
 		common.bindEvent('closed', id, fun);
 		return this;
 	}
-
+	
 	Select4.prototype.config = function(id, config, isJson){
 		if(id && typeof id == 'object'){
 			isJson = config == true;
@@ -1568,7 +1568,7 @@
 		}
 		return this;
 	}
-
+	
 	Select4.prototype.render = function(id, options){
 		if(id && typeof id == 'object'){
 			options = id;
@@ -1600,9 +1600,9 @@
 			template: options.template,
 			clearInput: options.clearInput,
 		} : {};
-
+		
 		options && options.searchType != undefined && (config.searchType = options.searchType == 'dl' ? 1 : 0);
-
+		
 		if(id){
 			fsConfigs[id] = {};
 			$.extend(fsConfigs[id], data[id] ? data[id].config : {}, config);
@@ -1617,27 +1617,27 @@
 		});
 		return this;
 	}
-
+	
 	Select4.prototype.disabled = function(id){
 		let target = {};
 		id ? (common.check(id) && (target[id] = data[id])) : (target = data);
-
+		
 		$.each(target, (key, val) => {
 			$(`dl[xid="${key}"]`).prev().addClass(DIS);
 		});
 		return this;
 	}
-
+	
 	Select4.prototype.undisabled = function(id){
 		let target = {};
 		id ? (common.check(id) && (target[id] = data[id])) : (target = data);
-
+		
 		$.each(target, (key, val) => {
 			$(`dl[xid="${key}"]`).prev().removeClass(DIS);
 		});
 		return this;
 	}
-
+	
 	Select4.prototype.data = function(id, type, config){
 		if(!id || !type || !config){
 			common.log(`id: ${id} param error !!!`)
@@ -1656,7 +1656,7 @@
 		}
 		return this;
 	}
-
+	
 	Select4.prototype.btns = function(id, btns, config){
 		if(id && common.isArray(id)){
 			btns = id;
@@ -1667,7 +1667,7 @@
 		};
 		let target = {};
 		id ? (common.check(id) && (target[id] = data[id])) : (target = data);
-
+		
 		btns = btns.map((obj) => {
 			if(typeof obj == 'string'){
 				if(obj == 'select'){
@@ -1685,7 +1685,7 @@
 			}
 			return obj;
 		});
-
+		
 		$.each(target, (key, val) => {
 			val.config.btns = btns;
 			let dd = $(`dl[xid="${key}"]`).find(`.${FORM_SELECT_TIPS}:first`);
@@ -1700,10 +1700,10 @@
 				dd.removeAttr('style');
 			}
 		});
-
+		
 		return this;
 	}
-
+	
 	Select4.prototype.search = function(id, val){
 		if(id && common.check(id)){
 			ajaxs[id] = $.extend(true, {}, ajaxs[id] || ajax, {
@@ -1714,7 +1714,7 @@
 		}
 		return this;
 	}
-
+	
 	Select4.prototype.replace = function(id, type, config){
 		if(!id || !type || !config){
 			common.log(`id: ${id} param error !!!`)
@@ -1736,6 +1736,6 @@
 			}, true);
 		}
 	}
-
+	
 	return new Select4();
 });
