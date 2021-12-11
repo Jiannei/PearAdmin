@@ -3,19 +3,9 @@
         // todo
         $search = request('layadmin.page.components.search',[]);
 
-        $toolbar = request('layadmin.page.components.table.toolbar',[]);
+        $table = request('layadmin.page.components.table',[]);
 
-        $attributes = request('layadmin.page.components.table.attributes',[]);
-
-        $columnActions = request('layadmin.page.components.table.column.actions',[]);
-
-        $table = [
-            'toolbar' => $toolbar,
-            'attributes' => $attributes,
-            'column' => [
-                'actions' => $columnActions
-            ],
-        ];
+        $table['actions'] = collect(request('layadmin.page.components.table.actions',[]))->groupBy('position')->all();
     @endphp
 
     {{-- 搜索区 --}}
