@@ -1,10 +1,11 @@
 {
+  "uri": "admin/home",
   "layout": "base",
-  "title": "LayAdmin",
+  "title": "后台管理系统",
   "view": "layadmin::home",
   "styles": [
-    "layadmin/css/loader.css",
-    "layadmin/css/admin.css"
+    "vendor/layadmin/css/loader.css",
+    "vendor/layadmin/css/admin.css"
   ],
   "scripts": [
     "admin/js/home.js"

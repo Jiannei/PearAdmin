@@ -1,7 +1,8 @@
 {
-    "layout": "base",
-    "view": "layadmin::errors.404",
-    "styles": [
-        "layadmin/css/error.css"
-    ]
+  "uri": "admin/errors/404",
+  "layout": "base",
+  "view": "layadmin::errors.404",
+  "styles": [
+    "layadmin/css/error.css"
+  ]
 }

@@ -1,4 +1,5 @@
 {
+    "uri": "admin/console",
     "layout": "base",
     "title": "首页",
     "view": "layadmin::console",
