@@ -86,6 +86,12 @@
 					  <td>无模式限制</td>
 				    </tr>
 					<tr>
+					  <td>admin.refresh</td>
+					  <td>刷新指定</td>
+					  <td>id: 编号</td>
+					  <td>仅限 TAB 模式</td>
+					</tr>
+					<tr>
 					  <td>admin.addTab</td>
 					  <td>新增卡片</td>
 					  <td>id:编号,title:标题,url:路径</td>
@@ -150,7 +156,11 @@
 				$("#refreshThis").click(function(){
 					parent.layui.admin.refreshThis()
 				})
-
+				
+				$("#refresh").click(function(){
+					parent.layui.admin.refresh(14)
+				})
+				
 				$("#addTab").click(function(){
 					parent.layui.admin.addTab(14,"百度一下","http://www.bing.com")
 				})

@@ -174,9 +174,13 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			});
 			if (this.option.accordion) {
 				if(openEleHeight > 0){
-					openEle.parent().siblings('.layui-nav-itemed').children(".layui-nav-child").animate({
+					var currentDom = openEle.parent().siblings('.layui-nav-itemed').children(".layui-nav-child");
+					currentDom.animate({
 						height: "0px"
 					}, 200, function () {
+						currentDom.css({
+							height: "auto"
+						});
 						$(this).parent().removeClass("layui-nav-itemed");
 						$(this).find('.layui-nav-itemed').removeClass("layui-nav-itemed");
 					});
@@ -230,7 +234,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 		var defer = $.Deferred();
 		$.post(url + "?fresh=" + Math.random(), function (result) {
 			defer.resolve(result)
-		});
+		}, "json");
 		return defer.promise();
 	}
 
@@ -427,9 +431,13 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 
 				if ($(this).parent().is(".layui-nav-itemed")) {
 					if (option.accordion) {
-						$(this).parent().siblings('.layui-nav-itemed').children('.layui-nav-child').animate({
+						var currentDom = $(this).parent().siblings('.layui-nav-itemed').children('.layui-nav-child');
+						currentDom.animate({
 							height: '0px'
 						}, 200, function(){
+							currentDom.css({
+								height: "auto"
+							});
 							$(this).parent().removeClass("layui-nav-itemed");
 							$(this).find('.layui-nav-itemed').removeClass("layui-nav-itemed");
 						});
