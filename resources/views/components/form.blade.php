@@ -7,10 +7,11 @@
                 @php
                     $single = \Illuminate\Support\Arr::isAssoc($item['attributes']);
                     $dataId = $single ? $item['attributes']['id'] : head($item['attributes'])['name'];
+                    $required = $item['required'] ?? false;
                 @endphp
 
                 <div class="layui-form-item @if($item['hidden'] ?? '') layui-hide @endif" data-id="{{ $dataId }}">
-                    <label class="layui-form-label" for="{{ $dataId }}">{{ $item['label']}}</label>
+                    <label class="layui-form-label @if($required) layui-form-required @endif" for="{{ $dataId }}">{{ $item['label']}}</label>
                     <div class="layui-input-block">
                         @if($single)
                             <{{$item['element']}} @foreach($item['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach></{{$item['element']}}>
