@@ -15,6 +15,20 @@
                     <div class="layui-input-block">
                         @if($single)
                             <{{$item['element']}} @foreach($item['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach></{{$item['element']}}>
+                            @if($feature = $item['feature'] ?? [])
+                                @switch($feature)
+                                    @case('upload')
+                                    <div class="layui-upload-drag" id="upload{{ ucfirst($item['attributes']['id']) }}">
+                                        <i class="layui-icon layui-icon-upload"></i>
+                                        <p>点击上传，或将图片拖拽到此处</p>
+                                        <div class="layui-hide" id="upload{{ ucfirst($item['attributes']['id']) }}Preview">
+                                            <hr>
+                                            <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                                        </div>
+                                    </div>
+                                    @break
+                                @endswitch
+                            @endif
                         @else
                             @foreach($item['attributes'] as $value)
                                 <{{$item['element']}} @foreach($value as $key => $val) {{ $key }}="{{ $val }}" @endforeach></{{$item['element']}}>
