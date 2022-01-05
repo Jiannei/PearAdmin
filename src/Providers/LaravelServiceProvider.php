@@ -11,8 +11,10 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Jiannei\LayAdmin\Http\Middleware\Bootstrap;
+use Jiannei\LayAdmin\Support\Facades\LayAdmin;
 
 class LaravelServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,17 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected $middlewareAliases = [
         'admin.bootstrap' => Bootstrap::class,
+    ];
+
+    /**
+     * The middleware groups.
+     *
+     * @var array
+     */
+    protected $middlewareGroups = [
+        'admin' => [
+            'admin.bootstrap',
+        ],
     ];
 
     public function register()
@@ -49,6 +62,21 @@ class LaravelServiceProvider extends ServiceProvider
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
 
         $this->aliasMiddleware();
+
+        $this->ensureHttps();
+    }
+
+    /**
+     * Force setting https scheme if https enabled.
+     *
+     * @return void
+     */
+    protected function ensureHttps(): void
+    {
+        if (config('layadmin.https') && LayAdmin::isAdminRoute(request()->path())) {
+            URL::forceScheme('https');
+            request()->server->set('HTTPS', true);
+        }
     }
 
     /**
@@ -58,12 +86,12 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected function aliasMiddleware()
     {
-        $router = $this->app['router'];
-
-        $method = method_exists($router, 'aliasMiddleware') ? 'aliasMiddleware' : 'middleware';
-
         foreach ($this->middlewareAliases as $alias => $middleware) {
-            $router->$method($alias, $middleware);
+            $this->app['router']->aliasMiddleware($alias, $middleware);
+        }
+
+        foreach ($this->middlewareGroups as $group => $middleware) {
+            $this->app['router']->middlewareGroup($group, $middleware);
         }
     }
 }

@@ -18,9 +18,7 @@ class Bootstrap
 {
     public function handle(Request $request, \Closure $next)
     {
-        $layadmin = LayAdmin::bootstrap();
-
-        $request->merge(compact('layadmin'));
+        $request->merge(['layadmin' => LayAdmin::bootstrap()]);
 
         return $next($request);
     }

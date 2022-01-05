@@ -10,9 +10,15 @@
  */
 
 return [
-    'path' => [
+    'https' => env('ADMIN_HTTPS', false),
+
+    'route' => [
         'prefix' => env('ADMIN_PATH_PREFIX', 'admin'),
 
+        'middleware' => ['web', 'admin'],
+    ],
+
+    'path' => [
         'home' => env('ADMIN_HOME_PATH', '/'),
     ],
 

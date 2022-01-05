@@ -3,7 +3,7 @@
     <div class="mainBox">
         <div class="main-container">
             {{ $slot }}
-            @foreach($form['items'] as $item)
+            @foreach($form['items'] ?? [] as $item)
                 @php
                     $single = \Illuminate\Support\Arr::isAssoc($item['attributes']);
                     $dataId = $single ? $item['attributes']['id'] : head($item['attributes'])['name'];

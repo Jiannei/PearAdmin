@@ -28,6 +28,17 @@ class LayAdmin
     }
 
     /**
+     * 检查是否为 admin 路由
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function isAdminRoute(string $path)
+    {
+        return Str::startsWith($path, config('layadmin.route.prefix'));
+    }
+
+    /**
      * 根据请求路径解析页面配置.
      *
      * @param  string|null  $path
@@ -37,13 +48,11 @@ class LayAdmin
      */
     public function getPageConfig(string $path)
     {
-        $prefix = config('layadmin.path.prefix');
-
-        if (! Str::startsWith($path, $prefix)) {
+        if (! $this->isAdminRoute($path)) {
             return [];
         }
 
-        $pageConfigPath = resource_path('config'.Str::remove($prefix, $path).'.json');
+        $pageConfigPath = resource_path('config'.Str::remove(config('layadmin.route.prefix'), $path).'.json');
         if (! file_exists($pageConfigPath)) {
             throw new InvalidPageConfigException("页面配置解析错误：配置文件[$pageConfigPath]不存在");
         }
@@ -79,7 +88,7 @@ class LayAdmin
     {
         // todo 配置校验；table\form 处理
         return [
-            'version' => LayAdmin::version(),
+            'version' => $this->version(),
             'params' => request()->all() ?: (object) [],
             'page' => $this->getPageConfig(request()->path()),
         ];
