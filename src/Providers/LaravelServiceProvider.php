@@ -11,6 +11,7 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -41,7 +42,7 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(dirname(__DIR__, 2).'/config/layadmin.php', 'layadmin');
+        $this->setupConfig();
 
         if ($this->app->runningInConsole()) {
             $this->publishes([dirname(__DIR__, 2).'/resources/assets' => public_path('vendor/layadmin')], 'layadmin-assets');
@@ -65,13 +66,11 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->aliasMiddleware();
-
-        $this->registerRoutes();
-
-        $this->ensureHttps();
-
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
+
+        $this->aliasMiddleware();
+        $this->registerRoutes();
+        $this->ensureHttps();
     }
 
     /**
@@ -100,6 +99,18 @@ class LaravelServiceProvider extends ServiceProvider
                 $this->loadRoutesFrom($apiRoutes);
             }
         });
+    }
+
+    /**
+     * Setup admin config.
+     *
+     * @return void
+     */
+    protected function setupConfig()
+    {
+        $this->mergeConfigFrom(dirname(__DIR__, 2).'/config/layadmin.php', 'layadmin');
+
+        config(Arr::dot(config('layadmin.auth', []), 'auth.'));
     }
 
     /**

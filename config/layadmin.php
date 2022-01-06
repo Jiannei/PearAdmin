@@ -13,6 +13,8 @@ return [
     'title' => env('ADMIN_TITLE', 'LayAdmin'),
     'desc' => env('ADMIN_DESC', '江 城 最 具 影 响 力 的 后 台 系 统 之 一'),
 
+    'guard' => env('ADMIN_GUARD', 'admin'),
+
     'routes' => [
         'web' => [
             'prefix' => env('ADMIN_WEB_PREFIX', 'admin'),
@@ -22,6 +24,15 @@ return [
             'prefix' => env('ADMIN_API_PREFIX', 'api'),
 
             'middleware' => ['web'],
+        ]
+    ],
+
+    'auth' => [
+        'guards' => [
+            'admin' => [
+                'driver' => 'session',
+                'provider' => 'users',
+            ],
         ],
     ],
 

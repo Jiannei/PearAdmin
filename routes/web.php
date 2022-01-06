@@ -12,8 +12,10 @@
 use Illuminate\Support\Facades\Route;
 use Jiannei\LayAdmin\Support\Facades\LayAdmin;
 
-Route::get('/login', LayAdmin::view())->middleware('guest:admin'); // 登录
+// 无需授权的页面
+Route::get('/login', LayAdmin::view())->middleware('guest:'.config('layadmin.guard')); // 登录
 
-Route::middleware('auth:admin')->group(function () {
+// 需授权的页面
+Route::middleware('auth:'.config('layadmin.guard'))->group(function () {
     Route::get('/{path}', LayAdmin::view())->where('path', '.+'); // 核心路由
 });
