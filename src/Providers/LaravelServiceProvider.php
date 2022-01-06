@@ -91,7 +91,10 @@ class LaravelServiceProvider extends ServiceProvider
             }
         });
 
-        Route::group(['prefix' => config('layadmin.api.prefix')], function () {
+        Route::group([
+            'prefix' => config('layadmin.api.prefix'),
+            'middleware' => config('layadmin.api.middleware'),
+        ], function () {
             $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/api.php');
             if (file_exists($apiRoutes = base_path('routes/admin/api.php'))) {
                 $this->loadRoutesFrom($apiRoutes);

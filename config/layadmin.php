@@ -21,6 +21,8 @@ return [
 
     'api' => [
         'prefix' => env('ADMIN_API_PREFIX', 'api'),
+
+        'middleware' => ['web'],
     ],
 
     'https' => env('ADMIN_HTTPS', false),
