@@ -28,9 +28,9 @@ class LayAdmin
     }
 
     /**
-     * 检查是否为 admin 路由
+     * 检查是否为 admin 路由.
      *
-     * @param string $path
+     * @param  string  $path
      * @return bool
      */
     public function isAdminRoute(string $path)
