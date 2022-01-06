@@ -23,7 +23,7 @@ if (! function_exists('asset')) {
     }
 }
 
-if (!function_exists('admin_route_path')) {
+if (! function_exists('admin_route_path')) {
     /**
      * admin route actual path.
      *

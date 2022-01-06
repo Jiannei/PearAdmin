@@ -84,7 +84,7 @@ class LaravelServiceProvider extends ServiceProvider
         Route::group([
             'prefix' => config('layadmin.route.prefix'),
             'middleware' => config('layadmin.route.middleware'),
-        ],function () {
+        ], function () {
             $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/web.php');
         });
 
