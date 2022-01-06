@@ -24,7 +24,7 @@ return [
             'prefix' => env('ADMIN_API_PREFIX', 'api'),
 
             'middleware' => ['web'],
-        ]
+        ],
     ],
 
     'auth' => [

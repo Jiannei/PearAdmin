@@ -15,5 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 // 需授权的接口
 Route::middleware('auth:'.config('layadmin.guard'))->group(function () {
-
 });
