@@ -86,10 +86,16 @@ class LaravelServiceProvider extends ServiceProvider
             'middleware' => config('layadmin.route.middleware'),
         ], function () {
             $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/web.php');
+            if (file_exists($webRoutes = base_path('routes/admin/web.php'))) {
+                $this->loadRoutesFrom($webRoutes);
+            }
         });
 
         Route::group(['prefix' => config('layadmin.api.prefix')], function () {
             $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/api.php');
+            if (file_exists($apiRoutes = base_path('routes/admin/api.php'))) {
+                $this->loadRoutesFrom($apiRoutes);
+            }
         });
     }
 
