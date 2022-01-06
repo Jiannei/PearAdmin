@@ -22,3 +22,16 @@ if (! function_exists('asset')) {
         return app('url')->asset($path, $secure);
     }
 }
+
+if (!function_exists('admin_route_path')) {
+    /**
+     * admin route actual path.
+     *
+     * @param $uri
+     * @return string
+     */
+    function admin_route_path($uri): string
+    {
+        return \Illuminate\Support\Str::start($uri, config('layadmin.route.prefix').DIRECTORY_SEPARATOR);
+    }
+}

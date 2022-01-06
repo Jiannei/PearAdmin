@@ -10,7 +10,8 @@
  */
 
 return [
-    'https' => env('ADMIN_HTTPS', false),
+    'title' => env('ADMIN_TITLE', 'LayAdmin'),
+    'desc' => env('ADMIN_DESC', '江 城 最 具 影 响 力 的 后 台 系 统 之 一'),
 
     'route' => [
         'prefix' => env('ADMIN_PATH_PREFIX', 'admin'),
@@ -18,12 +19,11 @@ return [
         'middleware' => ['web', 'admin'],
     ],
 
-    'path' => [
-        'home' => env('ADMIN_HOME_PATH', '/'),
+    'api' => [
+        'prefix' => env('ADMIN_API_PREFIX', 'api'),
     ],
 
-    'title' => env('ADMIN_TITLE', 'LayAdmin'),
-    'desc' => env('ADMIN_DESC', '江 城 最 具 影 响 力 的 后 台 系 统 之 一'),
+    'https' => env('ADMIN_HTTPS', false),
 
     // layui 组件全局配置
     'table' => [

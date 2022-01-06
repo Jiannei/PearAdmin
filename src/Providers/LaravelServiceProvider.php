@@ -11,6 +11,7 @@
 
 namespace Jiannei\LayAdmin\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Jiannei\LayAdmin\Http\Middleware\Bootstrap;
@@ -54,16 +55,42 @@ class LaravelServiceProvider extends ServiceProvider
             $this->publishes([
                 dirname(__DIR__, 2).'/resources/views/' => resource_path('views/vendor/layadmin'),
             ], 'layadmin-blades');
+
+            $this->publishes([
+                dirname(__DIR__, 2).'/routes/web.php' => base_path('routes/admin/web.php'),
+                dirname(__DIR__, 2).'/routes/api.php' => base_path('routes/admin/api.php'),
+            ], 'layadmin-routes');
         }
     }
 
     public function boot()
     {
-        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
-
         $this->aliasMiddleware();
 
+        $this->registerRoutes();
+
         $this->ensureHttps();
+
+        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
+    }
+
+    /**
+     * Register admin routes.
+     *
+     * @return void
+     */
+    protected function registerRoutes()
+    {
+        Route::group([
+            'prefix' => config('layadmin.route.prefix'),
+            'middleware' => config('layadmin.route.middleware'),
+        ],function () {
+            $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/web.php');
+        });
+
+        Route::group(['prefix' => config('layadmin.api.prefix')], function () {
+            $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/api.php');
+        });
     }
 
     /**
