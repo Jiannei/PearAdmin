@@ -35,7 +35,7 @@ class LayAdmin
      */
     public function isAdminRoute(string $path)
     {
-        return Str::startsWith($path, config('layadmin.route.prefix'));
+        return Str::startsWith($path, config('layadmin.routes.web.prefix'));
     }
 
     /**
@@ -52,7 +52,7 @@ class LayAdmin
             return [];
         }
 
-        $pageConfigPath = resource_path('config'.Str::remove(config('layadmin.route.prefix'), $path).'.json');
+        $pageConfigPath = resource_path('config'.Str::remove(config('layadmin.routes.web.prefix'), $path).'.json');
         if (! file_exists($pageConfigPath)) {
             throw new InvalidPageConfigException("页面配置解析错误：配置文件[$pageConfigPath]不存在");
         }
