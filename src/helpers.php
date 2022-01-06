@@ -23,15 +23,15 @@ if (! function_exists('asset')) {
     }
 }
 
-if (! function_exists('admin_route_path')) {
+if (! function_exists('admin_web_path')) {
     /**
-     * admin route actual path.
+     * admin web route actual path.
      *
      * @param $uri
      * @return string
      */
-    function admin_route_path($uri): string
+    function admin_web_path($uri): string
     {
-        return \Illuminate\Support\Str::start($uri, config('layadmin.route.prefix').DIRECTORY_SEPARATOR);
+        return \Illuminate\Support\Str::start($uri, config('layadmin.routes.web.prefix').DIRECTORY_SEPARATOR);
     }
 }

@@ -82,8 +82,8 @@ class LaravelServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         Route::group([
-            'prefix' => config('layadmin.route.prefix'),
-            'middleware' => config('layadmin.route.middleware'),
+            'prefix' => config('layadmin.routes.web.prefix'),
+            'middleware' => config('layadmin.routes.web.middleware'),
         ], function () {
             $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/web.php');
             if (file_exists($webRoutes = base_path('routes/admin/web.php'))) {
@@ -92,8 +92,8 @@ class LaravelServiceProvider extends ServiceProvider
         });
 
         Route::group([
-            'prefix' => config('layadmin.api.prefix'),
-            'middleware' => config('layadmin.api.middleware'),
+            'prefix' => config('layadmin.routes.api.prefix'),
+            'middleware' => config('layadmin.routes.api.middleware'),
         ], function () {
             $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/api.php');
             if (file_exists($apiRoutes = base_path('routes/admin/api.php'))) {
