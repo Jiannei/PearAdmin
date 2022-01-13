@@ -66,6 +66,23 @@ layui.define(['jquery', 'element','table'], function(exports) {
 			    }
 			})
 		}
+
+		this.search = function (data,type) {
+			type = type || 'criteria';
+
+			if (type !== 'criteria') {
+				return data.field;
+			}
+
+			let search = '';
+			layui.each(data.field, function (key, item) {
+				if (item) {
+					search += (';' + key + ":" + item);
+				}
+			})
+
+			return {search: search.slice(1)};
+		}
 	}
 	exports(MOD_NAME, common);
 });
