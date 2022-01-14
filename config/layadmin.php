@@ -38,6 +38,14 @@ return [
 
     'https' => env('ADMIN_HTTPS', false),
 
+    'cache' => [
+        'expiration_time' => \DateInterval::createFromDateString('24 hours'),
+
+        'key' => 'layadmin:config',
+
+        'store' => 'default',
+    ],
+
     // layui 组件全局配置
     'table' => [
         'parseData' => '(function(res){return {code:res.code,msg:res.message,count:res.data.meta.pagination.total,data:res.data.list}})',

@@ -1,5 +1,5 @@
 {
-  "uri": "admin/errors/404",
+  "uri": "errors/404",
   "layout": "base",
   "view": "layadmin::errors.404",
   "styles": [

@@ -11,12 +11,26 @@
 
 namespace Jiannei\LayAdmin;
 
+use Closure;
+use Illuminate\Cache\CacheManager;
+use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
+use Throwable;
 
 class LayAdmin
 {
+    /** @var Repository */
+    protected $cache;
+
+    public function __construct(CacheManager $cacheManager)
+    {
+        $this->cache = $this->getCacheStoreFromConfig($cacheManager);
+    }
+
     /**
      * Lay Admin version.
      *
@@ -52,29 +66,14 @@ class LayAdmin
             return [];
         }
 
-        $pageConfigPath = resource_path('config'.Str::remove(config('layadmin.routes.web.prefix'), $path).'.json');
-        if (! file_exists($pageConfigPath)) {
-            throw new InvalidPageConfigException("页面配置解析错误：配置文件[$pageConfigPath]不存在");
+        $configs = array_column($this->cacheConfig(),null,'uri');
+
+        if (!Arr::has($configs,$path)) {
+            $pageConfigPath = resource_path('config/'.$path.'.json');
+            throw new InvalidPageConfigException("页面配置错误：配置文件[$pageConfigPath]不存在");
         }
 
-        try {
-            $pageConfig = json_decode(file_get_contents($pageConfigPath), true, 512, JSON_THROW_ON_ERROR);
-
-            if (isset($pageConfig['title']) && $pageConfig['title']) {
-                $pageConfig['title'] = config('layadmin.title').' | '.$pageConfig['title'];
-            }
-
-            return array_merge([
-                'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $pageConfig['uri']),
-                'view' => $pageConfig['view'],
-                'title' => config('layadmin.title'),
-                'styles' => [],
-                'scripts' => [],
-                'components' => [],
-            ], $pageConfig);
-        } catch (\Throwable $exception) {
-            throw new InvalidPageConfigException('页面配置解析错误：[错误]'.$exception->getMessage().'；[配置文件]'.$pageConfigPath);
-        }
+        return Arr::get($configs,$path);
     }
 
     /**
@@ -95,11 +94,48 @@ class LayAdmin
     }
 
     /**
+     * 缓存页面配置项
+     *
+     * @return mixed
+     * @throws InvalidPageConfigException
+     */
+    protected function cacheConfig()
+    {
+        try {
+            return $this->cache->remember(config('layadmin.cache.key'),config('layadmin.cache.expiration_time'),function () {
+                return collect(File::allFiles(resource_path('config')))->map(function ($item) {
+                    try {
+                        $content = json_decode($item->getContents(), true, 512, JSON_THROW_ON_ERROR);
+                    } catch (Throwable $e) {
+                        throw new InvalidPageConfigException("[{$item->getRelativePathname()}]解析错误：{$e->getMessage()}");
+                    }
+
+                    if (!Arr::has($content,'uri')) {
+                        throw new InvalidPageConfigException("[{$item->getRelativePathname()}]缺少 uri 配置项");
+                    }
+
+                    Arr::set($content,'uri',Str::start($content['uri'],config('layadmin.routes.web.prefix').'/'));
+
+                    return array_merge([
+                        'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $content['uri']),
+                        'title' => Arr::get($content, 'title', config('layadmin.title')),
+                        'styles' => [],
+                        'scripts' => [],
+                        'components' => [],
+                    ], $content);
+                })->all();
+            });
+        } catch (\Throwable $e) {
+            throw new InvalidPageConfigException('页面配置错误：'.$e->getMessage());
+        }
+    }
+
+    /**
      * 渲染后台视图.
      *
-     * @return \Closure
+     * @return Closure
      */
-    public function view()
+    public function view(): Closure
     {
         return function () {
             if (! ($view = request('layadmin.page.view')) || ! View::exists($view)) {
@@ -108,5 +144,26 @@ class LayAdmin
 
             return \view($view);
         };
+    }
+
+    /**
+     * 获取缓存驱动
+     *
+     * @param CacheManager $cacheManager
+     * @return Repository
+     */
+    protected function getCacheStoreFromConfig(CacheManager $cacheManager): Repository
+    {
+        $cacheDriver = config('layadmin.cache.store', 'default');
+
+        if ($cacheDriver === 'default') {
+            return $cacheManager->store();
+        }
+
+        if (! \array_key_exists($cacheDriver, config('cache.stores'))) {
+            $cacheDriver = 'array';
+        }
+
+        return $cacheManager->store($cacheDriver);
     }
 }
