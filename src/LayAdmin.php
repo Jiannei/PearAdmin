@@ -36,7 +36,7 @@ class LayAdmin
      *
      * @return string
      */
-    public function version()
+    public function version(): string
     {
         return 'v3.0.0';
     }
@@ -47,7 +47,7 @@ class LayAdmin
      * @param  string  $path
      * @return bool
      */
-    public function isAdminRoute(string $path)
+    public function isAdminRoute(string $path): bool
     {
         return Str::startsWith($path, config('layadmin.routes.web.prefix'));
     }
@@ -60,20 +60,25 @@ class LayAdmin
      *
      * @throws InvalidPageConfigException
      */
-    public function getPageConfig(string $path)
+    public function getPageConfig(string $path = null): array
     {
+        $cacheConfig = $this->cacheConfig();
+        if (is_null($path)) {
+            return $cacheConfig;
+        }
+
         if (! $this->isAdminRoute($path)) {
             return [];
         }
 
-        $configs = array_column($this->cacheConfig(), null, 'uri');
+        $configs = array_column($cacheConfig,null,'uri');
 
-        if (! Arr::has($configs, $path)) {
+        if (!Arr::has($configs,$path)) {
             $pageConfigPath = resource_path('config/'.$path.'.json');
             throw new InvalidPageConfigException("页面配置错误：配置文件[$pageConfigPath]不存在");
         }
 
-        return Arr::get($configs, $path);
+        return Arr::get($configs,$path);
     }
 
     /**
@@ -83,9 +88,8 @@ class LayAdmin
      *
      * @throws InvalidPageConfigException
      */
-    public function bootstrap()
+    public function bootstrap(): array
     {
-        // todo 配置校验；table\form 处理
         return [
             'version' => $this->version(),
             'params' => request()->all() ?: (object) [],
@@ -94,41 +98,66 @@ class LayAdmin
     }
 
     /**
-     * 缓存页面配置项.
+     * 缓存页面配置项
      *
      * @return mixed
-     *
      * @throws InvalidPageConfigException
      */
     protected function cacheConfig()
     {
         try {
-            return $this->cache->remember(config('layadmin.cache.key'), config('layadmin.cache.expiration_time'), function () {
-                return collect(File::allFiles(resource_path('config')))->map(function ($item) {
-                    try {
-                        $content = json_decode($item->getContents(), true, 512, JSON_THROW_ON_ERROR);
-                    } catch (Throwable $e) {
-                        throw new InvalidPageConfigException("[{$item->getRelativePathname()}]解析错误：{$e->getMessage()}");
-                    }
-
-                    if (! Arr::has($content, 'uri')) {
-                        throw new InvalidPageConfigException("[{$item->getRelativePathname()}]缺少 uri 配置项");
-                    }
-
-                    Arr::set($content, 'uri', Str::start($content['uri'], config('layadmin.routes.web.prefix').'/'));
-
-                    return array_merge([
-                        'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $content['uri']),
-                        'title' => Arr::get($content, 'title', config('layadmin.title')),
-                        'styles' => [],
-                        'scripts' => [],
-                        'components' => [],
-                    ], $content);
-                })->all();
+            return $this->cache->remember(config('layadmin.cache.key'),config('layadmin.cache.expiration_time'),function () {
+                return $this->parseFileConfig();
             });
         } catch (\Throwable $e) {
             throw new InvalidPageConfigException('页面配置错误：'.$e->getMessage());
         }
+    }
+
+    /**
+     * 解析并校验页面配置
+     *
+     * @return array
+     */
+    protected function parseFileConfig(): array
+    {
+        return collect(File::allFiles(resource_path('config')))->map(function ($item) {
+            $key = $item->getRelativePathname();
+
+            try {
+                $config = json_decode($item->getContents(), true, 512, JSON_THROW_ON_ERROR);
+            } catch (Throwable $e) {
+                throw new InvalidPageConfigException("[{$key}]解析错误：{$e->getMessage()}");
+            }
+
+            return $this->validConfig($key,$config);
+        })->all();
+    }
+
+    /**
+     * 校验配置项
+     *
+     * @param string $key
+     * @param array $config
+     * @return array
+     * @throws InvalidPageConfigException
+     */
+    protected function validConfig(string $key, array $config): array
+    {
+        // todo 配置校验；table\form 处理
+        if (!Arr::has($config, 'uri')) {
+            throw new InvalidPageConfigException("[{$key}]缺少 uri 配置项");
+        }
+
+        Arr::set($config, 'uri', Str::start($config['uri'], config('layadmin.routes.web.prefix') . '/'));
+
+        return array_merge([
+            'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $config['uri']),
+            'title' => Arr::get($config, 'title', config('layadmin.title')),
+            'styles' => [],
+            'scripts' => [],
+            'components' => [],
+        ], $config);
     }
 
     /**
@@ -148,9 +177,9 @@ class LayAdmin
     }
 
     /**
-     * 获取缓存驱动.
+     * 获取缓存驱动
      *
-     * @param  CacheManager  $cacheManager
+     * @param CacheManager $cacheManager
      * @return Repository
      */
     protected function getCacheStoreFromConfig(CacheManager $cacheManager): Repository

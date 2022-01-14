@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
  * @method static string version()
  * @method static bool isAdminRoute(string $path)
  * @method static array bootstrap()
- * @method static array getPageConfig(string $path)
+ * @method static array getPageConfig(string|null $path = null)
  * @method static \Closure view()
  *
  * @see \Jiannei\LayAdmin\LayAdmin
