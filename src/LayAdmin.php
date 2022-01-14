@@ -66,14 +66,14 @@ class LayAdmin
             return [];
         }
 
-        $configs = array_column($this->cacheConfig(),null,'uri');
+        $configs = array_column($this->cacheConfig(), null, 'uri');
 
-        if (!Arr::has($configs,$path)) {
+        if (! Arr::has($configs, $path)) {
             $pageConfigPath = resource_path('config/'.$path.'.json');
             throw new InvalidPageConfigException("页面配置错误：配置文件[$pageConfigPath]不存在");
         }
 
-        return Arr::get($configs,$path);
+        return Arr::get($configs, $path);
     }
 
     /**
@@ -94,15 +94,16 @@ class LayAdmin
     }
 
     /**
-     * 缓存页面配置项
+     * 缓存页面配置项.
      *
      * @return mixed
+     *
      * @throws InvalidPageConfigException
      */
     protected function cacheConfig()
     {
         try {
-            return $this->cache->remember(config('layadmin.cache.key'),config('layadmin.cache.expiration_time'),function () {
+            return $this->cache->remember(config('layadmin.cache.key'), config('layadmin.cache.expiration_time'), function () {
                 return collect(File::allFiles(resource_path('config')))->map(function ($item) {
                     try {
                         $content = json_decode($item->getContents(), true, 512, JSON_THROW_ON_ERROR);
@@ -110,11 +111,11 @@ class LayAdmin
                         throw new InvalidPageConfigException("[{$item->getRelativePathname()}]解析错误：{$e->getMessage()}");
                     }
 
-                    if (!Arr::has($content,'uri')) {
+                    if (! Arr::has($content, 'uri')) {
                         throw new InvalidPageConfigException("[{$item->getRelativePathname()}]缺少 uri 配置项");
                     }
 
-                    Arr::set($content,'uri',Str::start($content['uri'],config('layadmin.routes.web.prefix').'/'));
+                    Arr::set($content, 'uri', Str::start($content['uri'], config('layadmin.routes.web.prefix').'/'));
 
                     return array_merge([
                         'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $content['uri']),
@@ -147,9 +148,9 @@ class LayAdmin
     }
 
     /**
-     * 获取缓存驱动
+     * 获取缓存驱动.
      *
-     * @param CacheManager $cacheManager
+     * @param  CacheManager  $cacheManager
      * @return Repository
      */
     protected function getCacheStoreFromConfig(CacheManager $cacheManager): Repository
