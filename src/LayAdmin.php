@@ -55,7 +55,7 @@ class LayAdmin
     /**
      * 根据请求路径获取页面 uri.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     public function getPageUri(string $path): string
