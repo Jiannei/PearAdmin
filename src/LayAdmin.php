@@ -83,13 +83,14 @@ class LayAdmin
         }
 
         $configs = array_column($cacheConfig, null, 'uri');
+        $uri = $this->getPageUri($path);
 
-        if (! Arr::has($configs, $path)) {
-            $pageConfigPath = resource_path('config/'.$this->getPageUri($path).'.json');
+        if (! Arr::has($configs, $uri)) {
+            $pageConfigPath = resource_path('config/'.$uri.'.json');
             throw new InvalidPageConfigException("页面配置错误：配置文件[$pageConfigPath]不存在");
         }
 
-        return Arr::get($configs, $path);
+        return Arr::get($configs, $uri);
     }
 
     /**
@@ -161,8 +162,6 @@ class LayAdmin
         if (! Arr::has($config, 'uri')) {
             throw new InvalidPageConfigException("[{$key}]缺少 uri 配置项");
         }
-
-        Arr::set($config, 'uri', Str::start($config['uri'], config('layadmin.routes.web.prefix').'/'));
 
         return array_merge([
             'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $config['uri']),
