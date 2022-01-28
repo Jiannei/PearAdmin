@@ -53,6 +53,17 @@ class LayAdmin
     }
 
     /**
+     * 根据请求路径获取页面 uri.
+     *
+     * @param string $path
+     * @return string
+     */
+    public function getPageUri(string $path): string
+    {
+        return ltrim($path, config('layadmin.routes.web.prefix').'/');
+    }
+
+    /**
      * 根据请求路径解析页面配置.
      *
      * @param  string|null  $path
@@ -62,7 +73,7 @@ class LayAdmin
      */
     public function getPageConfig(string $path = null): array
     {
-        $cacheConfig = $this->cacheConfig();
+        $cacheConfig = config('layadmin.cache.enable') ? $this->cacheConfig() : $this->parseFileConfig();
         if (is_null($path)) {
             return $cacheConfig;
         }
@@ -74,7 +85,7 @@ class LayAdmin
         $configs = array_column($cacheConfig, null, 'uri');
 
         if (! Arr::has($configs, $path)) {
-            $pageConfigPath = resource_path('config/'.$path.'.json');
+            $pageConfigPath = resource_path('config/'.$this->getPageUri($path).'.json');
             throw new InvalidPageConfigException("页面配置错误：配置文件[$pageConfigPath]不存在");
         }
 

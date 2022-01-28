@@ -39,6 +39,8 @@ return [
     'https' => env('ADMIN_HTTPS', false),
 
     'cache' => [
+        'enable' => env('ADMIN_CACHE_ENABLE', true),
+
         'expiration_time' => \DateInterval::createFromDateString('24 hours'),
 
         'key' => 'layadmin:config',
