@@ -60,7 +60,7 @@ class LayAdmin
      */
     public function getPageUri(string $path): string
     {
-        return Str::replaceFirst(config('layadmin.routes.web.prefix').'/','',$path);
+        return Str::replaceFirst(config('layadmin.routes.web.prefix').'/', '', $path);
     }
 
     /**
