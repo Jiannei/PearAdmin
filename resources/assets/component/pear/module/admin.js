@@ -93,8 +93,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						compatible();
 					},
 					done: function() {
+						sideMenu.isCollapse = param.menu.collapse;
 						sideMenu.selectItem(param.menu.select);
-						pearAdmin.collaspe(param);
+						pearAdmin.collapse(param);
 					}
 				});
 			}
@@ -240,15 +241,38 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					}
 				}
 
+				var footer = localStorage.getItem("footer");
+				if( footer === null) {
+					footer = option.other.footer;
+				}else{
+					if (option.theme.allowCustom === false) {
+						footer = option.other.footer;
+					}
+				}
+
 				localStorage.setItem("muilt-tab", muiltTab);
 				localStorage.setItem("theme-banner", banner);
 				localStorage.setItem("theme-menu", menu);
 				localStorage.setItem("theme-header", header);
 				localStorage.setItem("auto-head", autoHead);
 				localStorage.setItem("control", control);
+				localStorage.setItem("footer", footer);
 				this.menuSkin(menu);
 				this.headerSkin(header);
 				this.bannerSkin(banner);
+				this.footer(footer);
+			}
+
+			this.footer = function(footer){
+				var bodyDOM = $(".pear-admin .layui-body");
+				var footerDOM = $(".pear-admin .layui-footer");
+				if (footer === true || footer === "true") {
+					footerDOM.removeClass("close");
+					bodyDOM.css("bottom", footerDOM.outerHeight());
+				} else {
+					footerDOM.addClass("close");
+					bodyDOM.css("bottom", "");
+				}
 			}
 
 			this.bannerSkin = function(theme) {
@@ -259,10 +283,10 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}
 			}
 
-			this.collaspe = function(param) {
-				if (param.menu.collaspe) {
+			this.collapse = function(param) {
+				if (param.menu.collapse) {
 					if ($(window).width() >= 768) {
-						collaspe()
+						collapse()
 					}
 				}
 			}
@@ -291,8 +315,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}
 			}
 
-			this.collaspeSide = function() {
-				collaspe()
+			this.collapseSide = function() {
+				collapse()
 			}
 
 			this.refreshThis = function() {
@@ -336,7 +360,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					return;
 				}
 			}
-
+			
 			this.closeOtherTab = function() {
 				if (isMuiltTab(config) === "true" || isMuiltTab(config) === true) {
 					pearTab.delOtherTabByElem('content', function(id){
@@ -346,7 +370,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					return;
 				}
 			}
-
+			
 			this.closeAllTab = function() {
 				if (isMuiltTab(config) === "true" || isMuiltTab(config) === true) {
 					pearTab.delAllTabByElem('content', function(id){
@@ -356,7 +380,11 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					return;
 				}
 			}
-
+			
+			this.changeTabTitle = function(id, title) {
+				pearTab.changeTabTitleById('content', id ,title);
+			}
+			
 			this.changeIframe = function(id, title, url) {
 				if (isMuiltTab(config) === "true" || isMuiltTab(config) === true) {
 					return;
@@ -373,7 +401,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					pearAdmin.changeIframe(id, title, url)
 				}
 			}
-
+			
 			this.fullScreen = function() {
 				if ($(".fullScreen").hasClass("layui-icon-screen-restore")) {
 					screenFun(2).then(function() {
@@ -405,8 +433,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			}, 600)
 		}
 
-		function collaspe() {
-			sideMenu.collaspe();
+		function collapse() {
+			sideMenu.collapse();
 			var admin = $(".pear-admin");
 			var left = $(".layui-icon-spread-left")
 			var right = $(".layui-icon-shrink-right")
@@ -414,21 +442,23 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				left.addClass("layui-icon-shrink-right")
 				left.removeClass("layui-icon-spread-left")
 				admin.removeClass("pear-mini");
+				sideMenu.isCollapse = false;
 			} else {
 				right.addClass("layui-icon-spread-left")
 				right.removeClass("layui-icon-shrink-right")
 				admin.addClass("pear-mini");
+				sideMenu.isCollapse = true;
 			}
 		}
 
 		body.on("click", ".logout", function() {
-			if (logout()) {
+			if (logout() && bodyTab) {
 				bodyTab.clear();
 			}
 		})
 
-		body.on("click", ".collaspe,.pear-cover", function() {
-			collaspe();
+		body.on("click", ".collapse,.pear-cover", function() {
+			collapse();
 		});
 
 		body.on("click", ".fullScreen", function() {
@@ -519,6 +549,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			moreItem +=
 				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="auto-head" lay-filter="auto-head" lay-skin="switch" lay-text="开|关"></div><span class="set-text">通色</span></div>';
 
+			moreItem +=
+				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="footer" lay-filter="footer" lay-skin="switch" lay-text="开|关"></div><span class="set-text">页脚</span></div>';
+
 			var moreHtml = '<br><div class="pearone-color">\n' +
 				'<div class="color-title">更多设置</div>\n' +
 				'<div class="color-content">\n' +
@@ -590,6 +623,11 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						pearAdmin.bannerSkin(this.checked);
 					})
 
+					form.on('switch(footer)', function (data) {
+						localStorage.setItem("footer", this.checked);
+						pearAdmin.footer(this.checked);
+					})
+
 					if (localStorage.getItem('theme-banner') === 'true') {
 						$('input[name="banner"]').attr('checked', 'checked')
 					} else {
@@ -612,6 +650,12 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						$('input[name="auto-head"]').attr('checked', 'checked')
 					} else {
 						$('input[name="auto-head"]').removeAttr('checked')
+					}
+
+					if (localStorage.getItem('footer') === 'true') {
+						$('input[name="footer"]').attr('checked', 'checked')
+					} else {
+						$('input[name="footer"]').removeAttr('checked')
 					}
 
 					form.render('checkbox');
@@ -689,7 +733,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 		function compatible() {
 			if ($(window).width() <= 768) {
-				collaspe()
+				collapse()
 			}
 		}
 
@@ -772,6 +816,25 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 		window.onresize = function() {
 			if (!isFullscreen()) {
 				$(".fullScreen").eq(0).removeClass("layui-icon-screen-restore");
+			}
+		}
+ 
+		$(window).on('resize', debounce(function () {
+			if (!sideMenu.isCollapse && $(window).width() <= 768) {
+				collapse();
+			}
+		},50));
+
+		function debounce(fn,await) {
+			var timerID = null
+			return function () {
+				var arg = arguments[0]
+				if (timerID) {
+					clearTimeout(timerID)
+				}
+				timerID = setTimeout(function () {
+					fn(arg)
+				}, await)
 			}
 		}
 		exports('admin', pearAdmin);

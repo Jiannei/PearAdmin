@@ -70,7 +70,9 @@ body,
 .pear-admin .layui-layout-right .layui-nav-child {
 	border: 1px solid whitesmoke;
 	border-radius: 4px;
-	width: 150px;
+	width: auto;
+	left: auto;
+	right: -23px;
 }
 
 .pear-admin .layui-header {
@@ -150,6 +152,23 @@ body,
 	left: 0px;
 }
 
+.pear-admin .layui-footer {
+	position: absolute;
+    display: flex;
+    justify-content: space-between;
+	left: 230px;
+	background: #fff;
+	border-top: 1px solid #F2F2F2;
+	box-shadow: none;
+	-webkit-transition: left .3s;
+	transition: left .3s;
+	overflow: hidden;
+}
+
+.pear-admin .layui-footer.close {
+	display: none;
+}
+
 /** 收缩布局 */
 .pear-mini .layui-side .layui-logo .title {
 	display: none;
@@ -174,6 +193,10 @@ body,
 
 .pear-mini .layui-side .layui-logo {
 	width: 60px;
+}
+
+.pear-mini .layui-footer {
+	left: 60px;
 }
 
 .pear-mini .layui-nav-tree .layui-nav-item span {
@@ -202,7 +225,7 @@ body,
 	display: none;
 }
 
-.pear-collasped-pe {
+.pear-collapsed-pe {
 	display: none;
 	width: 50px;
 	position: absolute;
@@ -217,7 +240,7 @@ body,
 	box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
 }
 
-.pear-collasped-pe a {
+.pear-collapsed-pe a {
 	color: white !important;
 }
 
@@ -235,11 +258,11 @@ body,
 
 /** 新增兼容 */
 @media screen and (max-width:768px) {
-	.collaspe {
+	.collapse {
 		display: none !important;
 	}
 
-	.pear-collasped-pe {
+	.pear-collapsed-pe {
 		display: inline-block !important;
 	}
 
@@ -270,6 +293,10 @@ body,
 	}
 
 	.pear-mini .layui-body {
+		left: 0px;
+	}
+
+	.pear-mini .layui-footer {
 		left: 0px;
 	}
 

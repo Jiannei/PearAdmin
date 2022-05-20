@@ -105,7 +105,6 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 				}
 			}
 			if (domss != null) {
-
 				var domsss = hash(domss);
 				if (domsss != null) {
 					if (domsss.text() != '') {
@@ -163,21 +162,23 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			let openEleHeight = 0;
 			$($("#" + this.option.elem + " a[menu-id='" + pearId + "']").parents('.layui-nav-child').get().reverse()).each(function () {
 				if (!$(this).parent().is('.layui-nav-itemed')) {
-					if(openEleHeight == 0){
+					if (openEleHeight == 0) {
 						openEle = $(this);
 					} else {
 						$(this).parent().addClass('layui-nav-itemed');
-						$(this).css({height:'auto'});
+						$(this).css({
+							height: 'auto',
+						});
 					}
 					openEleHeight += $(this).children("dd").length * 48;
 				}
 			});
 			if (this.option.accordion) {
-				if(openEleHeight > 0){
+				if (openEleHeight > 0) {
 					var currentDom = openEle.parent().siblings('.layui-nav-itemed').children(".layui-nav-child");
 					currentDom.animate({
 						height: "0px"
-					}, 200, function () {
+					}, 240, function () {
 						currentDom.css({
 							height: "auto"
 						});
@@ -186,12 +187,13 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 					});
 				}
 			}
-			if(openEleHeight > 0){
+			if (openEleHeight > 0) {
 				openEle.parent().addClass("layui-nav-itemed");
+				openEle.height(0);
 				openEle.animate({
 					height: openEleHeight + "px"
-				}, 200, function () {
-					$(this).css({height:'auto'});
+				}, 240, function () {
+					$(this).css({ height: 'auto' });
 				});
 			}
 		}
@@ -199,7 +201,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 	}
 
 	var activeMenus;
-	pearMenu.prototype.collaspe = function (time) {
+	pearMenu.prototype.collapse = function (time) {
 		var elem = this.option.elem;
 		var config = this.option;
 		if ($("#" + this.option.elem).is(".pear-nav-mini")) {
@@ -218,13 +220,17 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			$("#" + this.option.elem).animate({
 				width: "60px"
 			}, 400);
-			isHoverMenu(true, config);
+			// 使菜单在折叠动画过程中不触发 hover
+			setTimeout(function () {
+				isHoverMenu(true, config);
+			}, 100);
 		}
 	}
 
 	function getData(url) {
 		var defer = $.Deferred();
-		$.get(url + "?fresh=" + Math.random(), function (result) {
+		var symbol = url.indexOf('?') !== -1 ? '&' : '?';
+		$.get(url + symbol + "fresh=" + Math.random(), function (result) {
 			defer.resolve(result)
 		});
 		return defer.promise();
@@ -232,7 +238,8 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 
 	function postData(url) {
 		var defer = $.Deferred();
-		$.post(url + "?fresh=" + Math.random(), function (result) {
+		var symbol = url.indexOf('?') !== -1 ? '&' : '?';
+		$.post(url + symbol + "fresh=" + Math.random(), function (result) {
 			defer.resolve(result)
 		}, "json");
 		return defer.promise();
@@ -434,19 +441,18 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 						var currentDom = $(this).parent().siblings('.layui-nav-itemed').children('.layui-nav-child');
 						currentDom.animate({
 							height: '0px'
-						}, 200, function(){
+						}, 240, function () {
 							currentDom.css({
-								height: "auto"
+								height: "auto",
 							});
 							$(this).parent().removeClass("layui-nav-itemed");
 							$(this).find('.layui-nav-itemed').removeClass("layui-nav-itemed");
 						});
-						
 					}
 					ele.height(0);
 					ele.animate({
 						height: heights + "px"
-					}, 200, function () {
+					}, 240, function () {
 						ele.css({
 							height: "auto"
 						});
@@ -455,7 +461,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 					$(this).parent().addClass("layui-nav-itemed");
 					ele.animate({
 						height: "0px"
-					}, 200, function () {
+					}, 240, function () {
 						ele.css({
 							height: "auto"
 						});
@@ -469,8 +475,11 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 	/** 二 级 悬 浮 菜 单*/
 	function isHoverMenu(b, option) {
 		if (b) {
-			$("#" + option.elem + ".pear-nav-mini .layui-nav-item,#" + option.elem + ".pear-nav-mini dd").hover(function (e) {
-				e.stopPropagation();
+			var navItem = "#" + option.elem + ".pear-nav-mini .layui-nav-item";
+			var navChildDl = navItem + " .layui-nav-child>dl";
+			var navChildDd = navItem + " .layui-nav-child>dd";
+
+			$(navItem + "," + navChildDd).mouseenter(function () {
 				var _this = $(this);
 				_this.siblings().find(".layui-nav-child")
 					.removeClass("layui-nav-hover").css({
@@ -478,7 +487,6 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 						top: 0
 					});
 				_this.children(".layui-nav-child").addClass("layui-nav-hover");
-				_this.closest('.layui-nav-item').data('time') && clearTimeout(_this.closest('.layui-nav-item').data('time'));
 				var height = $(window).height();
 				var topLength = _this.offset().top;
 				var thisHeight = _this.children(".layui-nav-child").height();
@@ -491,21 +499,21 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 				}
 				_this.children(".layui-nav-child").offset({
 					top: topLength,
-					left: left + 3
+					left: left
 				});
-			}, function (e) {
-				e.stopPropagation();
+			});
+
+			$(navItem + "," + navChildDl).mouseleave(function () {
 				var _this = $(this);
-				_this.closest('.layui-nav-item').data('time', setTimeout(function () {
-					_this.closest('.layui-nav-item')
-						.find(".layui-nav-child")
-						.removeClass("layui-nav-hover")
-						.css({
-							left: 0,
-							top: 0
-						});
-				}, 50));
-			})
+				_this.closest('.layui-nav-item')
+					.find(".layui-nav-child")
+					.removeClass("layui-nav-hover")
+					.css({
+						left: 0,
+						top: 0
+					});
+			});
+
 		} else {
 			$("#" + option.elem + " .layui-nav-item").off('mouseenter').unbind('mouseleave');
 			$("#" + option.elem + " dd").off('mouseenter').unbind('mouseleave');

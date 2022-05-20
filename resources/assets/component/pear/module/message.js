@@ -21,6 +21,26 @@ layui.define(['table', 'jquery', 'element'], function(exports) {
 			option.data = getData(option.url);
 			var notice = createHtml(option);
 			$(option.elem).html(notice);
+			var targetNode = document.querySelector(option.elem + ' .pear-notice')
+			var mutationObserver = new MutationObserver((mutationsList, observer) => {
+				if (getComputedStyle(targetNode).display !== 'none') {
+					var rect = targetNode.getBoundingClientRect();
+					//是否超出右侧屏幕
+					if (rect.right > $(window).width()) {
+						var elemRight = document.querySelector(option.elem).getBoundingClientRect().right;
+						var offsetRight = 20;
+						targetNode.style.right = elemRight - $(window).width() + offsetRight + 'px';
+						targetNode.style.left = 'unset';
+					}
+				}
+			});
+			mutationObserver.observe(targetNode, {
+				attributes: true,
+				childList: false,
+				subtree: false,
+				attributeOldValue: false,
+				attributeFilter: ['class']
+			});
 		}
 		setTimeout(function() {
 			element.init();
@@ -41,6 +61,11 @@ layui.define(['table', 'jquery', 'element'], function(exports) {
 			var form = $(this).attr("notice-form");
 			callback(id, title, context, form);
 		})
+	}
+	
+	/** 刷 新 消 息 */
+	message.prototype.reload = function() {
+		
 	}
 
 	/** 同 步 请 求 获 取 数 据 */
@@ -85,7 +110,7 @@ layui.define(['table', 'jquery', 'element'], function(exports) {
 
 		var notice = '<li class="layui-nav-item" lay-unselect="">' +
 			'<a href="#" class="notice layui-icon layui-icon-notice"><span class="layui-badge-dot"></div></a>' +
-			'<div class="layui-nav-child layui-tab pear-notice" style="margin-top: 0px;;left: -200px;">';
+			'<div class="layui-nav-child layui-tab pear-notice" style="margin-top: 0px;left: -200px;">';
 
 		noticeTitle += '</ul>';
 		noticeContent += '</div>';

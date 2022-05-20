@@ -36,12 +36,16 @@ layui.define(["jquery","layer"], function (exports) {
 		style += '.pearone-color .color-content li.layui-this:after, .pearone-color .color-content li:hover:after {border: ' +color + ' 3px solid!important;}';
 		style += '.layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this{background-color:' + color + ';color:white;}';	
 		style += '.pear-social-entrance {background-color:' + color + '!important}';
-		style += '.pear-admin .pe-collaspe {background-color:' + color + '!important}';
+		style += '.pear-admin .pe-collapse {background-color:' + color + '!important}';
 		style += '.layui-fixbar li {background-color:' + color + '!important}';
 		style += '.pear-btn-primary {background-color:' + color + '!important}';
-		style += '.layui-input:focus,.layui-textarea:focus {border-color: '+ color +'!important;box-shadow: 0 0 0 3px '+ second +' !important;}'
-		style += '.layui-form-checked[lay-skin=primary] i {border-color: '+ color +'!important;background-color: ' + color + ';}'
-		style += '.layui-form-onswitch { border-color: ' + color + '; background-color: '+color+';}'
+		style += '.layui-input:focus,.layui-textarea:focus {border-color: ' + color + '!important;box-shadow: 0 0 0 3px ' + second + ' !important;}'
+		style += '.layui-form-checkbox[lay-skin=primary]:hover span {background-color: initial;}'
+		style += '.layui-form-checked[lay-skin=primary] i {border-color: ' + color + '!important;background-color: ' + color + ';}'
+		style += '.layui-form-checked,.layui-form-checked:hover {border-color: ' + color + '!important;}'
+		style += '.layui-form-checked span,.layui-form-checked:hover span {background-color: ' + color + ';}'
+		style += '.layui-form-checked i,.layui-form-checked:hover i {color: ' + color + ';}'
+		style += '.layui-form-onswitch { border-color: ' + color + '; background-color: ' + color + ';}'
 		style += '.layui-form-radio>i:hover, .layui-form-radioed>i {color: ' + color + ';}'
 		style += '.layui-laypage .layui-laypage-curr .layui-laypage-em{background-color:'+ color +'!important}'
 		style += '.layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{border-bottom: 3px solid '+color+'!important}'
@@ -52,7 +56,7 @@ layui.define(["jquery","layer"], function (exports) {
 		style += '.layui-laydate .layui-this{background-color:'+color+'!important}';
 		style += '.pear-this,.pear-text{color:' + color + '!important}';
 		style += '.pear-back{background-color:'+ color +'!important}';
-		style += '.pear-collasped-pe{background-color:'+color+'!important}'
+		style += '.pear-collapsed-pe{background-color:'+color+'!important}'
 		style += '.layui-form-select dl dd.layui-this{color:'+color+'!important;}'
 		style += '.tag-item-normal{background:'+color+'!important}';
 		style += '.step-item-head.step-item-head-active{background-color:'+color+'}'

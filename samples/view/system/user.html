@@ -79,7 +79,7 @@
 		<script type="text/html" id="user-login">
 			{{#if (d.login == 0) { }}
 		    <span>在线</span>
-		    {{# }else { }}
+		    {{# }else if(d.sex == 1){ }}
 		    <span>离线</span>
 		    {{# } }}
 		</script>
@@ -248,9 +248,9 @@
 				}
 
 				window.batchRemove = function(obj) {
-
+					
 					var checkIds = common.checkField(obj,'userId');
-
+					
 					if (checkIds === "") {
 						layer.msg("未选中数据", {
 							icon: 3,
@@ -258,7 +258,7 @@
 						});
 						return false;
 					}
-
+					
 					layer.confirm('确定要删除这些用户', {
 						icon: 3,
 						title: '提示'

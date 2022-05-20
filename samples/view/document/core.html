@@ -8,7 +8,7 @@
 	<body class="pear-container">
 		<div class="layui-card">
 			<div class="layui-card-body">
-				<button id="collaspeSide" class="pear-btn">侧边切换</button>
+				<button id="collapseSide" class="pear-btn">侧边切换</button>
 			</div>
 		</div>
 		<div class="layui-card">
@@ -18,7 +18,17 @@
 		</div>
 		<div class="layui-card">
 			<div class="layui-card-body">
+				<button id="refresh" class="pear-btn">刷新指定</button>
+			</div>
+		</div>
+		<div class="layui-card">
+			<div class="layui-card-body">
 				<button id="addTab" class="pear-btn">新增卡片</button>
+			</div>
+		</div>
+		<div class="layui-card">
+			<div class="layui-card-body">
+				<button id="changeTabTitle" class="pear-btn">修改标题</button>
 			</div>
 		</div>
 		<div class="layui-card">
@@ -70,11 +80,11 @@
 				      <th>描述</th>
 				      <th>参数</th>
 					  <th>备注</th>
-				    </tr>
+				    </tr> 
 				  </thead>
 				  <tbody>
 				    <tr>
-				      <td>admin.collaspeSide</td>
+				      <td>admin.collapseSide</td>
 				      <td>侧边收缩</td>
 				      <td>无</td>
 					  <td>无模式限制</td>
@@ -95,6 +105,12 @@
 					  <td>admin.addTab</td>
 					  <td>新增卡片</td>
 					  <td>id:编号,title:标题,url:路径</td>
+					  <td>仅限 TAB 模式</td>
+					</tr>
+					<tr>
+					  <td>admin.changeTabTitle</td>
+					  <td>修改标题</td>
+					  <td>id:编号,title:标题</td>
 					  <td>仅限 TAB 模式</td>
 					</tr>
 					<tr>
@@ -148,11 +164,11 @@
 		<script>
 			layui.use(['jquery','layer'], function() {
 				var $ = layui.jquery;
-
-				$("#collaspeSide").click(function(){
-					parent.layui.admin.collaspeSide()
+				
+				$("#collapseSide").click(function(){
+					parent.layui.admin.collapseSide()
 				})
-
+				
 				$("#refreshThis").click(function(){
 					parent.layui.admin.refreshThis()
 				})
@@ -164,35 +180,39 @@
 				$("#addTab").click(function(){
 					parent.layui.admin.addTab(14,"百度一下","http://www.bing.com")
 				})
-
+				
 				$("#closeTab").click(function(){
 					parent.layui.admin.closeTab(14)
 				})
-
+				
 				$("#closeThis").click(function(){
 					parent.layui.admin.closeCurrentTab()
 				})
-
+				
 				$("#closeAll").click(function(){
 					parent.layui.admin.closeAllTab()
 				})
-
+				
+				$("#changeTabTitle").click(function(){
+					parent.layui.admin.changeTabTitle(16,"修改标题")
+				})
+				
 				$("#closeOther").click(function(){
 					parent.layui.admin.closeOtherTab()
 				})
-
+				
 				$("#changeIframe").click(function(){
 					parent.layui.admin.changeIframe(14,"百度一下","http://www.bing.com")
 				})
-
+				
 				$("#jump").click(function(){
 					parent.layui.admin.jump(14,"百度一下","http://www.bing.com")
 				})
-
+				
 				$("#fullScreen").click(function(){
 					parent.layui.admin.fullScreen()
 				})
-
+				
 			})
 		</script>
 	</body>

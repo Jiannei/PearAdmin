@@ -152,13 +152,13 @@
 				convert = layui.convert;
 
 			let MODULE_PATH = "operate/";
-
+			
 			var image = new Image();
 			image.src = "/admin/images/avatar.jpg";
 			image.onload = function() {
 				$("#userAvatar").attr("src", convert.imageToBase64(image));
 			}
-
+			
 			window.callback = function (data) {
 				layer.close(data.index);
                 $("#userAvatar").attr("src", data.newAvatar);

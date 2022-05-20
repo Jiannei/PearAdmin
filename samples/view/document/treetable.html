@@ -137,13 +137,13 @@
 				 treetable.reload("#power-table");
 			}
         });
-
+		
 		form.on('submit(power-query)', function(data) {
             var keyword = data.field.keyword;
             treetable.search('#power-table',keyword);
             return false;
 		});
-
+	
         window.add = function(){
             layer.open({
                 type: 2,
@@ -163,7 +163,7 @@
                 content: MODULE_PATH + 'edit.html'
             });
         }
-
+		
         window.remove = function(obj){
             layer.confirm('确定要删除该权限', {icon: 3, title:'提示'}, function(index){
                 layer.close(index);
@@ -185,7 +185,7 @@
                 })
             });
         }
-
+		
 		window.batchRemove = function(obj) {
 			let data = table.checkStatus(obj.config.id).data;
 			if (data.length === 0) {

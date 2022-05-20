@@ -41,7 +41,7 @@
 												<label class="layui-form-label">游戏编号:</label>
 												<div class="layui-input-block">
 													<input type="text" placeholder="请填写入款人游戏ID" class="layui-input" lay-verify="number" required />
-
+				
 												</div>
 											</div>
 											<div class="layui-form-item">
@@ -164,7 +164,7 @@
 		                            var $ = layui.$,
 		                            form = layui.form,
 		                            step = layui.step;
-
+		                            
 		                            step.render({
 		                                elem: '#stepForm',
 		                                filter: 'stepForm',
@@ -179,22 +179,22 @@
 		                                    title: '完成'
 		                                }]
 		                            });
-
+		                         
 		                            form.on('submit(formStep)', function(data) {
 		                                step.next('#stepForm');
 		                                return false;
 		                            });
-
+		                         
 		                            form.on('submit(formStep2)', function(data) {
 		                                step.next('#stepForm');
 		                                return false;
 		                            });
-
+		                         
 		                            $('.pre').click(function() {
 		                                step.pre('#stepForm');
 		                                return false;
 		                            });
-
+		                         
 		                            $('.next').click(function() {
 		                                step.next('#stepForm');
 		                                return false;
@@ -213,7 +213,7 @@
 				var $ = layui.$,
 					form = layui.form,
 					step = layui.step;
-
+					
 				layui.code();
 
 				step.render({
