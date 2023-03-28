@@ -554,7 +554,8 @@
     ],
     "other": {
       "keepLoad": 1200,
-      "autoHead": false
+      "autoHead": false,
+       "footer": false
     },
     "header": {
       "message": "/admin/data/message.json"

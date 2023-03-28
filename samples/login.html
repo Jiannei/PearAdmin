@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Login Page</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>登录</title>
 		<!-- 样 式 文 件 -->
 		<link rel="stylesheet" href="/vendor/layadmin/component/pear/css/pear.css" />
 		<link rel="stylesheet" href="/admin/css/login.css" />
@@ -44,21 +45,21 @@
 				var form = layui.form;
 				var button = layui.button;
 				var popup = layui.popup;
-				
+
                 // 登 录 提 交
 				form.on('submit(login)', function(data) {
-					
+
 					/// 验证
-					
+
 					/// 登录
-					
+
 					/// 动画
 					button.load({
 						elem: '.login',
 						time: 1500,
 						done: function() {
 							popup.success("登录成功", function() {
-								location.href = "code.html"
+								location.href = "index.html"
 							});
 						}
 					})

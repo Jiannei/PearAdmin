@@ -1,8 +1,8 @@
 [{
 		"id": 1,
 		"title": "工作空间",
-		"type": 0,
 		"icon": "layui-icon layui-icon-console",
+		"type": 0,
 		"href": "",
 		"children": [{
 			"id": 10,
@@ -24,7 +24,7 @@
 			"icon": "layui-icon layui-icon-console",
 			"type": 1,
 			"openType": "_iframe",
-			"href": "http://www.baidu.com"
+			"href": "http://www.bing.com"
 		}, {
 			"id": 15,
 			"title": "主题预览",
@@ -32,6 +32,13 @@
 			"type": 1,
 			"openType": "_iframe",
 			"href": "view/system/theme.html"
+		}, {
+			"id": 16,
+			"title": "酸爽翻倍",
+			"icon": "layui-icon layui-icon-console",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/document/core.html"
 		}]
 	},
 	{
@@ -45,7 +52,8 @@
 			"title": "基础组件",
 			"icon": "layui-icon layui-icon-console",
 			"type": 0,
-			"children": [{
+			"children": [
+			{
 				"id": 2011,
 				"title": "功能按钮",
 				"icon": "layui-icon layui-icon-face-smile",
@@ -143,11 +151,18 @@
 				"href": "view/document/drawer.html"
 			}, {
 				"id": 2022,
-				"title": "消息通知",
+				"title": "消息通知 (过时)",
 				"icon": "layui-icon layui-icon-face-cry",
 				"type": 1,
 				"openType": "_iframe",
 				"href": "view/document/notice.html"
+			}, {
+				"id": 2025,
+				"title": "消息通知 (新增)",
+				"icon": "layui-icon layui-icon-face-cry",
+				"type": 1,
+				"openType": "_iframe",
+				"href": "view/document/toast.html"
 			}, {
 				"id": 2024,
 				"title": "加载组件",
@@ -163,7 +178,7 @@
 				"openType": "_iframe",
 				"href": "view/document/popup.html"
 			}]
-		}, {
+		},{
 			"id": 60331,
 			"title": "高级组件",
 			"icon": "layui-icon layui-icon-console",
@@ -175,7 +190,7 @@
 				"type": 1,
 				"openType": "_iframe",
 				"href": "view/document/tab.html"
-			}, {
+			},{
 				"id": 60132,
 				"title": "数据菜单",
 				"icon": "layui-icon layui-icon-face-cry",
@@ -194,7 +209,7 @@
 					"icon": "layui-icon layui-icon-face-cry",
 					"type": 1,
 					"openType": "_iframe",
-					"href": "view/document/hash.html"
+					"href": "view/document/encrypt.html"
 				},
 				{
 					"id": 2042,
@@ -227,6 +242,27 @@
 					"type": 1,
 					"openType": "_iframe",
 					"href": "view/document/topBar.html"
+				},
+				{
+					"id": 2046,
+					"title": "水印组件",
+					"type": 1,
+					"openType": "_iframe",
+					"href": "view/document/watermark.html"
+				},
+				{
+					"id": 2047,
+					"title": "全屏组件",
+					"type": 1,
+					"openType": "_iframe",
+					"href": "view/document/fullscreen.html"
+				},
+				{
+					"id": 2048,
+					"title": "汽泡组件",
+					"type": 1,
+					"openType": "_iframe",
+					"href": "view/document/popover.html"
 				}
 			]
 		}]
@@ -367,6 +403,42 @@
 			"type": 1,
 			"openType": "_iframe",
 			"href": "view/system/space.html"
+		}]
+	}, {
+		"id": "echarts",
+		"title": "数据图表",
+		"icon": "layui-icon layui-icon-chart",
+		"type": 0,
+		"href": "",
+		"children": [{
+			"id": 12121,
+			"title": "折线图",
+			"icon": "layui-icon layui-icon-face-smile",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/echarts/line.html"
+		}, {
+			"id": 121212,
+			"title": "柱状图",
+			"icon": "layui-icon layui-icon-face-smile",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/echarts/column.html"
+		}]
+	},
+	{
+		"id": "code",
+		"title": "开发工具",
+		"icon": "layui-icon layui-icon-util",
+		"type": 0,
+		"href": "",
+		"children": [{
+			"id": 801,
+			"title": "表单构建",
+			"icon": "layui-icon layui-icon-util",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "component/code/index.html"
 		}]
 	}
 ]

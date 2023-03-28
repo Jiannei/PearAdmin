@@ -7,8 +7,8 @@ layui.define(["jquery","layer"], function (exports) {
 
 	theme.changeTheme = function (target, autoHead) {
 		this.autoHead = autoHead;
-		const color = localStorage.getItem("theme-color-color");
-		const second = localStorage.getItem("theme-color-second");
+		var color = localStorage.getItem("theme-color-color");
+		var second = localStorage.getItem("theme-color-second");
 		this.colorSet(color, second);
 		if (target.frames.length == 0) return;
 		for (var i = 0; i < target.frames.length; i++) {
@@ -24,11 +24,12 @@ layui.define(["jquery","layer"], function (exports) {
 
 	theme.colorSet = function(color, second) {
 		
-		let style = '';
+		var style = '';
 		style += '.light-theme .pear-nav-tree .layui-this a:hover,.light-theme .pear-nav-tree .layui-this,.light-theme .pear-nav-tree .layui-this a,.pear-nav-tree .layui-this a,.pear-nav-tree .layui-this{background-color: ' +color + '!important;}';
 		style += '.pear-admin .layui-logo .title{color:' + color + '!important;}';
 		style += '.pear-frame-title .dot,.pear-tab .layui-this .pear-tab-active{background-color: ' + color +'!important;}';
 		style += '.bottom-nav li a:hover{background-color:' + color + '!important;}';
+		style += '.pear-btn-primary {border: 1px solid ' + color + '!important;}';
 		style += '.pear-admin .layui-header .layui-nav .layui-nav-bar{background-color: ' + color + '!important;}'
 		style += '.ball-loader>span,.signal-loader>span {background-color: ' + color + '!important;}';
 		style += '.layui-header .layui-nav-child .layui-this a{background-color:' + color +'!important;color:white!important;}';
@@ -73,6 +74,7 @@ layui.define(["jquery","layer"], function (exports) {
 		style += '.pear-tab-menu .item:hover{background-color:'+color+'!important}'
 		style += '.layui-form-danger:focus {border-color:#FF5722 !important}'
 		style += '.pear-admin .user .layui-this a:hover{color:white!important}'
+		style += '.pear-admin .user  a:hover{color:'+color+'!important}'
 		style += '.pear-notice .layui-this{color:'+color+'!important}'
         style += '.layui-form-radio:hover *, .layui-form-radioed, .layui-form-radioed>i{color:' + color + ' !important}';
 		style += '.pear-btn:hover {color: '+color+';background-color: ' + second + ';}'
@@ -81,11 +83,13 @@ layui.define(["jquery","layer"], function (exports) {
 		style += '.light-theme .pear-nav-tree .layui-this a:hover,.light-theme .pear-nav-tree .layui-this,.light-theme .pear-nav-tree .layui-this a {background-color:'+second+'!important;color:'+color+'!important;}'
 		style += '.light-theme .pear-nav-tree .layui-this{ border-right: 3px solid '+color+'!important}'
 		style += '.loader:after {background:'+color+'}'
+		style += '.layui-laydate .layui-this, .layui-laydate .layui-this>div{background:'+color+'!important}'
 		if(this.autoHead === true || this.autoHead === "true"){
 			style += '.pear-admin.banner-layout .layui-header .layui-logo,.pear-admin .layui-header{border:none;background-color:' + color + '!important;}.pear-admin.banner-layout .layui-header .layui-logo .title,.pear-admin .layui-header .layui-nav .layui-nav-item>a{color:whitesmoke!important;}';
 			style += '.pear-admin.banner-layout .layui-header{ box-shadow: 2px 0 6px rgb(0 21 41 / 35%) }'
 			style += '.pear-admin .layui-header .layui-layout-control .layui-this *,.pear-admin.banner-layout .layui-header .layui-layout-control .layui-this *{ background-color: rgba(0,0,0,.1)!important;}'
 		}
+    style += '.menu-search-list li:hover,.menu-search-list li.this{background-color:'+ color +'}'
 		var colorPane = $("#pear-admin-color");
 		if(colorPane.length>0){
 			colorPane.html(style);

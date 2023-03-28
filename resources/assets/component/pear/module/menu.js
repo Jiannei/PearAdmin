@@ -20,7 +20,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			defaultOpen: opt.defaultOpen,
 			defaultSelect: opt.defaultSelect,
 			control: opt.control,
-			controlWidth: opt.controlWidth ? opt.controlWidth : 500,
+			controlWidth: opt.controlWidth ? opt.controlWidth : "auto",
 			defaultMenu: opt.defaultMenu,
 			accordion: opt.accordion,
 			height: opt.height,
@@ -29,6 +29,14 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			change: opt.change ? opt.change : function () { },
 			done: opt.done ? opt.done : function () { }
 		}
+		var tempDone = option.done;
+		option.done = function(){
+			if (option.control) {
+				rationalizeHeaderControlWidthAuto(option);
+			}
+			tempDone();
+		}
+
 		if (option.async) {
 			if (option.method === "GET") {
 				getData(option.url).then(function (data) {
@@ -42,7 +50,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 				});
 			}
 		} else {
-			//renderMenu中需要调用done事件，done事件中需要menu对象，但是此时还未返回menu对象，做个延时提前返回对象
+			// 延时返回，和 javascript 执行时序关联
 			window.setTimeout(function () { renderMenu(option); }, 500);
 		}
 
@@ -75,7 +83,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			});
 		}, 1000)
 
-		return new pearMenu(opt);
+    return new pearMenu(option);
 	}
 
 	pearMenu.prototype.click = function (clickEvent) {
@@ -158,8 +166,8 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 		$("#" + this.option.elem + " a[menu-id='" + pearId + "']").parents(".pear-nav-tree").find(".layui-this").removeClass(
 			"layui-this");
 		if (!$("#" + this.option.elem).is(".pear-nav-mini")) {
-			let openEle = null;
-			let openEleHeight = 0;
+			var openEle = null;
+			var openEleHeight = 0;
 			$($("#" + this.option.elem + " a[menu-id='" + pearId + "']").parents('.layui-nav-child').get().reverse()).each(function () {
 				if (!$(this).parent().is('.layui-nav-itemed')) {
 					if (openEleHeight == 0) {
@@ -211,8 +219,16 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			$("#" + this.option.elem).removeClass("pear-nav-mini");
 			$("#" + this.option.elem).animate({
 				width: "220px"
-			}, 150);
+			}, 180);
 			isHoverMenu(false, config);
+			var that = this;
+			$("#" + this.option.elem)
+			.promise()
+			.done(function () {
+				if (that.option.control) {
+					rationalizeHeaderControlWidth(that.option);
+				}
+			})
 		} else {
 			activeMenus = $("#" + this.option.elem).find(".layui-nav-itemed>a");
 			$("#" + this.option.elem).find(".layui-nav-itemed").removeClass("layui-nav-itemed");
@@ -220,10 +236,15 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			$("#" + this.option.elem).animate({
 				width: "60px"
 			}, 400);
-			// 使菜单在折叠动画过程中不触发 hover
-			setTimeout(function () {
+			var that = this;
+			$("#" + this.option.elem)
+			.promise()
+			.done(function () {
 				isHoverMenu(true, config);
-			}, 100);
+				if (that.option.control) {
+					rationalizeHeaderControlWidth(that.option);
+				}
+			})		
 		}
 	}
 
@@ -519,5 +540,32 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			$("#" + option.elem + " dd").off('mouseenter').unbind('mouseleave');
 		}
 	}
+
+	function rationalizeHeaderControlWidth(option) {
+		var $headerControl = $("#" + option.control);
+		var $nextEl = $headerControl.next();
+		var rationalizeWidth;
+		if ($nextEl.length) {
+			rationalizeWidth = $nextEl.position().left - $headerControl.position().left;
+		} else {
+			rationalizeWidth = $headerControl.parent().innerWidth() - $headerControl.position().left;
+		}
+
+		if (option.controlWidth && rationalizeWidth >= option.controlWidth) {
+			rationalizeWidth = option.controlWidth;
+		}
+		$("#" + option.control + " .control").css({ "width": rationalizeWidth, "transition": "width .15s" });
+	}
+
+	function rationalizeHeaderControlWidthAuto(option){
+		$(window).on('resize', function () {
+			rationalizeHeaderControlWidth(option);
+		})
+
+		$(document).ready(function () {
+			rationalizeHeaderControlWidth(option);
+		});
+	}
+
 	exports(MOD_NAME, new pearMenu());
 })

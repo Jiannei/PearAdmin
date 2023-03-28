@@ -67,21 +67,27 @@ textarea::-webkit-input-placeholder {
 	background: #f6f6f6;
 }
 
+/* layui 2.6.9 样式变化 */
+.layui-form-select dl dd.layui-this{
+  background-color: #F6F6F6;
+	font-weight: 700;
+}
+
 .layui-form-required:before {
-	content: "*";
-	display: inline-block;
-	font-family: SimSun;
-	margin-right: 4px;
-	font-size: 14px;
-	line-height: 1;
-	color: #ed4014;
+    content: "*";
+    display: inline-block;
+    font-family: SimSun;
+    margin-right: 4px;
+    font-size: 14px;
+    line-height: 1;
+    color: #ed4014;
 }
 
 .form-search-expand, .form-search-expand:hover {
-	padding: 0 !important;
-	margin-left: 10px;
-	color: #2d8cf0 !important;
-	border: none !important;
-	box-shadow: none !important;
-	background-color: transparent !important;
+    padding: 0 !important;
+    margin-left: 10px;
+    color: #2d8cf0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
 }

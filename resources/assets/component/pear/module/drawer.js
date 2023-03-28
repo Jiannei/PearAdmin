@@ -1,4 +1,4 @@
-layui.define(['jquery', 'element', 'layer'], function (exports) {
+layui.define(['jquery', 'element', 'layer', 'loading'], function (exports) {
 	"use strict";
 
 	/**
@@ -7,7 +7,8 @@ layui.define(['jquery', 'element', 'layer'], function (exports) {
 	var MOD_NAME = 'drawer',
 		$ = layui.jquery,
 		element = layui.element,
-		layer = layui.layer;
+		layer = layui.layer,
+		loading = layui.loading;
 
 
 	var drawer = new function () {
@@ -16,10 +17,9 @@ layui.define(['jquery', 'element', 'layer'], function (exports) {
 		 * open drawer
 		 * */
 		this.open = function (option) {
-			// 默认使用 legacy 模式
+			//	默认使用 legacy 模式
 			if (option.legacy === undefined) {
 				option.legacy = true;
-				console.log("PearModule[drawer]: Legacy API Mode");
 			};
 			if (option.legacy) {
 				var obj = new mSlider({
@@ -44,27 +44,73 @@ layui.define(['jquery', 'element', 'layer'], function (exports) {
 	}
 
 	/**
-	 * 
+	 *
 	 * 封装 layer.open
-	 * type,anim,move 不可用,其它参数和 layer.open 一致
-	 * @param {LayerOption} option 
+	 * type,anim,move,fixed不可用,其它参数和 layer.open 一致
+	 * @param {LayerOption} option
 	 * @returns 原生 layer 的 index
 	 */
 	function layerDrawer(option) {
-
 		var opt = normalizeOption(option)
+		if (opt.target) appendToTarget(opt);
+		if (opt.url) loadFragment(opt);
 		var layerIndex = layer.open(opt);
 
 		return layerIndex;
 	}
 
 	/**
-		* 规格化 layer.open 选项
-		* @param {*} option layer.open 的选项
-		* @returns 规格化后的 layer.open 选项 
+	 * 加载 HTML 片段到 layer content
+	 * @param {*} option
+	 */
+	function loadFragment(option) {
+		option.success = Aspect(option.success, function (layero, index) {
+			var layerID = "#" + layero.attr("id");
+			loading.block({
+				type: 1,
+				elem: layerID,
+				msg: ''
+			});
+			$.ajax({
+				url: option.url,
+				dataType: "html",
+				success: function (result) {
+					layero.children('.layui-layer-content').html(result);
+					loading.blockRemove(layerID);
+				}
+			})
+		})
+	}
+
+	/**
+	 *将 layer 挂载到指定节点
+	 * @param {object} opt
+	 */
+	function appendToTarget(opt) {
+		var targetDOM = $(opt.target);
+		var contentDOM = $(opt.content);
+		contentDOM.appendTo(targetDOM);
+		opt.skin = getDrawerAnimationClass(opt.offset, true);
+		opt.offset = calcOffset(opt.offset, opt.area, targetDOM);
+		// 处理关闭后偶现 DOM 仍显示的问题，layer 的 BUG
+		opt.end = Aspect(opt.end, function () {
+			contentDOM.css("display", "none");
+		})
+		if (opt.shade) {
+			opt.success = Aspect(opt.success, function (layero, index) {
+				var shadeDOM = $("#layui-layer-shade" + index);
+				shadeDOM.css("position", "absolute");
+				shadeDOM.appendTo(layero.parent());
+			})
+		}
+	}
+
+	/**
+		* 规格化 layer.open 选项，兼容原版 Drawer 所有选项
+		* @param {LayerOption} option layer.open 的选项
+		* @returns 规格化后的 layer.open 选项
 		*/
 	function normalizeOption(option) {
-		// 兼容旧版 API, target 选项无法兼容
 		if (option.direction && !option.offset) {
 			if (option.direction === "right") {
 				option.offset = "r";
@@ -74,45 +120,53 @@ layui.define(['jquery', 'element', 'layer'], function (exports) {
 				option.offset = "t";
 			} else if (option.direction === "bottom") {
 				option.offset = "b";
+			} else {
+				option.offset = "r";
 			}
 		}
 		if (option.distance && !option.area) {
 			option.area = option.distance;
 		}
 		if (option.dom && !option.content) {
-			option.content = $("#test").html();
-			console.log(option.dom, option.content);
+			option.content = $(option.dom);
 		}
-		if (option.maskClose && !option.shadeClose) {
-			option.shadeClose = (option.maskClose + "").toString() !== "false" ? true : false; 
+		if (option.maskClose && option.shadeClose === undefined) {
+			option.shadeClose = (option.maskClose + "").toString() !== "false" ? true : false;
 		}
 
 		option.type = 1
-		option.anim = -1; // 关闭原生入场动画
+		option.anim = -1;
 		option.move = false;
 		option.fixed = true;
+		if (option.iframe) {
+			option.type = 2;
+			option.content = option.iframe;
+		}
 		if (option.offset === undefined) option.offset = "r";
 		option.area = calcDrawerArea(option.offset, option.area);
 		if (option.title === undefined) option.title = false;
 		if (option.closeBtn === undefined) option.closeBtn = false;
+		if (option.shade === undefined) option.shade = 0.3;
 		if (option.shadeClose === undefined) option.shadeClose = true;
 		if (option.skin === undefined) option.skin = getDrawerAnimationClass(option.offset);
 		if (option.resize === undefined) option.resize = false;
+		if (option.success === undefined) option.success = function () { }; // 处理遮罩需要
+		if (option.end === undefined) option.end = function () { };
 
 		return option;
 	}
 
 	/**
 	 * 计算抽屉宽高
-	 * @param {string} offset 抽屉方向 l = 左, r = 右, t = 上, b = 下 
+	 * @param {string} offset 抽屉方向 l = 左, r = 右, t = 上, b = 下
 	 * @param {string[] | string} drawerArea 抽屉大小,字符串数组格式：[width, height]，字符串格式：百分比或单位 px。
 	 * @returns 抽屉宽高数组
 	 */
-	function calcDrawerArea(offset, drawerArea = "30%") {
+	function calcDrawerArea(offset, drawerArea) {
 		if (drawerArea instanceof Array) {
 			return drawerArea;
 		}
-		if (drawerArea === "auto") {
+		if (drawerArea === undefined || drawerArea === "auto") {
 			drawerArea = "30%";
 		}
 		if (offset === "l" || offset === "r") {
@@ -124,13 +178,19 @@ layui.define(['jquery', 'element', 'layer'], function (exports) {
 	}
 
 	/**
-	 * 获取抽屉入场动画类
+	 * 获取抽屉动画类
 	 * @param {string} offset 抽屉方向
+	 * @param {boolean} 是否 absolute 布局
 	 * @returns 抽屉入场动画类
 	 */
-	function getDrawerAnimationClass(offset) {
-		const prefix = "pear-drawer-anim layui-anim layer-anim";
-		let suffix = "rl";
+	function getDrawerAnimationClass(offset, isAbsolute) {
+		var positionAbsoluteClass = "position-absolute ";
+		var prefixClass = "pear-drawer pear-drawer-anim layui-anim layer-anim-";
+		var suffix = "rl";
+
+		if (isAbsolute) {
+			prefixClass = positionAbsoluteClass + prefixClass;
+		}
 		if (offset === "l") {
 			suffix = "lr";
 		} else if (offset === "r") {
@@ -140,8 +200,66 @@ layui.define(['jquery', 'element', 'layer'], function (exports) {
 		} else if (offset === "b") {
 			suffix = "bt";
 		}
-		return `${prefix}-${suffix}`;
+		return prefixClass + suffix;
 	}
+
+	/**
+	 * 指定挂载容器重新计算 offset
+	 * @param {*} offset 位置
+	 * @param {*} area  范围大小
+	 * @param {*} targetEl 挂载节点
+	 * @returns 包含抽屉位置信息的数组，[top,left]
+	 */
+	function calcOffset(offset, area, targetEl) {
+		if (offset === undefined || offset === "l" || offset === "t") {
+			offset = "lt";
+		} else if (offset === "r") {
+			var left;
+			if (area instanceof Array) {
+				area = area[0];
+			}
+			if (area.indexOf("%") != -1) {
+				left = targetEl.innerWidth() * (1 - area.replace("%", "") / 100);
+			} else {
+				left = targetEl.innerWidth() - area;
+			}
+			offset = [0, left];
+		} else if (offset === "b") {
+			var top;
+			if (area instanceof Array) {
+				area = area[1];
+			}
+			if (area.indexOf("%") != -1) {
+				top = targetEl.innerHeight() * (1 - area.replace("%", "") / 100);
+			} else {
+				top = targetEl.innerHeight() - area;
+			}
+			offset = [top, 0];
+		}
+
+		return offset;
+	}
+
+	/**
+	 * 简易的切面
+	 * @param {Function} func 被通知的对象，原函数
+	 * @param {Function | undefined} before 前置通知
+	 * @param {Function | undefined} after 后置通知
+	 * @returns 代理函数
+	 */
+	function Aspect(target, before, after) {
+		function proxyFunc() {
+			if (before && typeof before === "function") {
+				before.apply(this, arguments)
+			}
+			target.apply(this, arguments);
+			if (after && typeof after === "function") {
+				after.apply(this, arguments)
+			}
+		}
+		return proxyFunc;
+	}
+
 	exports(MOD_NAME, drawer);
 });
 
@@ -190,6 +308,7 @@ layui.define(['jquery', 'element', 'layer'], function (exports) {
 				console.log("未正确绑定弹窗容器");
 				return
 			}
+			g.dom.style.display = "block";  // 兼容 layer 捕获层
 			var d = document.createElement("div");
 			var e = document.createElement("div");
 			var f = document.createElement("div");
@@ -262,7 +381,6 @@ layui.define(['jquery', 'element', 'layer'], function (exports) {
 		open: function () {
 			var d = this;
 			d.wrap.style.display = "block";
-
 			setTimeout(function () {
 				d.inner.style.transform = "translate3d(0,0,0)";
 				d.inner.style.webkitTransform = "translate3d(0,0,0)";

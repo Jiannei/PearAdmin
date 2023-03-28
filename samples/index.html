@@ -33,6 +33,7 @@
 				<div id="control" class="layui-layout-control"></div>
 				<!-- 顶 部 右 侧 菜 单 -->
 				<ul class="layui-nav layui-layout-right">
+					<li class="layui-nav-item layui-hide-xs"><a href="#" class="menuSearch layui-icon layui-icon-search"></a></li>
 					<li class="layui-nav-item layui-hide-xs"><a href="#" class="fullScreen layui-icon layui-icon-screen-full"></a></li>
 					<li class="layui-nav-item layui-hide-xs"><a href="http://www.pearadmin.com" class="layui-icon layui-icon-website"></a></li>
 					<li class="layui-nav-item layui-hide-xs message"></li>
@@ -54,7 +55,7 @@
 				<!-- 菜 单 顶 部 -->
 				<div class="layui-logo">
 					<!-- 图 标 -->
-					<img class="logo"></img>
+					<img class="logo">
 					<!-- 标 题 -->
 					<span class="title"></span>
 				</div>
@@ -71,10 +72,7 @@
 			<!-- 页脚 -->
 			<div class="layui-footer layui-text">
 				<span class="left">
-					<span>
-						官网：<a href="http://www.pearadmin.com/team.html" target="_blank">www.pearadmin.com</a>&nbsp;&nbsp;&nbsp;
-						仓库：<a href="https://gitee.com/pear-admin/Pear-Admin-Layui" target="_blank">gitee.com/pear-admin</a>
-					</span>
+					Released under the MIT license.
 				</span>
 				<span class="center"></span>
 				<span class="right"></span>
@@ -103,10 +101,10 @@
 
 				admin.setConfigType("json");
 				admin.setConfigPath("config/admin.config.json");
-				
+
 				admin.render();
-				
-				// 登出逻辑 
+
+				// 登出逻辑
 				admin.logout(function(){
 					popup.success("注销成功",function(){
 						location.href = "login.html";
@@ -114,10 +112,10 @@
 					// 注销逻辑 返回 true / false
 					return true;
 				})
-				
-				// 自定义消息点击回调
+
+				// 消息点击回调
 				admin.message(function(id, title, context, form) {});
 			})
-		</script>		
+		</script>
 	</body>
 </html>

@@ -3,7 +3,6 @@
  * 基于Layui Select多选
  * version: 4.0.0.0910
  * http://sun.faysunshine.com/layui/formSelects-v4/dist/formSelects-v4.js
- * https://hnzzmsf.github.io/example/example_v4.html
  */
 (function(layui, window, factory) {
 	if(typeof exports === 'object') { // 支持 CommonJS
