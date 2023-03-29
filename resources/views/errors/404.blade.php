@@ -8,7 +8,7 @@
         <div class="content-r">
             <h1>404</h1>
             <p>抱歉，你访问的页面不存在或仍在开发中</p>
-            <a href="{{ url(config('layadmin.home.path','/')) }}"><button class="pear-btn pear-btn-primary">返回首页</button></a>
+            <a href="{{ route('admin.page','home') }}"><button class="pear-btn pear-btn-primary">返回首页</button></a>
         </div>
     </div>
 </x-layadmin::layouts.base>

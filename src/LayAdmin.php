@@ -85,12 +85,7 @@ class LayAdmin
         $configs = array_column($cacheConfig, null, 'uri');
         $uri = $this->getPageUri($path);
 
-        if (! Arr::has($configs, $uri)) {
-            $pageConfigPath = resource_path('config/'.$uri.'.json');
-            throw new InvalidPageConfigException("页面配置错误：配置文件[$pageConfigPath]不存在");
-        }
-
-        return Arr::get($configs, $uri);
+        return Arr::get($configs, $uri, []);
     }
 
     /**
