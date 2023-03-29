@@ -17,8 +17,7 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "ext-json": "*",
-        "tightenco/ziggy": "^1.5"
+        "ext-json": "*"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
