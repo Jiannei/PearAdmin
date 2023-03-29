@@ -1,14 +1,19 @@
-layui.use(['table', 'select', 'treetable'], function () {
+layui.use(['table', 'select', 'treetable','jquery'], function () {
+  var $ = layui.jquery;
+
   try {
     let layadmin = layui.sessionData('layadmin');
 
     layui.select.config(layadmin.config.select);
 
-    var pageConfig = layadmin[layadmin.current.id];// 页面配置
+    var pageId = layadmin.current.id;
+    var pageConfig = layadmin[pageId];// 页面配置
 
     if (pageConfig === undefined) {
       throw new Error('页面配置参数错误！')
     }
+
+    app[pageId]['actions'] = {}
 
     if (pageConfig.layout === 'table' || pageConfig.layout === 'treetable') {
       var table = layui.table;
@@ -41,27 +46,27 @@ layui.use(['table', 'select', 'treetable'], function () {
 
       if (pageConfig.layout === 'table') {
         if (pageConfig.components.search !== undefined && pageConfig.components.search.items.length > 3) {
-          layui.util.event('lay-active',{
-            searchExpand:function () {
-              let pageSession = layui.sessionData(layadmin.current.id);
+          layui.util.event('lay-active', {
+            searchExpand: function () {
+              let pageSession = layui.sessionData(pageId);
 
               var $this = layui.$(this);
               var $form = $this.parents('.layui-form').first();
 
               if (pageSession.expand === undefined || pageSession.expand === true) {
-                layui.sessionData(layadmin.current.id,{
-                  key:'expand',
-                  value:false
+                layui.sessionData(pageId, {
+                  key: 'expand',
+                  value: false
                 })
 
                 $this.html('收起 <i class="layui-icon layui-icon-up"></i>');
                 var $elem = $form.find('.layui-hide');
                 $elem.attr('expand-show', '');
                 $elem.removeClass('layui-hide');
-              }else{
-                layui.sessionData(layadmin.current.id,{
-                  key:'expand',
-                  value:true
+              } else {
+                layui.sessionData(pageId, {
+                  key: 'expand',
+                  value: true
                 })
 
                 $this.html('展开 <i class="layui-icon layui-icon-down"></i>');
@@ -72,6 +77,16 @@ layui.use(['table', 'select', 'treetable'], function () {
         }
 
         table.render(pageTableConfig);
+
+        // 表格头事件
+        table.on(`toolbar(${pageId})`, function (obj) {
+          if (!app[pageId]['actions'].hasOwnProperty(obj.event)) {
+            console.error('表格头：[' + obj.event + ']事件未监听')
+            return;
+          }
+
+          app[pageId]['actions'][obj.event]($(`button[lay-event='${obj.event}']`).data());
+        });
       } else if (pageConfig.layout === 'treetable') {
         pageTableConfig.parseData = tableGlobalSet.parseData;
 

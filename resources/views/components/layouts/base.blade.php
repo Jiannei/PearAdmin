@@ -20,43 +20,45 @@
     @routes
 </head>
 <body class="{{ $attributes->get('class') }}" background="{{ $attributes->get('background') }}" style="{{ $attributes->get('style') }}">
-    {{ $slot }}
+{{ $slot }}
 
-    {{-- 全局 scripts --}}
-    <script src="{{ asset('vendor/layadmin/component/layui/layui.js') }}"></script>
-    <script src="{{ asset('vendor/layadmin/component/pear/pear.js') }}"></script>
-    <script>
-      layui.sessionData('layadmin',{
-        key:'version',
-        value: '{{ request('layadmin.version') }}'
-      });
+{{-- 全局 scripts --}}
+<script src="{{ asset('vendor/layadmin/component/layui/layui.js') }}"></script>
+<script src="{{ asset('vendor/layadmin/component/pear/pear.js') }}"></script>
+<script>
+  layui.sessionData('layadmin', {
+    key: 'version',
+    value: '{{ request('layadmin.version') }}'
+  });
 
-      layui.sessionData('layadmin',{
-        key:'config',
-        value: @json(config('layadmin'))
-      });
+  layui.sessionData('layadmin', {
+    key: 'config',
+    value: @json(config('layadmin'))
+  });
 
-      layui.sessionData('layadmin',{
-        key:'{{ request('layadmin.page.id') }}',
-        value: @json( request('layadmin.page'))
-      });
+  layui.sessionData('layadmin', {
+    key: '{{ request('layadmin.page.id') }}',
+    value: @json( request('layadmin.page'))
+  });
 
-      layui.sessionData('layadmin',{
-        key:'current',
-        value: {
-          id : '{{ request('layadmin.page.id') }}',
-          params: @json(request('layadmin.params'))
-        }
-      })
-    </script>
+  layui.sessionData('layadmin', {
+    key: 'current',
+    value: {
+      id: '{{ request('layadmin.page.id') }}',
+      params: @json(request('layadmin.params'))
+    }
+  })
 
-    {{-- Page scripts  --}}
-    <script src="{{ asset('vendor/layadmin/component/app.js') }}"></script>
-    @foreach(request('layadmin.page.scripts',[]) as $src)
-        <script src="{{ asset($src) }}"></script>
-    @endforeach
+  window.app = layui.sessionData('layadmin')
+</script>
 
-    {{--自定义 scripts--}}
-    @stack('script')
+{{-- Page scripts  --}}
+<script src="{{ asset('vendor/layadmin/component/app.js') }}"></script>
+@foreach(request('layadmin.page.scripts',[]) as $src)
+    <script src="{{ asset($src) }}"></script>
+@endforeach
+
+{{--自定义 scripts--}}
+@stack('script')
 </body>
 </html>
