@@ -16,6 +16,8 @@
 
     {{-- 自定义 CSS   --}}
     @stack('style')
+
+    @routes
 </head>
 <body class="{{ $attributes->get('class') }}" background="{{ $attributes->get('background') }}" style="{{ $attributes->get('style') }}">
     {{ $slot }}
