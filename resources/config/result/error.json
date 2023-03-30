@@ -1,5 +1,4 @@
 {
-  "uri": "result/error",
   "layout": "base",
   "view": "layadmin::result.error",
   "styles": [

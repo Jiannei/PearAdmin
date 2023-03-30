@@ -1,5 +1,4 @@
 {
-  "uri": "login",
   "layout": "base",
   "title": "后台登录",
   "view": "layadmin::login",

@@ -40,7 +40,7 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
 
         try {
             $config = json_decode(File::get(resource_path("config/{$configPath}.json")), true, 512, JSON_THROW_ON_ERROR);
-            $config['id'] = Str::replace(DIRECTORY_SEPARATOR, '-', $config['uri']);
+            $config['id'] = Str::replace(DIRECTORY_SEPARATOR, '-', $configPath);
 
             $cfg = new Configuration([
                 'layadmin' => $this->getSchema(),
@@ -58,7 +58,6 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
     {
         return Expect::structure([
             'id' => Expect::string()->required(), // 唯一 id
-            'uri' => Expect::string()->required(), // 页面路径
             'layout' => Expect::string()->required(), // 页面布局
             'view' => Expect::string()->required(), // 页面视图
             'title' => Expect::string()->default(config('layadmin.title')), // 页面标题

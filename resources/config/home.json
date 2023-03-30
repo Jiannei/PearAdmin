@@ -1,5 +1,4 @@
 {
-  "uri": "home",
   "layout": "base",
   "title": "后台管理系统",
   "view": "layadmin::home",
