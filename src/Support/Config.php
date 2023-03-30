@@ -29,16 +29,19 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
      */
     public function parse(string $path): array
     {
-        if (! Str::startsWith(request()->path(), config('layadmin.routes.web.prefix')) || ! File::exists(resource_path("config/{$path}.json"))) {
+        $prefix = config('layadmin.routes.web.prefix');
+        $configPath = trim(Str::remove($prefix,request()->path()),'/');
+
+        if (! Str::startsWith($path,$prefix) || ! File::exists(resource_path("config/{$configPath}.json"))) {
             return [];
         }
 
         try {
-            $config = json_decode(File::get(resource_path("config/{$path}.json")), true, 512, JSON_THROW_ON_ERROR);
+            $config = json_decode(File::get(resource_path("config/{$configPath}.json")), true, 512, JSON_THROW_ON_ERROR);
 
-            $this->valid($path, $config);
+            $this->valid($configPath, $config);
         } catch (Throwable $e) {
-            throw new InvalidPageConfigException("[{$path}]解析错误：{$e->getMessage()}");
+            throw new InvalidPageConfigException("[{$configPath}]解析错误：{$e->getMessage()}");
         }
 
         return array_merge([

@@ -45,7 +45,7 @@ class LayAdmin
         return [
             'version' => $this->version(),
             'params' => request()->all() ?: (object) [],
-            'page' => $this->config->parse(request()->route('path')),
+            'page' => $this->config->parse(request()->path()),
         ];
     }
 
