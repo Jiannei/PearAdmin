@@ -1,25 +1,43 @@
-layui.use(['table', 'select', 'treetable','jquery'], function () {
+layui.use(['table', 'select', 'treetable', 'jquery'], function () {
   var $ = layui.jquery;
   var table = layui.table;
-  var tableConfig = layadmin.config.table;
   var tableGlobalSet = {
-    parseData: eval(tableConfig.parseData),
-    response: {
-      statusName: tableConfig.response.statusName,
-      statusCode: tableConfig.response.statusCode,
+    parseData: function (res) {
+      return {
+        code: res.code,
+        msg: res.message,
+        count: res.data.meta.pagination.total,
+        data: res.data.list
+      }
     },
-    defaultToolbar: tableConfig.defaultToolbar,
-    page: tableConfig.page,
-    skin: tableConfig.skin,
-    even: tableConfig.even,
+    response: {
+      statusName: 'code',
+      statusCode: 200,
+    },
+    defaultToolbar: [
+      {layEvent: 'refresh', icon: 'layui-icon-refresh'},
+      "filter",
+      "print",
+      "exports"
+    ],
+    page: true,
+    skin: 'line',
+    even: true,
   }
 
   var pageConfig = layadmin.current.config;// 页面配置
   var pageId = layadmin.current.id;
 
-  var bootstrap = new function(){
+  var bootstrap = new function () {
     this.select = function () {
-      layui.select.config(layadmin.config.select);
+      layui.select.config({
+        response: {
+          statusCode: 200,
+          statusName: 'code',
+          msgName: 'message',
+          dataName: 'data'
+        }
+      });
     };
 
     this.table = function (pageTableConfig) {
