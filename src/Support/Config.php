@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
 use Throwable;
 
-class Config
+class Config implements \Jiannei\LayAdmin\Contracts\Config
 {
     /**
      * 解析并校验页面配置.
