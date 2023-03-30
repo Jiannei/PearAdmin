@@ -13,7 +13,5 @@ namespace Jiannei\LayAdmin\Contracts;
 
 interface Config
 {
-    public function parse(): array;
-
-    public function valid(string $key, array $config): array;
+    public function parse(string $path): array;
 }

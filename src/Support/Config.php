@@ -22,37 +22,22 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
     /**
      * 解析并校验页面配置.
      *
+     * @param  string  $path
      * @return array
-     */
-    public function parse(): array
-    {
-        return collect(File::allFiles(resource_path('config')))->map(function ($item) {
-            $key = $item->getRelativePathname();
-
-            try {
-                $config = json_decode($item->getContents(), true, 512, JSON_THROW_ON_ERROR);
-            } catch (Throwable $e) {
-                throw new InvalidPageConfigException("[{$key}]解析错误：{$e->getMessage()}");
-            }
-
-            return $this->valid($key, $config);
-        })->all();
-    }
-
-    /**
-     * 校验配置项.
-     *
-     * @param  string  $key
-     * @param  array  $config
-     * @return array
-     *
      * @throws InvalidPageConfigException
      */
-    public function valid(string $key, array $config): array
+    public function parse(string $path): array
     {
-        // todo 配置校验；table\form 处理
-        if (! Arr::has($config, 'uri')) {
-            throw new InvalidPageConfigException("[{$key}]缺少 uri 配置项");
+        if (!Str::startsWith(request()->path(), config('layadmin.routes.web.prefix')) || !File::exists(resource_path("config/{$path}.json"))) {
+            return [];
+        }
+
+        try {
+            $config = json_decode(File::get(resource_path("config/{$path}.json")), true, 512, JSON_THROW_ON_ERROR);
+
+            $this->valid($path, $config);
+        } catch (Throwable $e) {
+            throw new InvalidPageConfigException("[{$path}]解析错误：{$e->getMessage()}");
         }
 
         return array_merge([
@@ -62,5 +47,21 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
             'scripts' => [],
             'components' => [],
         ], $config);
+    }
+
+    /**
+     * 校验配置项.
+     *
+     * @param  string  $key
+     * @param  array  $config
+     *
+     * @throws InvalidPageConfigException
+     */
+    protected function valid(string $key, array $config): void
+    {
+        // todo 配置校验；table\form 处理
+        if (!Arr::has($config, 'uri')) {
+            throw new InvalidPageConfigException("[{$key}]缺少 uri 配置项");
+        }
     }
 }
