@@ -30,9 +30,9 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
     public function parse(string $path): array
     {
         $prefix = config('layadmin.routes.web.prefix');
-        $configPath = trim(Str::remove($prefix,request()->path()),'/');
+        $configPath = trim(Str::remove($prefix, request()->path()), '/');
 
-        if (! Str::startsWith($path,$prefix) || ! File::exists(resource_path("config/{$configPath}.json"))) {
+        if (! Str::startsWith($path, $prefix) || ! File::exists(resource_path("config/{$configPath}.json"))) {
             return [];
         }
 
