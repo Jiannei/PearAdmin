@@ -15,5 +15,5 @@ interface Config
 {
     public function parse(): array;
 
-    public function valid(): array;
+    public function valid(string $key, array $config): array;
 }
