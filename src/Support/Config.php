@@ -11,10 +11,12 @@
 
 namespace Jiannei\LayAdmin\Support;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
+use League\Config\Configuration;
+use Nette\Schema\Elements\Structure;
+use Nette\Schema\Expect;
 use Throwable;
 
 class Config implements \Jiannei\LayAdmin\Contracts\Config
@@ -32,40 +34,37 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
         $prefix = config('layadmin.routes.web.prefix');
         $configPath = trim(Str::remove($prefix, request()->path()), '/');
 
-        if (! Str::startsWith($path, $prefix) || ! File::exists(resource_path("config/{$configPath}.json"))) {
+        if (!Str::startsWith($path, $prefix) || !File::exists(resource_path("config/{$configPath}.json"))) {
             return [];
         }
 
         try {
             $config = json_decode(File::get(resource_path("config/{$configPath}.json")), true, 512, JSON_THROW_ON_ERROR);
+            $config['id'] = Str::replace(DIRECTORY_SEPARATOR, '-', $config['uri']);
 
-            $this->valid($configPath, $config);
+            $cfg = new Configuration([
+                'layadmin' => $this->getSchema(),
+            ]);
+
+            $cfg->merge(['layadmin' => $config]);
+
+            return $cfg->get('layadmin');
         } catch (Throwable $e) {
             throw new InvalidPageConfigException("[{$configPath}]解析错误：{$e->getMessage()}");
         }
-
-        return array_merge([
-            'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $config['uri']),
-            'title' => Arr::get($config, 'title', config('layadmin.title')),
-            'styles' => [],
-            'scripts' => [],
-            'components' => [],
-        ], $config);
     }
 
-    /**
-     * 校验配置项.
-     *
-     * @param  string  $key
-     * @param  array  $config
-     *
-     * @throws InvalidPageConfigException
-     */
-    protected function valid(string $key, array $config): void
+    protected function getSchema(): Structure
     {
-        // todo 配置校验；table\form 处理
-        if (! Arr::has($config, 'uri')) {
-            throw new InvalidPageConfigException("[{$key}]缺少 uri 配置项");
-        }
+        return Expect::structure([
+            'id' => Expect::string()->required(),// 唯一 id
+            'uri' => Expect::string()->required(),// 页面路径
+            'layout' => Expect::string()->required(),// 页面布局
+            'view' => Expect::string()->required(),// 页面视图
+            'title' => Expect::string()->default(config('layadmin.title')),// 页面标题
+            'styles' => Expect::array(),// 页面样式
+            'scripts' => Expect::array(),// 页面自定义脚本
+            'components' => Expect::array(),// 页面组件
+        ]);
     }
 }
