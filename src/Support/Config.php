@@ -34,7 +34,7 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
         $prefix = config('layadmin.routes.web.prefix');
         $configPath = trim(Str::remove($prefix, request()->path()), '/');
 
-        if (!Str::startsWith($path, $prefix) || !File::exists(resource_path("config/{$configPath}.json"))) {
+        if (! Str::startsWith($path, $prefix) || ! File::exists(resource_path("config/{$configPath}.json"))) {
             return [];
         }
 
@@ -57,14 +57,14 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
     protected function getSchema(): Structure
     {
         return Expect::structure([
-            'id' => Expect::string()->required(),// 唯一 id
-            'uri' => Expect::string()->required(),// 页面路径
-            'layout' => Expect::string()->required(),// 页面布局
-            'view' => Expect::string()->required(),// 页面视图
-            'title' => Expect::string()->default(config('layadmin.title')),// 页面标题
-            'styles' => Expect::array(),// 页面样式
-            'scripts' => Expect::array(),// 页面自定义脚本
-            'components' => Expect::array(),// 页面组件
+            'id' => Expect::string()->required(), // 唯一 id
+            'uri' => Expect::string()->required(), // 页面路径
+            'layout' => Expect::string()->required(), // 页面布局
+            'view' => Expect::string()->required(), // 页面视图
+            'title' => Expect::string()->default(config('layadmin.title')), // 页面标题
+            'styles' => Expect::array(), // 页面样式
+            'scripts' => Expect::array(), // 页面自定义脚本
+            'components' => Expect::array(), // 页面组件
         ]);
     }
 }
