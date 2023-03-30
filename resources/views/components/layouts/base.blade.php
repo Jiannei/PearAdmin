@@ -26,30 +26,16 @@
 <script src="{{ asset('vendor/layadmin/component/layui/layui.js') }}"></script>
 <script src="{{ asset('vendor/layadmin/component/pear/pear.js') }}"></script>
 <script>
-  layui.sessionData('layadmin', {
-    key: 'version',
-    value: '{{ request('layadmin.version') }}'
-  });
-
-  layui.sessionData('layadmin', {
-    key: 'config',
-    value: @json(config('layadmin'))
-  });
-
-  layui.sessionData('layadmin', {
-    key: '{{ request('layadmin.page.id') }}',
-    value: @json( request('layadmin.page'))
-  });
-
-  layui.sessionData('layadmin', {
-    key: 'current',
-    value: {
+  window.layadmin = {
+    version: '{{ request('layadmin.version') }}',
+    config:@json(config('layadmin')),
+    current: {
       id: '{{ request('layadmin.page.id') }}',
-      params: @json(request('layadmin.params'))
+      params: @json(request('layadmin.params')),
+      config: @json( request('layadmin.page')),
+      actions: {}
     }
-  })
-
-  window.app = layui.sessionData('layadmin')
+  }
 </script>
 
 {{-- Page scripts  --}}

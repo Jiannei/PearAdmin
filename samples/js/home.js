@@ -6,9 +6,7 @@ layui.use(['admin', 'popup'], function () {
   var admin = layui.admin;
   var popup = layui.popup;
 
-  var layadmin = layui.sessionData('layadmin');
-
-  admin.render(layadmin[layadmin.current.id].components);
+  admin.render(layadmin.current.config.components);
 
   // 登出逻辑
   admin.logout(function () {

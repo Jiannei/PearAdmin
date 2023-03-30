@@ -2,19 +2,17 @@ layui.use(['table', 'select', 'treetable','jquery'], function () {
   var $ = layui.jquery;
 
   try {
-    let layadmin = layui.sessionData('layadmin');
-
-    layui.select.config(layadmin.config.select);
-
-    var pageId = layadmin.current.id;
-    var pageConfig = layadmin[pageId];// 页面配置
-
-    if (pageConfig === undefined) {
+    if (!layadmin.current.hasOwnProperty('config')) {
       throw new Error('页面配置参数错误！')
     }
 
-    app[pageId]['actions'] = {}
+    var pageConfig = layadmin.current.config;// 页面配置
+    var pageId = layadmin.current.id;
 
+    // 全局配置下拉参数
+    layui.select.config(layadmin.config.select);
+
+    // 全局配置表格参数
     if (pageConfig.layout === 'table' || pageConfig.layout === 'treetable') {
       var table = layui.table;
       var tableConfig = layadmin.config.table;
@@ -80,12 +78,12 @@ layui.use(['table', 'select', 'treetable','jquery'], function () {
 
         // 表格头事件
         table.on(`toolbar(${pageId})`, function (obj) {
-          if (!app[pageId]['actions'].hasOwnProperty(obj.event)) {
+          if (!layadmin.current.actions.hasOwnProperty(obj.event)) {
             console.error('表格头：[' + obj.event + ']事件未监听')
             return;
           }
 
-          app[pageId]['actions'][obj.event]($(`button[lay-event='${obj.event}']`).data());
+          layadmin.current.actions[obj.event]($(`button[lay-event='${obj.event}']`).data());
         });
       } else if (pageConfig.layout === 'treetable') {
         pageTableConfig.parseData = tableGlobalSet.parseData;

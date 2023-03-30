@@ -2,7 +2,6 @@
     @if(\Illuminate\Support\Arr::has($action,['hide','attributes.class']))
     @{{#
       var hide = function(d){
-        let layadmin =  layui.sessionData('layadmin');;
         let pageConfig = layadmin[layadmin.current.id];
 
         if(pageConfig.layout !== 'table'){
