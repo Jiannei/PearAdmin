@@ -66,6 +66,12 @@ class LaravelServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $config = $this->app['config']->get('layadmin.config', \Jiannei\LayAdmin\Support\Config::class);
+
+        if (is_string($config) && class_exists($config)) {
+            $this->app->bind(\Jiannei\LayAdmin\Contracts\Config::class, $config);
+        }
+
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'layadmin');
 
         $this->aliasMiddleware();

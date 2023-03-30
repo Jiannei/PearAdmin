@@ -12,23 +12,20 @@
 namespace Jiannei\LayAdmin;
 
 use Closure;
-use Illuminate\Cache\CacheManager;
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use Jiannei\LayAdmin\Contracts\Config;
 use Jiannei\LayAdmin\Exceptions\InvalidPageConfigException;
-use Throwable;
 
 class LayAdmin
 {
-    /** @var Repository */
-    protected $cache;
+    /** @var Config */
+    protected $config;
 
-    public function __construct(CacheManager $cacheManager)
+    public function __construct(Config $config)
     {
-        $this->cache = $this->getCacheStoreFromConfig($cacheManager);
+        $this->config = $config;
     }
 
     /**
@@ -73,19 +70,16 @@ class LayAdmin
      */
     public function getPageConfig(string $path = null): array
     {
-        $cacheConfig = config('layadmin.cache.enable') ? $this->cacheConfig() : $this->parseFileConfig();
-        if (is_null($path)) {
-            return $cacheConfig;
-        }
-
-        if (! $this->isAdminRoute($path)) {
+        if (!$this->isAdminRoute($path)) {
             return [];
         }
 
-        $configs = array_column($cacheConfig, null, 'uri');
-        $uri = $this->getPageUri($path);
+        $fileConfigs = $this->config->parse();
+        if (is_null($path)) {
+            return $fileConfigs;
+        }
 
-        return Arr::get($configs, $uri, []);
+        return Arr::get(array_column($fileConfigs, null, 'uri'), $this->getPageUri($path), []);
     }
 
     /**
@@ -105,69 +99,6 @@ class LayAdmin
     }
 
     /**
-     * 缓存页面配置项.
-     *
-     * @return mixed
-     *
-     * @throws InvalidPageConfigException
-     */
-    protected function cacheConfig()
-    {
-        try {
-            return $this->cache->remember(config('layadmin.cache.key'), config('layadmin.cache.expiration_time'), function () {
-                return $this->parseFileConfig();
-            });
-        } catch (\Throwable $e) {
-            throw new InvalidPageConfigException('页面配置错误：'.$e->getMessage());
-        }
-    }
-
-    /**
-     * 解析并校验页面配置.
-     *
-     * @return array
-     */
-    protected function parseFileConfig(): array
-    {
-        return collect(File::allFiles(resource_path('config')))->map(function ($item) {
-            $key = $item->getRelativePathname();
-
-            try {
-                $config = json_decode($item->getContents(), true, 512, JSON_THROW_ON_ERROR);
-            } catch (Throwable $e) {
-                throw new InvalidPageConfigException("[{$key}]解析错误：{$e->getMessage()}");
-            }
-
-            return $this->validConfig($key, $config);
-        })->all();
-    }
-
-    /**
-     * 校验配置项.
-     *
-     * @param  string  $key
-     * @param  array  $config
-     * @return array
-     *
-     * @throws InvalidPageConfigException
-     */
-    protected function validConfig(string $key, array $config): array
-    {
-        // todo 配置校验；table\form 处理
-        if (! Arr::has($config, 'uri')) {
-            throw new InvalidPageConfigException("[{$key}]缺少 uri 配置项");
-        }
-
-        return array_merge([
-            'id' => Str::replace(DIRECTORY_SEPARATOR, '-', $config['uri']),
-            'title' => Arr::get($config, 'title', config('layadmin.title')),
-            'styles' => [],
-            'scripts' => [],
-            'components' => [],
-        ], $config);
-    }
-
-    /**
      * 渲染后台视图.
      *
      * @return Closure
@@ -175,32 +106,11 @@ class LayAdmin
     public function view(): Closure
     {
         return function () {
-            if (! ($view = request('layadmin.page.view')) || ! View::exists($view)) {
+            if (!($view = request('layadmin.page.view')) || !View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
 
             return \view($view);
         };
-    }
-
-    /**
-     * 获取缓存驱动.
-     *
-     * @param  CacheManager  $cacheManager
-     * @return Repository
-     */
-    protected function getCacheStoreFromConfig(CacheManager $cacheManager): Repository
-    {
-        $cacheDriver = config('layadmin.cache.store', 'default');
-
-        if ($cacheDriver === 'default') {
-            return $cacheManager->store();
-        }
-
-        if (! \array_key_exists($cacheDriver, config('cache.stores'))) {
-            $cacheDriver = 'array';
-        }
-
-        return $cacheManager->store($cacheDriver);
     }
 }
