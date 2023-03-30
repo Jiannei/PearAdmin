@@ -70,7 +70,7 @@ class LayAdmin
      */
     public function getPageConfig(string $path = null): array
     {
-        if (!$this->isAdminRoute($path)) {
+        if (! $this->isAdminRoute($path)) {
             return [];
         }
 
@@ -106,7 +106,7 @@ class LayAdmin
     public function view(): Closure
     {
         return function () {
-            if (!($view = request('layadmin.page.view')) || !View::exists($view)) {
+            if (! ($view = request('layadmin.page.view')) || ! View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
 
