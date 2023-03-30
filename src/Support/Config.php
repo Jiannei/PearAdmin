@@ -24,11 +24,12 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
      *
      * @param  string  $path
      * @return array
+     *
      * @throws InvalidPageConfigException
      */
     public function parse(string $path): array
     {
-        if (!Str::startsWith(request()->path(), config('layadmin.routes.web.prefix')) || !File::exists(resource_path("config/{$path}.json"))) {
+        if (! Str::startsWith(request()->path(), config('layadmin.routes.web.prefix')) || ! File::exists(resource_path("config/{$path}.json"))) {
             return [];
         }
 
@@ -60,7 +61,7 @@ class Config implements \Jiannei\LayAdmin\Contracts\Config
     protected function valid(string $key, array $config): void
     {
         // todo 配置校验；table\form 处理
-        if (!Arr::has($config, 'uri')) {
+        if (! Arr::has($config, 'uri')) {
             throw new InvalidPageConfigException("[{$key}]缺少 uri 配置项");
         }
     }

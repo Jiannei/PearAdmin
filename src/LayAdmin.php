@@ -35,12 +35,10 @@ class LayAdmin
         return 'v3.0.0';
     }
 
-
     /**
      * 初始化视图依赖的数据.
      *
      * @return array
-     *
      */
     public function bootstrap(): array
     {
@@ -59,7 +57,7 @@ class LayAdmin
     public function view(): Closure
     {
         return function () {
-            if (!($view = request('layadmin.page.view')) || !View::exists($view)) {
+            if (! ($view = request('layadmin.page.view')) || ! View::exists($view)) {
                 return \view('layadmin::errors.404');
             }
 
