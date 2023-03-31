@@ -1,6 +1,8 @@
-layui.use(['table', 'select', 'treetable', 'jquery'], function () {
-  var $ = layui.jquery;
-  var table = layui.table;
+layui.use(['table', 'select', 'treetable', 'jquery', 'form'], function () {
+  var $ = layui.jquery,
+    table = layui.table,
+    form = layui.form;
+
   var tableGlobalSet = {
     parseData: function (res) {
       return {
@@ -101,6 +103,19 @@ layui.use(['table', 'select', 'treetable', 'jquery'], function () {
 
       layui.treetable.render(pageTableConfig);
     };
+
+    this.formEvent = function () {
+      form.on(`submit(${layadmin.current.id}-submit)`, function (obj) {
+        const action = decodeURIComponent(route().params.path).split('/').pop()
+
+        if (!layadmin.current.actions.hasOwnProperty(action)) {
+          console.error('表单：[' + action + ']事件未监听')
+          return;
+        }
+
+        layadmin.current.actions[action](obj);
+      });
+    };
   }
 
   try {
@@ -120,8 +135,12 @@ layui.use(['table', 'select', 'treetable', 'jquery'], function () {
       }
 
       if (pageConfig.layout === 'treetable') {
-        bootstrap.treeTable(pageTableConfig)
+        bootstrap.treeTable(pageTableConfig);
       }
+    }
+
+    if (pageConfig.layout === 'form') {
+      bootstrap.formEvent();
     }
   } catch (exception) {
     layui.hint().error(exception.message)

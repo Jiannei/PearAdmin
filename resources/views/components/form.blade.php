@@ -14,20 +14,26 @@
                     <label class="layui-form-label @if($required) layui-form-required @endif" for="{{ $dataId }}">{{ $item['label']}}</label>
                     <div class="layui-input-block">
                         @if($single)
-                            <{{$item['element']}} @foreach($item['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach></{{$item['element']}}>
                             @if($feature = $item['feature'] ?? [])
                                 @switch($feature)
-                                    @case('upload')
-                                    <div class="layui-upload-drag" id="upload{{ ucfirst($item['attributes']['id']) }}">
-                                        <i class="layui-icon layui-icon-upload"></i>
-                                        <p>点击上传，或将图片拖拽到此处</p>
-                                        <div class="layui-hide" id="upload{{ ucfirst($item['attributes']['id']) }}Preview">
-                                            <hr>
-                                            <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                                    @case('upload:file')
+                                         <{{$item['element']}} @foreach($item['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach>
+                                            <i class="layui-icon layui-icon-upload"></i>上传文件
+                                         </{{$item['element']}}>
+                                        @break
+                                    @case('upload:image')
+                                        <div class="layui-upload-drag" id="upload{{ ucfirst($item['attributes']['id']) }}">
+                                            <i class="layui-icon layui-icon-upload"></i>
+                                            <p>点击上传，或将图片拖拽到此处</p>
+                                            <div class="layui-hide" id="upload{{ ucfirst($item['attributes']['id']) }}Preview">
+                                                <hr>
+                                                <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                                            </div>
                                         </div>
-                                    </div>
                                     @break
                                 @endswitch
+                            @else
+                                <{{$item['element']}} @foreach($item['attributes'] as $key => $val) {{ $key }}="{{ $val }}" @endforeach></{{$item['element']}}>
                             @endif
                         @else
                             @foreach($item['attributes'] as $value)
